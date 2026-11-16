@@ -4,7 +4,7 @@
 // Primary actions point at the live company site / app stores so every button still works.
 import { mkdirSync, writeFileSync } from 'node:fs';
 
-const V = 27;
+const V = 28;
 const esc = s => String(s).replace(/&(?!amp;|#|[a-z]+;)/g, '&amp;');
 const A = (id, f) => `/assets/co/${id}/${f}`;
 const x3d = (scene, cls, label, tone = 'dark') => `<div class="x3d ${cls}" data-3d="${scene}" data-tone="${tone}" role="img" aria-label="${label}"></div>`;
@@ -24,12 +24,16 @@ const shell = ({ id, title, desc, theme, logo, nav, cta, body, foot }) => `<!doc
 <meta name="theme-color" content="${theme}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/ventures.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/real.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/luxe.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/luxe-v.css?v=${V}">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 </head>
 <body data-v="${id}">
+<div class="intro" hidden aria-hidden="true"><div><span class="in-clip"><span class="in-w">${[...esc(title.split(' — ')[0])].map((c, i) => `<span style="--i:${i}">${c === ' ' ? '&nbsp;' : c}</span>`).join('')}</span></span><i class="in-line"></i><p class="in-sub">A Hunt Global company · Governed from Singapore</p></div></div>
+<script>try{if(!sessionStorage.getItem('hg-intro-${id}')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.currentScript.previousElementSibling.hidden=false;sessionStorage.setItem('hg-intro-${id}','1')}}catch(e){}</script>
 <div class="gbar"><div class="w"><a href="/portfolio/">&larr; Hunt Global portfolio</a><span>A Hunt Global company · Governed from Singapore</span></div></div>
 <header class="vh"><div class="w">
   <a class="vlogo" href="#top" aria-label="${esc(title)} — top">${logo}</a>
@@ -54,6 +58,7 @@ ${body}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="/assets/js/motion.js?v=${V}" defer></script>
+<script src="/assets/js/luxe.js?v=${V}" defer></script>
 </body>
 </html>
 `;
@@ -341,7 +346,7 @@ const out = {};
 
 <section class="sec band"><div class="w">
   <div class="head"><div>${lbl('Tribehoods')}<h2 class="h2 rv">A place to belong, <em>not just a place to live.</em></h2></div><p class="lead rv">Homes, buildings and the neighbourhood around them — connected in one place, with Sarah on hand 24x7.</p></div>
-  ${sphere(['party-1200.webp', 'bbq-1200.webp', 'supper-1200.webp', 'movie-1200.webp', '012-1200.webp', '008.webp', '058.webp', 'hero-15.webp', 'hero-25.webp', 'hero-30.webp', 'parramatta-1-1200.webp', 'merrylands-2-1200.webp', 'mason-and-main-merrylands.webp', 'the-erskineville-village.webp', 'nation-parramatta-city.webp'].map(T), 'hood-3d', 'An orbit sphere of Tribe residents, buildings and neighbourhoods — drag to turn it')}<p class="note" style="text-align:center">Drag to explore the Tribehoods</p>
+  <div class="lux-mosaic rv" role="img" aria-label="Tribe residents and neighbourhood life">${['party-1200.webp', 'supper-1200.webp', 'bbq-1200.webp', 'movie-1200.webp', 'hero-25.webp'].map(x => `<figure><img src="${T(x)}" alt="" loading="lazy"></figure>`).join('')}</div>
 </div></section>
 
 <section class="sec" id="rent"><div class="w">

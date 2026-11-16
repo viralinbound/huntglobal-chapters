@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 27; // cache-bust for css/js
+const V = 28; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -423,7 +423,7 @@ const PAGEREAL = (p, title) => {
   if (m && REAL.stack[m[1]]) return dstack(REAL.stack[m[1]].map(x => '/assets/co/' + x), { cls: 'phero-ds', alt: title + ' — product and imagery' });
   const q = p.match(/^\/practice\/([^/]+)\/$/);
   if (q) { const pr = PRACTICES.find(x => x.slug === q[1]); return dstack([pr.img, I(['aerial-singapore', 'global-cities', 'sg-night', 'aerial-bangalore'][PRACTICES.indexOf(pr)])], { cls: 'phero-ds', alt: pr.t }); }
-  if (['/regions/', '/about/why-singapore/'].includes(p)) return x3d('earth', { cls: 'phero-3d', label: 'Earth from NASA imagery, Singapore facing you' });
+  if (p === '/regions/') return x3d('earth', { cls: 'phero-3d', label: 'Earth from NASA imagery, Singapore facing you' });
   if (['/about/', '/careers/', '/insights/'].includes(p)) return x3d('sphere', { cls: 'phero-3d', imgs: REAL.hub, label: 'An orbit sphere of real photographs — drag to turn it' });
   return null;
 };
@@ -488,7 +488,18 @@ page('/about/approach/', 'Our Approach', "Permanent capital, operational depth, 
 
 /* huntglobal.co/about/why-singapore */
 page('/about/why-singapore/', 'Why Singapore', 'Singapore as the strategic foundation for everything we build.', [
-  phero({ crumbs: [['About', '/about/'], ['Why Singapore']], title: 'Why Singapore', lead: '“Singapore is not where we happen to be. It is the strategic foundation everything we build is designed around.”', m: { img: I('aerial-singapore'), vid: VID('singapore') } }),
+  `<section class="sgh" data-bg="ink" aria-label="Why Singapore">
+  <div class="sgh-media" aria-hidden="true"><video muted playsinline loop autoplay preload="auto" poster="${I('aerial-singapore')}"><source src="${VID('singapore')}" type="video/mp4"></video></div>
+  <div class="sgh-shade" aria-hidden="true"></div>
+  <div class="sgh-in">
+    ${crumb([['About', '/about/'], ['Why Singapore']])}
+    <p class="kick">Why Singapore · Group HQ</p>
+    <h1 class="sgh-q">“Singapore is not where we happen to be. <em>It is the strategic foundation everything we build is designed around.</em>”</h1>
+    <ul class="sgh-pillars"><li><b>Institutional</b><span>IP framework</span></li><li><b>World-class</b><span>Governance</span></li><li><b>MAS</b><span>Framework</span></li><li><b>ACRA</b><span>Registered</span></li></ul>
+    <p class="sgh-route"><span>Singapore</span><i></i><span>Sydney</span><i></i><span>Bangalore</span><i></i><span>London</span><i></i><span>San Francisco</span></p>
+  </div>
+  <p class="sgh-scroll" aria-hidden="true">Scroll</p>
+</section>`,
   sec(`  <div class="prose wide rv">${paras(['Singapore provides the institutional IP framework, world-class governance, and stability required to build enduring global enterprises. Operating within the robust MAS framework and registered with ACRA, we leverage Singapore as the ultimate gateway to global capital.', 'From this strategic foundation, we seamlessly connect enterprise partners across APAC, MENA, UK/Europe and North America with our operational centers in Sydney, Bangalore, London and San Francisco.'])}</div>`, 'dark'),
   sec(`  ${kick('Operational centres')}
   ${nodes()}

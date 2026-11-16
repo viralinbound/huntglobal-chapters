@@ -1,0 +1,31 @@
+/* Hunt Global — luxe finish for the company sites (loaded after luxe.css).
+   Same serif display type, hairlines, curtain and reveals as the group site, but every accent uses the
+   company's own brand colour (--acc), so Biltflow stays orange, Replaice blue, Tribe indigo. */
+.h1{font-size:clamp(48px,7.2vw,124px);line-height:.96!important}
+.h2{font-size:clamp(36px,4.8vw,80px);line-height:1!important}
+.h1 em,.h2 em,.statement em{font-family:var(--serif)!important;font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--acc)}
+.statement{line-height:1!important}
+.metrics b,.stat b,.stats b{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+.lbl{letter-spacing:.2em}
+.lbl::before{width:30px;opacity:.7}
+/* buttons: a light sheen passes across on hover */
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.btn::before{content:"";position:absolute;top:0;bottom:0;left:-70%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);transition:transform .95s var(--lux-ease);pointer-events:none;z-index:1}
+.btn:hover::before,.btn:focus-visible::before{transform:skewX(-20deg) translateX(460%)}
+/* chapter hairline in the brand colour, aligned to the content column */
+.sec .lux-rule,.vhero .lux-rule{left:max(var(--pad,24px),calc((100% - var(--max,1320px)) / 2 + var(--pad,24px)))!important;right:max(var(--pad,24px),calc((100% - var(--max,1320px)) / 2 + var(--pad,24px)))!important;background:linear-gradient(90deg,var(--acc),color-mix(in srgb,var(--acc) 30%,transparent) 60%,transparent)!important}
+/* images open like a curtain as they enter */
+.lux-img{clip-path:inset(10% 0 10% 0);transform:scale(1.06);transition:clip-path 1.4s var(--lux-ease),transform 1.7s var(--lux-ease)}
+.lux-img.in{clip-path:inset(0 0 0 0);transform:none}
+/* the opening curtain in each company's own colours */
+.intro{background:var(--bg,#05070c);color:var(--ink,#fff)}
+.intro .in-line{background:var(--acc)}
+.intro .in-sub{color:var(--acc)}
+/* Tribehoods: an editorial mosaic of real Tribe photographs (replaces the photo sphere) */
+.lux-mosaic{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:14px;height:clamp(440px,46vw,660px);margin-top:clamp(36px,5vw,60px)}
+.lux-mosaic figure{margin:0;overflow:hidden;position:relative;border-radius:18px;background:var(--bg2)}
+.lux-mosaic figure:first-child{grid-row:span 2}
+.lux-mosaic img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.3s var(--lux-ease)}
+.lux-mosaic figure:hover img{transform:scale(1.05)}
+@media (max-width:760px){.lux-mosaic{grid-template-columns:1fr 1fr;grid-template-rows:none;height:auto}.lux-mosaic figure{aspect-ratio:1/1}.lux-mosaic figure:first-child{grid-row:auto;grid-column:span 2;aspect-ratio:4/3}}
+@media (prefers-reduced-motion:reduce){.lux-img{clip-path:none;transform:none;transition:none}}

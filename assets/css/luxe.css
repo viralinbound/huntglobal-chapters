@@ -75,3 +75,34 @@
 @keyframes introFade{to{opacity:1}}
 @keyframes introOut{to{clip-path:inset(0 0 100% 0);visibility:hidden}}
 @media (prefers-reduced-motion:reduce){.intro{display:none}.lwi,.jh-beat .hero-sub,.jh-beat .btns,.jh-beat .jh-stats{transition:none}.lux-rule{transform:none;transition:none}}
+
+/* ---------- Why Singapore: a full-bleed cinematic banner on the real Singapore film ---------- */
+.sgh{position:relative;min-height:max(640px,calc(100svh - 110px));display:flex;align-items:flex-end;overflow:hidden;color:#fff;background:#05070c;padding:clamp(100px,13vh,160px) var(--pr) clamp(54px,8vh,92px) var(--pl);isolation:isolate}
+.sgh-media{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.sgh-media video{width:100%;height:115%;object-fit:cover;display:block;will-change:transform}
+.sgh-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(3,5,10,.94) 0,rgba(3,5,10,.62) 42%,rgba(3,5,10,.2) 74%,rgba(3,5,10,.5) 100%),linear-gradient(90deg,rgba(3,5,10,.55),rgba(3,5,10,0) 72%)}
+.sgh-in{position:relative;max-width:1180px}
+.sgh .crumb,.sgh .crumb a,.sgh .crumb b{color:rgba(255,255,255,.78)}
+.sgh .crumb i{background:rgba(255,255,255,.5)}
+.sgh .kick{color:var(--gold)}
+.sgh-q{font:400 clamp(36px,min(5.1vw,8.4vh),86px)/1.04 var(--serif);letter-spacing:-.015em;margin:0 0 clamp(28px,4.4vh,48px);color:#fff;max-width:17em}
+.sgh-q em{color:var(--gold);font-style:italic}
+.sgh-pillars{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgba(230,203,148,.38);margin:0 0 28px;padding:0;max-width:940px}
+.sgh-pillars li{padding:18px 18px 0 0;opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
+.sgh-pillars li:nth-child(2){transition-delay:.09s}.sgh-pillars li:nth-child(3){transition-delay:.18s}.sgh-pillars li:nth-child(4){transition-delay:.27s}
+.sgh-pillars b{display:block;font:400 clamp(26px,2.5vw,40px)/1 var(--serif);color:#fff;margin-bottom:8px}
+.sgh-pillars span{font:500 10.5px/1.3 var(--m);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.sgh-route{display:flex;flex-wrap:wrap;align-items:center;gap:12px;font:500 11px/1 var(--m);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.82);margin:0;opacity:0;transition:opacity 1s ease .5s}
+.sgh-route i{width:30px;height:1px;background:var(--gold-2);transform:scaleX(0);transform-origin:0 50%;transition:transform 1.1s var(--lux-ease) .7s}
+.sgh-route span:first-child{color:var(--gold)}
+.sgh-scroll{position:absolute;right:var(--pr);bottom:30px;margin:0;font:500 10px/1 var(--m);letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.6);writing-mode:vertical-rl}
+.sgh-scroll::after{content:"";display:block;width:1px;height:48px;margin:12px auto 0;background:linear-gradient(var(--gold),transparent);animation:sghLine 2.4s ease-in-out infinite}
+@keyframes sghLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.sgh .lwi{transition-delay:calc(var(--d,0) * 38ms + 250ms)}
+.sgh.on .lwi{transform:none}
+.sgh.on .sgh-pillars li{opacity:1;transform:none}
+.sgh.on .sgh-route{opacity:1}
+.sgh.on .sgh-route i{transform:scaleX(1)}
+html:not(.js) .sgh .lwi,html:not(.js) .sgh-pillars li,html:not(.js) .sgh-route{transform:none;opacity:1}
+@media (max-width:760px){.sgh{min-height:max(600px,calc(100svh - 90px))}.sgh-pillars{grid-template-columns:1fr 1fr}.sgh-pillars li:nth-child(n+3){padding-top:16px}.sgh-scroll{display:none}.sgh-route{gap:8px;letter-spacing:.14em}.sgh-route i{width:14px}}
+@media (prefers-reduced-motion:reduce){.sgh .lwi,.sgh-pillars li,.sgh-route,.sgh-route i{transition:none;transform:none;opacity:1}.sgh-scroll::after{animation:none}}
