@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 33; // cache-bust for css/js
+const V = 34; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -173,7 +173,7 @@ const chap = (bg, name, inner, cls = '') => `<section class="sec${cls ? ' ' + cl
 // real photo that sets the environment of a page (the project's own world)
 const ENV = { biltflow: '/assets/co/biltflow/class-highdensity-v2-1200.webp', 'replaice-technologies': '/assets/img/aerial-bangalore.jpg', huntjobs: '/assets/img/global-cities.jpg', northstar: '/assets/img/aerial-sf.jpg', tribe: '/assets/co/tribe/merrylands-2-1200.webp', '/regions/': '/assets/img/aerial-singapore.jpg', '/about/why-singapore/': '/assets/img/sg-night.jpg', '/about/': '/assets/img/sg-arch.jpg', '/careers/': '/assets/img/pr-venture.jpg', '/portfolio/': '/assets/img/global-cities.jpg', '/practice/': '/assets/img/pr-tech.jpg' };
 const EK = { biltflow: 'biltflow', 'replaice-technologies': 'replaice', huntjobs: 'huntjobs', northstar: 'northstar', tribe: 'tribe' };
-const EDARK = new Set(['biltflow', 'replaice', 'northstar']);
+const EDARK = new Set(['biltflow', 'replaice', 'northstar', 'huntjobs', 'tribe']);
 const SITE = { biltflow: ['biltflow.com', 'https://biltflow.com/'], 'replaice-technologies': ['replaice.ai', 'https://replaice.ai/'], huntjobs: ['huntjobs.ai', 'https://huntjobs.ai/'], tribe: ['tribeapp.com.au', 'https://tribeapp.com.au/'] };
 const envCls = slug => (EDARK.has(EK[slug]) ? 'dark ' : '') + 'env env-' + EK[slug];
 // the company's real website in a browser frame, with one real product image popping out
@@ -381,10 +381,10 @@ ${chap('mist', 'Global Presence', `  <div class="sec-head">
   <div class="globe-grid"><ul class="regions v">${REGIONS.map(([t, p]) => `<li class="rv"><h3>${amp(t)}</h3><p>${p}</p></li>`).join('')}</ul>${dock('d-big', C.sg, I('aerial-sydney'))}</div>
   <div style="margin-top:clamp(36px,4vw,56px)">${nodes()}</div>`)}
 
-${chap('forest', 'Security & Governance', `  <div class="gov">
+${chap('mist', 'Security & Governance', `  <div class="gov">
     <div>${kick('Governance')}${stair('Enterprise-grade Security & Governance', { size: 'm', max: 20 })}</div>
     <div>${dock('d-sm', C.sg, I('sg-arch'))}<p class="lead rv">Rigorous security and institutional governance are the foundations for our global enterprise AI deployment.</p>${badges()}</div>
-  </div>`, 'dark')}
+  </div>`)}
 
 ${chap('lav2', 'Insights', `  <div class="sec-head">
     <div>${kick('Insights')}${stair('Research, updates, and market perspectives.', { size: 'm', max: 24 })}</div>

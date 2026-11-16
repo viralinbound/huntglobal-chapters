@@ -4,7 +4,7 @@
 (() => {
   const secs = [...document.querySelectorAll('[data-bg]')];
   if (!secs.length) return;
-  const DARK = new Set(['ink', 'navy', 'forest', 'plum', 'e-biltflow', 'e-biltflow-b', 'e-replaice', 'e-replaice-b', 'e-northstar', 'e-northstar-b']);
+  const DARK = new Set(['ink', 'navy', 'forest', 'plum', 'e-biltflow', 'e-biltflow-b', 'e-replaice', 'e-replaice-b', 'e-northstar', 'e-northstar-b', 'e-huntjobs', 'e-huntjobs-b', 'e-tribe', 'e-tribe-b']);
   const stage = document.createElement('div'); stage.className = 'bgstage'; stage.setAttribute('aria-hidden', 'true');
   const layers = {};
   [...new Set(secs.map(s => s.dataset.bg))].forEach(n => { const d = document.createElement('div'); d.className = 'bg bg-' + n; stage.appendChild(d); layers[n] = d; });

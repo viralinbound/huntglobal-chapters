@@ -124,5 +124,7 @@ html:not(.js) .sgh-lead{opacity:1;transform:none}
 /* ---------- calm palette: two tones only (ivory and ink); no per-chapter colour jumps ---------- */
 .bgstage .bg::before,.bgstage .bg::after{display:none!important}
 .bgstage .bg{background:#F5F0E8!important}
-.bgstage :is(.bg-ink,.bg-navy,.bg-forest,.bg-plum,.bg-e-biltflow,.bg-e-biltflow-b,.bg-e-replaice,.bg-e-replaice-b,.bg-e-northstar,.bg-e-northstar-b){background:#0B0E15!important}
+.bgstage :is(.bg-ink,.bg-navy,.bg-forest,.bg-plum,.bg-e-biltflow,.bg-e-biltflow-b,.bg-e-replaice,.bg-e-replaice-b,.bg-e-northstar,.bg-e-northstar-b,.bg-e-huntjobs,.bg-e-huntjobs-b,.bg-e-tribe,.bg-e-tribe-b){background:#0B0E15!important}
 .bgstage .bg{transition:opacity 1.1s ease!important}
+
+.env.dark.env-huntjobs .cbtn.dark,.env.dark.env-tribe .cbtn.dark{border-color:rgba(255,255,255,.4);color:#fff}
