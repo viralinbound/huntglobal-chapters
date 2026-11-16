@@ -13,9 +13,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Archivo:wght@500;600&family=Poppins:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/site.css?v=19">
-<link rel="stylesheet" href="/assets/css/real.css?v=19">
-<link rel="stylesheet" href="/assets/css/chapters.css?v=19">
+<link rel="stylesheet" href="/assets/css/site.css?v=25">
+<link rel="stylesheet" href="/assets/css/real.css?v=25">
+<link rel="stylesheet" href="/assets/css/chapters.css?v=25">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 </head>
 <body class="home">
@@ -24,10 +24,14 @@
 
 <main id="main">
 
-<section class="hero" aria-label="Hunt Global">
-  <video class="hero-vid" data-auto autoplay muted loop playsinline preload="auto" poster="/assets/img/sg-night.jpg"><source src="/assets/vid/hero-sunrise.mp4" type="video/mp4"></video>
-  <div class="hero-shade" aria-hidden="true"></div>
-  <header class="nav" id="nav">
+<section class="jhero" aria-label="Hunt Global">
+  <div class="jh-back" aria-hidden="true">
+    <div class="x3d jh-earth" data-3d="earth" data-tone="dark" data-mode="hero" role="img" aria-label="The Earth from NASA imagery, turning to Singapore"></div>
+    <video class="jh-film" muted loop playsinline preload="none" poster="/assets/img/sg-night.jpg"><source src="/assets/vid/hero-sunrise.mp4" type="video/mp4"></video>
+    <div class="jh-shade"></div>
+  </div>
+  <div class="jh-front">
+    <header class="nav" id="nav">
   <a class="logo" href="/" aria-label="Hunt Global — home"><span class="logo-m"><svg viewBox="0 0 520 490" aria-hidden="true"><g transform="translate(0,490) scale(0.1,-0.1)"><path d="M2175 4409 c-16 -12 -115 -74 -220 -138 l-190 -118 -3 -1032 -2 -1031 -238 -1 c-130 -1 -304 -3 -387 -5 -82 -1 -162 0 -177 3 l-28 5 0 759 c0 418 -2 759 -4 759 -2 0 -62 -37 -133 -82 -71 -46 -165 -105 -211 -133 l-82 -50 0 -1321 0 -1321 217 -134 c119 -74 221 -135 225 -137 4 -2 9 302 10 675 l3 678 403 3 402 2 0 -347 c0 -192 3 -594 7 -895 l6 -548 217 0 217 0 6 422 c10 581 9 4008 0 4007 -5 0 -21 -9 -38 -20z"/><path d="M2612 2081 c1 -5 75 -72 162 -150 l159 -141 261 -2 c144 -1 329 -3 411 -3 83 -1 151 -4 153 -8 1 -4 2 -157 2 -339 l-1 -333 -237 -139 c-493 -290 -1207 -720 -1214 -730 -4 -6 -8 -62 -8 -123 l0 -113 264 0 264 0 358 218 c198 120 445 271 549 336 105 65 237 148 295 183 58 35 108 67 112 71 4 4 8 293 9 642 l2 635 -772 3 c-446 1 -771 -2 -769 -7z"/><path fill="#15BCDF" d="M2584 4256 c-55 -37 -64 -55 -64 -127 0 -53 21 -85 75 -119 30 -18 44 -21 88 -15 28 4 63 13 77 20 30 16 61 51 53 59 -30 30 243 -39 392 -99 702 -281 1214 -882 1374 -1610 58 -264 67 -638 22 -890 -104 -583 -417 -1089 -897 -1452 -16 -12 -24 -22 -18 -22 18 -1 154 106 261 205 382 354 627 834 699 1364 30 224 14 559 -37 800 -122 567 -497 1106 -1004 1444 -184 122 -411 226 -627 286 -134 37 -167 48 -152 49 14 1 2 64 -16 86 -15 19 -113 55 -148 55 -15 0 -50 -15 -78 -34z"/></g></svg></span><span class="logo-w">hunt global</span></a>
   <ul class="nav-links">
     <li><a href="/about/">About</a></li>
@@ -51,18 +55,24 @@
     <li><a class="mail" href="mailto:hello@huntglobal.co">hello@huntglobal.co</a></li>
   </ul>
 </header>
-  <div class="dock hero-3d d-hero" data-city="1.35,103.82" data-place="Singapore · Group HQ" aria-hidden="true"></div>
-  <div class="hero-body">
-    <p class="kick rv">Singapore · Global technology holding group</p>
-    <h1 class="st st-xl rv"><span class="l" style="--i:0">Building companies</span><span class="l in ac" style="--i:1">for an autonomous world</span></h1>
-    <p class="hero-sub rv">A Singapore institution. Built for the world.</p>
-    <div class="btns rv"><a class="cbtn" href="/portfolio/">Explore our portfolio</a><a class="cbtn dark" href="/contact/">Start a conversation</a></div>
-  </div>
-  <div class="hero-stats rv">
-    <div><b data-count="5">0</b><span>Portfolio companies</span></div>
-    <div><b data-count="120" data-suffix="+">0</b><span>Team worldwide</span></div>
-    <div><b data-count="4">0</b><span>Operating regions</span></div>
-    <div><b data-count="39" data-suffix="+">0</b><span>Patents filed</span></div>
+    <div class="jh-beat b1 on">
+      <p class="kick">Singapore · Global technology holding group</p>
+      <h1 class="st st-xl rv"><span class="l" style="--i:0">Building companies</span><span class="l in ac" style="--i:1">for an autonomous world</span></h1>
+      <p class="hero-sub">A Singapore institution. Built for the world.</p>
+      <div class="btns"><a class="cbtn" href="/portfolio/">Explore our portfolio</a><a class="cbtn dark" href="/contact/">Start a conversation</a></div>
+    </div>
+    <div class="jh-beat b2" aria-hidden="true">
+      <p class="kick">Group HQ · Singapore</p>
+      <p class="jh-big">Governed from Singapore. <span>Delivering autonomous intelligence to the world.</span></p>
+      <p class="hero-sub">Orchestrated from Singapore. Scaling globally across APAC, MENA, UK/Europe and North America.</p>
+    </div>
+    <div class="jh-beat b3" aria-hidden="true">
+      <p class="kick">Hunt Global</p>
+      <p class="jh-big">Capital, technology and operating capability <span>under one house.</span></p>
+      <div class="jh-stats"><div><b>5</b><span>Portfolio companies</span></div><div><b>120+</b><span>Team worldwide</span></div><div><b>4</b><span>Operating regions</span></div><div><b>39+</b><span>Patents filed</span></div></div>
+    </div>
+    <div class="jh-route" aria-hidden="true"><span class="on">The world</span><span>Singapore</span><span>One house</span><i><b></b></i></div>
+    <p class="jh-hint" aria-hidden="true">Scroll to begin the journey</p>
   </div>
 </section>
 
@@ -145,7 +155,7 @@
       <ul class="facts rv"><li>7 specialised AI platforms</li><li>Operations in Bangalore</li><li>Governed from Singapore</li></ul>
       <div class="btns rv" style="margin-top:28px"><a class="cbtn sm" href="/portfolio/replaice-technologies/">View details</a><a class="cbtn dark sm" href="/ventures/replaice/">Company website</a></div>
     </div>
-    <div class="chap-m rv col"><div class="dock d-sm" data-city="12.97,77.59" data-place="Replaice · Bangalore" aria-hidden="true"></div><figure class="browser"><a href="https://replaice.ai/" target="_blank" rel="noopener" aria-label="Open replaice.ai"><span class="br-bar"><i></i><i></i><i></i><b>replaice.ai</b></span><img src="/assets/co/replaice/site.jpg" alt="The live Replaice website" loading="lazy"></a><img class="br-pop" src="/assets/co/replaice/biltflow-feasibility.webp" alt="" loading="lazy"></figure></div>
+    <div class="chap-m rv col"><div class="dock d-sm" data-city="12.97,77.59" data-place="Replaice · Bangalore" data-km="3,160" aria-hidden="true"></div><figure class="browser"><a href="https://replaice.ai/" target="_blank" rel="noopener" aria-label="Open replaice.ai"><span class="br-bar"><i></i><i></i><i></i><b>replaice.ai</b></span><img src="/assets/co/replaice/site.jpg" alt="The live Replaice website" loading="lazy"></a><img class="br-pop" src="/assets/co/replaice/biltflow-feasibility.webp" alt="" loading="lazy"></figure></div>
   </div>
 </section>
 
@@ -179,7 +189,7 @@
       <ul class="facts rv"><li>Singapore · Bangalore · San Francisco</li><li>Humanoid robotics</li><li>Operational intelligence</li></ul>
       <div class="btns rv" style="margin-top:28px"><a class="cbtn sm" href="/portfolio/northstar/">View details</a></div>
     </div>
-    <div class="chap-m rv col"><div class="dock d-sm" data-city="37.77,-122.42" data-place="Northstar · San Francisco" aria-hidden="true"></div><div class="hue cut"><img src="/assets/co/biltflow/class-industrial-1200.webp" alt="San Francisco" loading="lazy"></div></div>
+    <div class="chap-m rv col"><div class="dock d-sm" data-city="37.77,-122.42" data-place="Northstar · San Francisco" data-km="13,580" aria-hidden="true"></div><div class="hue cut"><img src="/assets/co/biltflow/class-industrial-1200.webp" alt="San Francisco" loading="lazy"></div></div>
   </div>
 </section>
 
@@ -196,7 +206,7 @@
       <ul class="facts rv"><li>AI concierge “Sarah”, available 24x7</li><li>2 Tribehoods live, 6 coming soon</li><li>Leasing, payments, maintenance, amenities</li></ul>
       <div class="btns rv" style="margin-top:28px"><a class="cbtn sm" href="/portfolio/tribe/">View details</a><a class="cbtn dark sm" href="/ventures/tribe/">Company website</a></div>
     </div>
-    <div class="chap-m rv col"><div class="dock d-sm" data-city="-33.87,151.21" data-place="Tribe · Sydney" aria-hidden="true"></div><figure class="browser"><a href="https://tribeapp.com.au/" target="_blank" rel="noopener" aria-label="Open tribeapp.com.au"><span class="br-bar"><i></i><i></i><i></i><b>tribeapp.com.au</b></span><img src="/assets/co/tribe/site.jpg" alt="The live Tribe website" loading="lazy"></a><img class="br-pop" src="/assets/co/tribe/bbq-1200.webp" alt="" loading="lazy"></figure></div>
+    <div class="chap-m rv col"><div class="dock d-sm" data-city="-33.87,151.21" data-place="Tribe · Sydney" data-km="6,310" aria-hidden="true"></div><figure class="browser"><a href="https://tribeapp.com.au/" target="_blank" rel="noopener" aria-label="Open tribeapp.com.au"><span class="br-bar"><i></i><i></i><i></i><b>tribeapp.com.au</b></span><img src="/assets/co/tribe/site.jpg" alt="The live Tribe website" loading="lazy"></a><img class="br-pop" src="/assets/co/tribe/bbq-1200.webp" alt="" loading="lazy"></figure></div>
   </div>
 </section>
 
@@ -263,13 +273,14 @@
   <div class="foot-bot"><span>© 2026 Hunt Global PTE Ltd. All rights reserved.</span><span><a href="/privacy/">Privacy Policy</a> · <a href="/terms/">Terms &amp; Conditions</a></span></div>
 </footer>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
-<script type="module" src="/assets/js/scenes.js?v=19"></script>
-<script src="/assets/js/depth.js?v=19" defer></script>
+<script type="module" src="/assets/js/scenes.js?v=25"></script>
+<script src="/assets/js/depth.js?v=25" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="/assets/js/bg.js?v=19" defer></script>
-<script src="/assets/js/journey.js?v=19" defer></script>
-<script src="/assets/js/motion.js?v=19" defer></script>
-<script src="/assets/js/site.js?v=19" defer></script>
+<script src="/assets/js/bg.js?v=25" defer></script>
+<script src="/assets/js/journey.js?v=25" defer></script>
+<script src="/assets/js/hero.js?v=25" defer></script>
+<script src="/assets/js/motion.js?v=25" defer></script>
+<script src="/assets/js/site.js?v=25" defer></script>
 </body>
 </html>

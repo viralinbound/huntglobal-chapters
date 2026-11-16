@@ -91,15 +91,50 @@ const SCENES = {
       if (!i) return { halo };
       const mid = sg.clone().add(v).multiplyScalar(.5); mid.setLength(R + sg.distanceTo(v) * .38);
       const cur = new THREE.QuadraticBezierCurve3(sg, mid, v);
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(cur.getPoints(80)), new THREE.LineBasicMaterial({ color: 0xffd27a, transparent: true, opacity: .55 })));
-      const dot = new THREE.Mesh(new THREE.SphereGeometry(.022, 8, 8), new THREE.MeshBasicMaterial({ color: 0xffffff })); g.add(dot);
-      return { cur, dot, halo, o: i * .21 };
+      const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(cur.getPoints(80)), new THREE.LineBasicMaterial({ color: 0xffd27a, transparent: true, opacity: .55 })); g.add(line);
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(.022, 8, 8), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true })); g.add(dot);
+      return { cur, dot, halo, line, o: i * .21 };
     });
     const face = Math.atan2(-sg.x, sg.z);
     const sunDir = night ? new THREE.Vector3(-.75, .2, -1.25) : new THREE.Vector3(.9, .35, 1);
     const SUN_DAY = new THREE.Vector3(.9, .35, 1), SUN_NIGHT = new THREE.Vector3(-.75, .2, -1.25);
-    /* journey traveller: no dragging (it floats over the page); it turns to the city each chapter names */
+    /* hero: driven by the hero's scroll progress (slot._p, set by hero.js).
+       The world (Earth beside the headline, turning toward Singapore) -> Singapore (camera dives in, routes appear)
+       -> the film takes over (hero.js fades the canvas with slot._alpha). */
+    if (slot.dataset.mode === 'hero') {
+      const SS = (a, b, x) => { const q = Math.max(0, Math.min(1, (x - a) / (b - a))); return q * q * (3 - 2 * q); };
+      const n = MOBILE ? 900 : 1600, sp = new Float32Array(n * 3);
+      for (let i = 0; i < n; i++) { const u = Math.random() * TAU, v = Math.acos(2 * Math.random() - 1), r = 38 + Math.random() * 8; sp.set([r * Math.sin(v) * Math.cos(u), r * Math.cos(v), r * Math.sin(v) * Math.sin(u)], i * 3); }
+      const sg2 = new THREE.BufferGeometry(); sg2.setAttribute('position', new THREE.BufferAttribute(sp, 3));
+      const stars = new THREE.Points(sg2, new THREE.PointsMaterial({ color: 0xffffff, size: MOBILE ? 1.2 : 1.5, sizeAttenuation: false, transparent: true, opacity: .8, depthWrite: false }));
+      s.add(stars);
+      const tilt = .2, sgFaceY = face + .04, sgFaceX = Math.max(-.7, Math.min(.7, 1.35 * Math.PI / 180 * .85));
+      let ry = sgFaceY - 2.3;
+      return { s, c, tick(t, p) {
+        const P = +slot._p || 0, turn = SS(0, .42, P), zoom = SS(.3, .8, P);
+        // spin from the Atlantic side round to Singapore, then hold it facing the viewer
+        const target = sgFaceY - (1 - turn) * 2.3 + (RM ? 0 : (1 - zoom) * Math.sin(t * .15) * .05);
+        ry += (target - ry) * (RM ? 1 : .08);
+        g.rotation.y = ry + p.x * .05 * (1 - zoom); g.rotation.x = tilt + (sgFaceX - tilt) * zoom + p.y * .03 * (1 - zoom);
+        // beat 1: the globe sits right of the headline (phones: above it); the dive centres it and fills the screen
+        const off = MOBILE ? [0, 1.15] : [2.05, -.05];
+        g.position.set(off[0] * (1 - zoom), off[1] * (1 - zoom), 0); atm.position.copy(g.position);
+        c.position.setLength(c.position.length() * (1.42 - .82 * zoom));
+        mat.uniforms.sun.value.set(.9, .35, 1);
+        const ro = SS(.28, .5, P) * (1 - SS(.62, .76, P));
+        arcs.forEach(a => {
+          if (a.line) { a.line.material.opacity = .7 * ro; a.dot.material.opacity = ro; a.dot.position.copy(a.cur.getPoint((t * .3 + a.o) % 1)); }
+          const kk = (t * .7 + (a.o || 0)) % 1; a.halo.scale.setScalar(1 + kk * 1.6); a.halo.material.opacity = (1 - kk) * (a.line ? ro : 1);
+        });
+        stars.rotation.y = t * .004 + ry * .05; stars.material.opacity = .8 * (1 - zoom * .6);
+      } };
+    }
+    /* journey traveller: no dragging (it floats over the page); it turns to the city each chapter names,
+       drawing a flight path from the previous city */
     if (slot.hasAttribute('data-travel')) {
+      const flight = new THREE.Line(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: 0xffd27a, transparent: true, opacity: 0, depthWrite: false })); g.add(flight);
+      const plane = new THREE.Mesh(new THREE.SphereGeometry(.04, 12, 8), new THREE.MeshBasicMaterial({ color: 0xffffff })); plane.visible = false; g.add(plane);
+      let key = '', from = null, fl = null, ft0 = 0;
       const focus = new THREE.Mesh(new THREE.RingGeometry(.1, .13, 48), new THREE.MeshBasicMaterial({ color: 0xffd27a, transparent: true, side: THREE.DoubleSide, depthWrite: false })); g.add(focus);
       const fdot = new THREE.Mesh(new THREE.SphereGeometry(.05, 16, 12), new THREE.MeshBasicMaterial({ color: 0xffd27a })); g.add(fdot);
       let ry = face, rx = .1; const sunNow = SUN_DAY.clone(), ft = new THREE.Vector3();
@@ -115,6 +150,21 @@ const SCENES = {
         ft.copy(v); fdot.position.lerp(ft, k * 2); focus.position.copy(fdot.position); focus.lookAt(fdot.position.clone().multiplyScalar(2));
         const q = (t * .6) % 1; focus.scale.setScalar(1 + q * 2.2); focus.material.opacity = 1 - q;
         arcs.forEach(a => { if (a.dot) a.dot.position.copy(a.cur.getPoint((t * .3 + a.o) % 1)); const kk = (t * .7 + (a.o || 0)) % 1; a.halo.scale.setScalar(1 + kk * 1.6); a.halo.material.opacity = 1 - kk; });
+        // a new city: draw the flight from the previous one and fly a dot along it
+        const nk = lat + ',' + lon;
+        if (nk !== key) {
+          if (key && from && from.distanceTo(v) > .05) {
+            const mid = from.clone().add(v).multiplyScalar(.5); mid.setLength(R + from.distanceTo(v) * .42);
+            fl = new THREE.QuadraticBezierCurve3(from.clone(), mid, v.clone());
+            flight.geometry.setFromPoints(fl.getPoints(72)); flight.material.opacity = .95; plane.visible = true; ft0 = t;
+          }
+          key = nk; from = v.clone();
+        }
+        if (fl) {
+          const a = (t - ft0) / 1.6;
+          if (a <= 1) plane.position.copy(fl.getPoint(a * a * (3 - 2 * a)));
+          else { plane.visible = false; flight.material.opacity = Math.max(.25, .95 - (a - 1) * .6); }
+        }
       } };
     }
     const d = dragger(slot); d.ry = face + .35; g.rotation.x = .12;
@@ -134,8 +184,10 @@ function boot() {
      slot (grow-only, 64px buckets) and is moved with a transform, so the browser composites a small layer
      instead of a full-screen one. "full": several slots on screen -> one viewport-sized canvas, scissored. */
   let mode = '', cw = 0, ch = 0;
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, MOBILE ? 1 : 1.25));
-  const setCanvas = (w, h) => { if (w === cw && h === ch) return; cw = w; ch = h; renderer.setSize(w, h, false); cv.style.width = w + 'px'; cv.style.height = h + 'px'; };
+  const BASE_DPR = Math.min(devicePixelRatio || 1, MOBILE ? 1 : 1.25); let dprNow = BASE_DPR;
+  renderer.setPixelRatio(BASE_DPR);
+  // big slots (the full-screen hero) draw at 1x; small ones at up to 1.25x
+  const setCanvas = (w, h, dpr = dprNow) => { if (w === cw && h === ch && dpr === dprNow) return; cw = w; ch = h; if (dpr !== dprNow) { dprNow = dpr; renderer.setPixelRatio(dpr); } renderer.setSize(w, h, false); cv.style.width = w + 'px'; cv.style.height = h + 'px'; };
   const toFull = () => { mode = 'full'; cv.style.transform = 'none'; cv.style.clipPath = 'none'; setCanvas(innerWidth, innerHeight); };
   const toSingle = () => { mode = 'single'; cw = ch = 0; };
   addEventListener('resize', () => { if (mode === 'full') toFull(); else toSingle(); });
@@ -154,18 +206,31 @@ function boot() {
     ptr.x += (tgt.x - ptr.x) * .05; ptr.y += (tgt.y - ptr.y) * .05;
     let top = 0; stickies.forEach(s => { const r = s.getBoundingClientRect(); if (r.top <= 1 && r.bottom > top) top = r.bottom; });
     const H = innerHeight;
-    const on = [...vis].filter(sl => { if (!live.get(sl) || sl.style.visibility === 'hidden') return false; const r = rectOf(sl); return !(r.bottom < top || r.top > H || r.width < 2 || r.height < 2); });
+    const on = [...vis].filter(sl => { if (!live.get(sl) || sl.style.visibility === 'hidden' || (sl._alpha != null && sl._alpha <= .01)) return false; const r = rectOf(sl); return !(r.bottom < top || r.top > H || r.width < 2 || r.height < 2); });
     if (!on.length) { if (cv.style.visibility !== 'hidden') cv.style.visibility = 'hidden'; return; }
     if (cv.style.visibility === 'hidden') cv.style.visibility = 'visible';
+    const alpha = on.length === 1 && on[0]._alpha != null ? on[0]._alpha : 1;
+    if (cv.style.opacity !== String(alpha)) cv.style.opacity = String(alpha);
+    if (alpha <= .01) return;
     if (on.length === 1) {
       if (mode !== 'single') toSingle();
       const slot = on[0], sc = live.get(slot), r = rectOf(slot);
-      setCanvas(Math.max(cw, Math.ceil(r.width / 64) * 64), Math.max(ch, Math.ceil(r.height / 64) * 64));
+      { const nw = Math.ceil(r.width / 64) * 64, nh = Math.ceil(r.height / 64) * 64;
+        const dpr = r.width * r.height > innerWidth * innerHeight * .45 ? 1 : BASE_DPR;
+        // grow when needed; shrink back as soon as the slot needs far less area (e.g. after the full-screen hero)
+        // grow in 256px steps (few reallocations while the globe grows between docks); shrink only once the
+        // full-screen hero is left behind — never churn the drawing buffer during ordinary travel
+        const B = v => Math.ceil(v / 256) * 256, big = cw * ch > innerWidth * innerHeight * .45;
+        if (nw > cw || nh > ch) setCanvas(Math.max(B(nw), cw), Math.max(B(nh), ch), dpr);
+        else if ((big && nw * nh < cw * ch * .5) || dpr !== dprNow) setCanvas(B(nw), B(nh), dpr); }
       cv.style.transform = `translate3d(${r.left.toFixed(1)}px,${r.top.toFixed(1)}px,0)`;
       const ct = Math.max(0, top - r.top);
       cv.style.clipPath = ct > 0 ? `inset(${ct.toFixed(1)}px 0 0 0)` : 'none';
       // a resting globe only needs to redraw every other frame (moving the canvas is free)
-      if (slot._still && (++fno & 1) && sc.drawn) return;
+      // the hero redraws every frame only while its scroll progress changes, otherwise every third frame
+      const heroIdle = slot._p != null && slot._p === slot.__lp; slot.__lp = slot._p;
+      fno++;
+      if (sc.drawn && ((slot._still && (fno & 1)) || (heroIdle && fno % 3))) return;
       sc.drawn = true;
       sc.c.aspect = r.width / r.height;
       if (!sc.z0) sc.z0 = sc.c.position.length();

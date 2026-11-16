@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 19; // cache-bust for css/js
+const V = 25; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -178,7 +178,8 @@ const envCls = slug => (EDARK.has(EK[slug]) ? 'dark ' : '') + 'env env-' + EK[sl
 const browser = c => SITE[c.slug] ? `<figure class="browser"><a href="${SITE[c.slug][1]}" target="_blank" rel="noopener" aria-label="Open ${SITE[c.slug][0]}"><span class="br-bar"><i></i><i></i><i></i><b>${SITE[c.slug][0]}</b></span><img src="/assets/co/${EK[c.slug]}/site.jpg" alt="The live ${amp(nm(c))} website" loading="lazy"></a>${REAL.stack[c.slug] && REAL.stack[c.slug].length > 1 ? `<img class="br-pop" src="/assets/co/${REAL.stack[c.slug][REAL.stack[c.slug].length === 1 ? 0 : 1]}" alt="" loading="lazy">` : ''}</figure>` : media(c, { cls: 'cut', alt: 'San Francisco' });
 const C = { sg: '1.35,103.82', syd: '-33.87,151.21', blr: '12.97,77.59', ind: '21,78', sf: '37.77,-122.42' };
 const DOCKCITY = { biltflow: [C.sg, 'Biltflow · Global operations'], 'replaice-technologies': [C.blr, 'Replaice · Bangalore'], huntjobs: [C.ind, 'HuntJobs · jobs across India'], northstar: [C.sf, 'Northstar · San Francisco'], tribe: [C.syd, 'Tribe · Sydney'] };
-const dock = (cls, city, place, night = false) => `<div class="dock ${cls}" data-city="${city}" data-place="${attr(place)}"${night ? ' data-night' : ''} aria-hidden="true"></div>`;
+const kmFromSG = city => { const [a, b] = city.split(',').map(Number), r = Math.PI / 180, la1 = 1.35 * r, la2 = a * r, dl = (b - 103.82) * r; const h = Math.sin((la2 - la1) / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dl / 2) ** 2; return Math.round(2 * 6371 * Math.asin(Math.sqrt(h)) / 10) * 10; };
+const dock = (cls, city, place, night = false) => `<div class="dock ${cls}" data-city="${city}" data-place="${attr(place)}"${[C.blr, C.syd, C.sf].includes(city) ? ` data-km="${kmFromSG(city).toLocaleString('en-US')}"` : ''}${night ? ' data-night' : ''} aria-hidden="true"></div>`;
 // one-line plain versions of the four principles
 const HOW = ['It invests its own money', 'Its own people work inside each company', 'It owns the technology', 'It grows across the world from Singapore'];
 // plain-language summaries: simplified from each company's own website copy; facts are theirs
@@ -273,6 +274,7 @@ ${footer()}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="/assets/js/bg.js?v=${V}" defer></script>
 <script src="/assets/js/journey.js?v=${V}" defer></script>
+<script src="/assets/js/hero.js?v=${V}" defer></script>
 <script src="/assets/js/motion.js?v=${V}" defer></script>
 <script src="/assets/js/site.js?v=${V}" defer></script>
 </body>
@@ -293,22 +295,32 @@ const phero = ({ crumbs, kicker, title, lead, m, extra = '', max }) => `<section
 
 /* ======================= HOME ======================= */
 const home = layout({ path: '/', home: true, title: 'Home', desc: "Singapore's Global Technology Holding Group. Capital, technology and operating capability under one house — building companies for an autonomous world.", body: `
-<section class="hero" aria-label="Hunt Global">
-  <video class="hero-vid" data-auto autoplay muted loop playsinline preload="auto" poster="/assets/img/sg-night.jpg"><source src="${HERO_VID}" type="video/mp4"></video>
-  <div class="hero-shade" aria-hidden="true"></div>
-  ${nav('/')}
-  ${dock('hero-3d d-hero', C.sg, 'Singapore · Group HQ')}
-  <div class="hero-body">
-    <p class="kick rv">Singapore · Global technology holding group</p>
-    ${stair('Building companies|for an autonomous world', { tag: 'h1', size: 'xl', keep: true })}
-    <p class="hero-sub rv">A Singapore institution. Built for the world.</p>
-    <div class="btns rv">${btn('/portfolio/', 'Explore our portfolio')}${btn('/contact/', 'Start a conversation', { dark: true })}</div>
+<section class="jhero" aria-label="Hunt Global">
+  <div class="jh-back" aria-hidden="true">
+    ${x3d('earth', { cls: 'jh-earth', mode: 'hero', label: 'The Earth from NASA imagery, turning to Singapore' })}
+    <video class="jh-film" muted loop playsinline preload="none" poster="/assets/img/sg-night.jpg"><source src="${HERO_VID}" type="video/mp4"></video>
+    <div class="jh-shade"></div>
   </div>
-  <div class="hero-stats rv">
-    <div><b data-count="5">0</b><span>Portfolio companies</span></div>
-    <div><b data-count="120" data-suffix="+">0</b><span>Team worldwide</span></div>
-    <div><b data-count="4">0</b><span>Operating regions</span></div>
-    <div><b data-count="39" data-suffix="+">0</b><span>Patents filed</span></div>
+  <div class="jh-front">
+    ${nav('/')}
+    <div class="jh-beat b1 on">
+      <p class="kick">Singapore · Global technology holding group</p>
+      ${stair('Building companies|for an autonomous world', { tag: 'h1', size: 'xl', keep: true })}
+      <p class="hero-sub">A Singapore institution. Built for the world.</p>
+      <div class="btns">${btn('/portfolio/', 'Explore our portfolio')}${btn('/contact/', 'Start a conversation', { dark: true })}</div>
+    </div>
+    <div class="jh-beat b2" aria-hidden="true">
+      <p class="kick">Group HQ · Singapore</p>
+      <p class="jh-big">Governed from Singapore. <span>Delivering autonomous intelligence to the world.</span></p>
+      <p class="hero-sub">Orchestrated from Singapore. Scaling globally across APAC, MENA, UK/Europe and North America.</p>
+    </div>
+    <div class="jh-beat b3" aria-hidden="true">
+      <p class="kick">Hunt Global</p>
+      <p class="jh-big">Capital, technology and operating capability <span>under one house.</span></p>
+      <div class="jh-stats"><div><b>5</b><span>Portfolio companies</span></div><div><b>120+</b><span>Team worldwide</span></div><div><b>4</b><span>Operating regions</span></div><div><b>39+</b><span>Patents filed</span></div></div>
+    </div>
+    <div class="jh-route" aria-hidden="true"><span class="on">The world</span><span>Singapore</span><span>One house</span><i><b></b></i></div>
+    <p class="jh-hint" aria-hidden="true">Scroll to begin the journey</p>
   </div>
 </section>
 

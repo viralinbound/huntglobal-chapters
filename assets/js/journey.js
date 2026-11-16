@@ -12,7 +12,7 @@
   const BASE = 600; // the traveller element is BASE x BASE and scaled to each dock
   tr.style.width = tr.style.height = BASE + 'px';
   const ss = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
-  let pos = [], mobile = false, lastPlace = '', capTimer = 0, queued = false;
+  let pos = [], mobile = false, lastPlace = '', capTimer = 0, queued = false, capW = 0;
 
   const measure = () => {
     mobile = innerWidth <= 900;
@@ -41,10 +41,11 @@
     if (tr.dataset.lon !== lon) tr.dataset.lon = lon;
     tr.toggleAttribute('data-night', at.hasAttribute('data-night'));
     if (cap) {
-      cap.style.transform = `translate3d(${x.toFixed(1)}px,${(y + h / 2 + 8).toFixed(1)}px,0) translateX(-50%)`;
+      const cx = Math.max(capW / 2 + 12, Math.min(innerWidth - capW / 2 - 12, x)); // keep the label on screen
+      cap.style.transform = `translate3d(${cx.toFixed(1)}px,${(y + h / 2 + 8).toFixed(1)}px,0) translateX(-50%)`;
       cap.style.visibility = hide ? 'hidden' : 'visible';
-      const place = at.dataset.place || '';
-      if (place !== lastPlace) { lastPlace = place; cap.classList.remove('on'); clearTimeout(capTimer); capTimer = setTimeout(() => { cap.textContent = place; cap.classList.toggle('on', !!place); }, 180); }
+      const place = (at.dataset.place || '') + (at.dataset.km ? ' · ' + at.dataset.km + ' km from Singapore' : '');
+      if (place !== lastPlace) { lastPlace = place; cap.classList.remove('on'); clearTimeout(capTimer); capTimer = setTimeout(() => { cap.textContent = place; capW = cap.offsetWidth; cap.classList.toggle('on', !!place); queue(); }, 180); }
       cap.classList.toggle('moving', k > .08 && k < .92);
     }
   };
