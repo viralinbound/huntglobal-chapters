@@ -251,3 +251,14 @@ html.staged *,body[data-v] *{-webkit-backdrop-filter:none!important;backdrop-fil
 @media (max-width:900px){.jh-beat h1.st-xl{font-size:clamp(34px,9vw,56px)}}
 
 .jhero.jh-gone .jh-back,.jhero.jh-gone .jh-front{visibility:hidden}
+/* the real NASA Earth as a still photograph: shown while WebGL loads, and kept if the browser cannot run 3D */
+[data-3d="earth"].nogl::after{display:none}
+[data-3d="earth"]:not(.gl-drawn):not(.jh-earth){background:url(/assets/earth/globe-sg.webp) center/contain no-repeat}
+.jh-earth::before{content:"";position:absolute;width:82vh;height:82vh;left:calc(50% - 1vh);top:calc(50% - 41vh);background:url(/assets/earth/globe-sg.webp) center/contain no-repeat;transition:opacity .9s ease}
+.jh-earth.gl-drawn::before{opacity:0}
+@media (max-width:760px){.jh-earth::before{width:92vw;height:92vw;left:4vw;top:calc(27% - 46vw)}}
+/* the opening headline scales with the window height too, so short wide screens never push it into the menu */
+.jh-beat{max-width:min(860px,54vw)}
+.jh-beat h1.st-xl{font-size:clamp(40px,min(5.4vw,10.4vh),96px)}
+.jh-big{font-size:clamp(34px,min(4.8vw,8.6vh),84px)}
+@media (max-width:900px){.jh-beat{max-width:none}.jh-beat h1.st-xl{font-size:clamp(34px,min(9vw,6.6vh),56px)}.jh-big{font-size:clamp(30px,min(8vw,5.8vh),48px)}}

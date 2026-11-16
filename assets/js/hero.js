@@ -14,7 +14,7 @@
   const update = () => {
     queued = false;
     const y = scrollY - top, p = Math.max(0, Math.min(1, y / len));
-    if (slot) { slot._p = p; slot._alpha = 1 - ss(.66, .84, p); }
+    if (slot) { slot._p = p; slot._alpha = 1 - ss(.66, .84, p); slot.style.opacity = slot._alpha.toFixed(3); }
     if (film) {
       film.style.opacity = ss(.62, .8, p).toFixed(3);
       const want = p > .55 && y < len + innerHeight;

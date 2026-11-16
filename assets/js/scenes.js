@@ -179,6 +179,9 @@ const SCENES = {
 
 function boot() {
   const cv = renderer.domElement; cv.className = 'x3d-canvas'; cv.setAttribute('aria-hidden', 'true'); document.body.appendChild(cv);
+  // if the GPU drops the context, fall back to the still photograph of the Earth instead of an empty frame
+  cv.addEventListener('webglcontextlost', e => { e.preventDefault(); cv.style.display = 'none'; slots.forEach(s => { s.classList.remove('gl-drawn'); s.classList.add('nogl'); }); });
+  cv.addEventListener('webglcontextrestored', () => { cv.style.display = ''; slots.forEach(s => s.classList.remove('nogl')); live.forEach(sc => { sc.drawn = false; }); });
   renderer.setScissorTest(true); renderer.setClearColor(0x000000, 0);
   /* Two modes. "single": when one slot is on screen (most of the time) the canvas is only as large as that
      slot (grow-only, 64px buckets) and is moved with a transform, so the browser composites a small layer
@@ -231,6 +234,7 @@ function boot() {
       const heroIdle = slot._p != null && slot._p === slot.__lp; slot.__lp = slot._p;
       fno++;
       if (sc.drawn && ((slot._still && (fno & 1)) || (heroIdle && fno % 3))) return;
+      if (!sc.drawn) slot.classList.add('gl-drawn');
       sc.drawn = true;
       sc.c.aspect = r.width / r.height;
       if (!sc.z0) sc.z0 = sc.c.position.length();
@@ -256,6 +260,7 @@ function boot() {
       sc.c.position.setLength(sc.z0 * (sc.c.aspect < 1 ? 1 / Math.max(sc.c.aspect, .6) : 1));
       sc.c.updateProjectionMatrix();
       sc.tick(t, ptr);
+      if (!sc.drawn) { sc.drawn = true; slot.classList.add('gl-drawn'); }
       renderer.setViewport(r.left, H - r.bottom, r.width, r.height);
       renderer.setScissor(x0, H - y1, x1 - x0, y1 - y0);
       renderer.render(sc.s, sc.c);
