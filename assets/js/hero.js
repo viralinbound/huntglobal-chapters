@@ -5,7 +5,8 @@
    Work happens only on scroll; the 3D engine reads slot._p / slot._alpha. */
 (() => {
   const H = document.querySelector('.jhero'); if (!H) return;
-  const slot = H.querySelector('[data-3d]'), film = H.querySelector('.jh-film');
+  const slot = null, film = H.querySelector('.jh-film'), v1 = H.querySelector('.jh-v1'), v2 = H.querySelector('.jh-v2');
+  const run = (v, want) => { if (!v) return; if (want && v.paused) { v.preload = 'auto'; const pr = v.play(); pr && pr.catch && pr.catch(() => {}); } else if (!want && !v.paused) v.pause(); };
   const beats = [...H.querySelectorAll('.jh-beat')], stops = [...H.querySelectorAll('.jh-route span')];
   const bar = H.querySelector('.jh-route b'), hint = H.querySelector('.jh-hint');
   const ss = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
@@ -15,6 +16,11 @@
     queued = false;
     const y = scrollY - top, p = Math.max(0, Math.min(1, y / len));
     if (slot) { slot._p = p; slot._alpha = 1 - ss(.66, .84, p); slot.style.opacity = slot._alpha.toFixed(3); }
+    // beat 1: Sydney film; beat 2: Bangalore film; beat 3: the sunrise film
+    const a2 = ss(.27, .4, p), past = y > len + innerHeight;
+    if (v1) v1.style.opacity = (1 - a2).toFixed(3);
+    if (v2) v2.style.opacity = (a2 * (1 - ss(.62, .8, p))).toFixed(3);
+    run(v1, !past && p < .42); run(v2, !past && p > .2 && p < .84);
     if (film) {
       film.style.opacity = ss(.62, .8, p).toFixed(3);
       const want = p > .55 && y < len + innerHeight;

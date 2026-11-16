@@ -12,6 +12,7 @@
   const BASE = 600; // the traveller element is BASE x BASE and scaled to each dock
   tr.style.width = tr.style.height = BASE + 'px';
   const ss = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  const imgs = [...tr.querySelectorAll('.tp')]; let curImg = '';
   let txt = [], pos = [], mobile = false, lastPlace = '', capTimer = 0, queued = false, capW = 0;
 
   const measure = () => {
@@ -33,25 +34,23 @@
     let k = A === B || B.y <= A.y || A.y > mid ? 0 : ss(.3, .7, (mid - A.y) / (B.y - A.y));
     if (RM) k = k < .5 ? 0 : 1;
     const L = (a, b) => a + (b - a) * k, shrink = 1 - .28 * Math.sin(Math.PI * k);
-    const w = L(A.w, B.w) * shrink, h = L(A.h, B.h) * shrink, x = L(A.x, B.x), y = L(A.y, B.y) - scrollY;
-    tr.style.transform = `translate3d(${(x - w / 2).toFixed(1)}px,${(y - h / 2).toFixed(1)}px,0) scale(${(w / BASE).toFixed(4)},${(h / BASE).toFixed(4)})`;
+    // a round frame: one size from the dock's shorter side, so photographs never stretch
+    const w = L(Math.min(A.w, A.h), Math.min(B.w, B.h)) * shrink, h = w, x = L(A.x, B.x), y = L(A.y, B.y) - scrollY;
+    tr.style.transform = `translate3d(${(x - w / 2).toFixed(1)}px,${(y - h / 2).toFixed(1)}px,0) scale(${(w / BASE).toFixed(4)})`;
     // hand the rect to the 3D engine so it never has to read layout
     tr._rect = { left: x - w / 2, top: y - h / 2, width: w, height: h, right: x + w / 2, bottom: y + h / 2 };
     tr._still = k === 0 || k === 1;
     let alpha = 1;
     if (!tr._still && !mobile) {
-      const cx = x, cy = y + scrollY, rad = Math.min(w, h) * .46; let d = 1e9;
+      const cx = x, cy = y + scrollY, rad = Math.min(w, h) * .5; let d = 1e9;
       for (const o of txt) { if (o.b < cy - rad * 1.2 || o.t > cy + rad * 1.2) continue; const dx = Math.max(o.l - cx, 0, cx - o.r), dy = Math.max(o.t - cy, 0, cy - o.b); const dd = Math.hypot(dx, dy); if (dd < d) d = dd; }
-      alpha = ss(rad * .78, rad * 1.04, d);
+      alpha = ss(rad * .9, rad * 1.15, d);
     }
-    tr._alpha = alpha;
+    tr._alpha = alpha; tr.style.opacity = alpha < 1 ? alpha.toFixed(3) : '';
     const hide = mobile && k > .04 && k < .96;
     tr.style.visibility = hide ? 'hidden' : 'visible';
-    const at = (k < .5 ? A : B).d;
-    const [lat, lon] = (at.dataset.city || '1.35,103.82').split(',');
-    if (tr.dataset.lat !== lat) tr.dataset.lat = lat;
-    if (tr.dataset.lon !== lon) tr.dataset.lon = lon;
-    tr.toggleAttribute('data-night', at.hasAttribute('data-night'));
+    const at = (k < .5 ? A : B).d, src = at.dataset.img;
+    if (src && src !== curImg) { curImg = src; const [p, q] = imgs[0].classList.contains('on') ? imgs : [imgs[1], imgs[0]]; q.onload = () => { q.classList.add('on'); p.classList.remove('on'); }; q.src = src; if (q.complete && q.naturalWidth) q.onload(); }
     if (cap) {
       const cx = Math.max(capW / 2 + 12, Math.min(innerWidth - capW / 2 - 12, x)); // keep the label on screen
       cap.style.transform = `translate3d(${cx.toFixed(1)}px,${(y + h / 2 + 8).toFixed(1)}px,0) translateX(-50%)`;

@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 30; // cache-bust for css/js
+const V = 32; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -180,7 +180,7 @@ const envCls = slug => (EDARK.has(EK[slug]) ? 'dark ' : '') + 'env env-' + EK[sl
 const browser = c => SITE[c.slug] ? `<figure class="browser"><a href="${SITE[c.slug][1]}" target="_blank" rel="noopener" aria-label="Open ${SITE[c.slug][0]}"><span class="br-bar"><i></i><i></i><i></i><b>${SITE[c.slug][0]}</b></span><img src="/assets/co/${EK[c.slug]}/site.jpg" alt="The live ${amp(nm(c))} website" loading="lazy"></a>${REAL.stack[c.slug] && REAL.stack[c.slug].length > 1 ? `<img class="br-pop" src="/assets/co/${REAL.stack[c.slug][REAL.stack[c.slug].length === 1 ? 0 : 1]}" alt="" loading="lazy">` : ''}</figure>` : media(c, { cls: 'cut', alt: 'San Francisco' });
 const C = { sg: '1.35,103.82', syd: '-33.87,151.21', blr: '12.97,77.59', ind: '21,78', sf: '37.77,-122.42' };
 const DOCKCITY = { biltflow: [C.sg, 'Biltflow · Global operations'], 'replaice-technologies': [C.blr, 'Replaice · Bangalore'], huntjobs: [C.ind, 'HuntJobs · jobs across India'], northstar: [C.sf, 'Northstar · San Francisco'], tribe: [C.syd, 'Tribe · Sydney'] };
-const dock = (cls, city, place, night = false) => `<div class="dock ${cls}" data-city="${city}"${night ? ' data-night' : ''} aria-hidden="true"></div>`;
+const dock = (cls, city, img, night = false) => `<div class="dock ${cls}" data-img="${img}" aria-hidden="true"></div>`;
 
 const MARK = `<svg viewBox="0 0 520 490" aria-hidden="true"><g transform="translate(0,490) scale(0.1,-0.1)"><path d="M2175 4409 c-16 -12 -115 -74 -220 -138 l-190 -118 -3 -1032 -2 -1031 -238 -1 c-130 -1 -304 -3 -387 -5 -82 -1 -162 0 -177 3 l-28 5 0 759 c0 418 -2 759 -4 759 -2 0 -62 -37 -133 -82 -71 -46 -165 -105 -211 -133 l-82 -50 0 -1321 0 -1321 217 -134 c119 -74 221 -135 225 -137 4 -2 9 302 10 675 l3 678 403 3 402 2 0 -347 c0 -192 3 -594 7 -895 l6 -548 217 0 217 0 6 422 c10 581 9 4008 0 4007 -5 0 -21 -9 -38 -20z"/><path d="M2612 2081 c1 -5 75 -72 162 -150 l159 -141 261 -2 c144 -1 329 -3 411 -3 83 -1 151 -4 153 -8 1 -4 2 -157 2 -339 l-1 -333 -237 -139 c-493 -290 -1207 -720 -1214 -730 -4 -6 -8 -62 -8 -123 l0 -113 264 0 264 0 358 218 c198 120 445 271 549 336 105 65 237 148 295 183 58 35 108 67 112 71 4 4 8 293 9 642 l2 635 -772 3 c-446 1 -771 -2 -769 -7z"/><path fill="#15BCDF" d="M2584 4256 c-55 -37 -64 -55 -64 -127 0 -53 21 -85 75 -119 30 -18 44 -21 88 -15 28 4 63 13 77 20 30 16 61 51 53 59 -30 30 243 -39 392 -99 702 -281 1214 -882 1374 -1610 58 -264 67 -638 22 -890 -104 -583 -417 -1089 -897 -1452 -16 -12 -24 -22 -18 -22 18 -1 154 106 261 205 382 354 627 834 699 1364 30 224 14 559 -37 800 -122 567 -497 1106 -1004 1444 -184 122 -411 226 -627 286 -134 37 -167 48 -152 49 14 1 2 64 -16 86 -15 19 -113 55 -148 55 -15 0 -50 -15 -78 -34z"/></g></svg>`;
 const MAIL = `<svg viewBox="0 0 17 13" aria-hidden="true"><rect x=".7" y=".7" width="15.6" height="11.6"/><path d="M.7 .9 8.5 7.2 16.3 .9"/></svg>`;
@@ -291,7 +291,8 @@ const phero = ({ crumbs, kicker, title, lead, m, extra = '', max }) => `<section
 const home = layout({ path: '/', home: true, title: 'Home', desc: "Singapore's Global Technology Holding Group. Capital, technology and operating capability under one house — building companies for an autonomous world.", body: `
 <section class="jhero" aria-label="Hunt Global">
   <div class="jh-back" aria-hidden="true">
-    ${x3d('earth', { cls: 'jh-earth', mode: 'hero', label: 'The Earth from NASA imagery, turning to Singapore' })}
+    <video class="jh-v jh-v1" muted loop playsinline autoplay preload="auto" poster="${I('aerial-sydney')}"><source src="${VID('sydney')}" type="video/mp4"></video>
+    <video class="jh-v jh-v2" muted loop playsinline preload="none" poster="${I('aerial-bangalore')}"><source src="${VID('bangalore')}" type="video/mp4"></video>
     <video class="jh-film" muted loop playsinline preload="none" poster="/assets/img/sg-night.jpg"><source src="${HERO_VID}" type="video/mp4"></video>
     <div class="jh-shade"></div>
   </div>
@@ -318,7 +319,7 @@ const home = layout({ path: '/', home: true, title: 'Home', desc: "Singapore's G
   </div>
 </section>
 
-<div id="traveller" class="traveller" data-3d="earth" data-travel data-lat="1.35" data-lon="103.82" role="img" aria-label="The Earth, from NASA imagery, turning to the city each chapter is about"></div>
+<div id="traveller" class="traveller tphoto" aria-hidden="true"><img class="tp on" alt="" decoding="async"><img class="tp" alt="" decoding="async"></div>
 
 <div class="names" aria-hidden="true"><div class="names-tr">${[...COMPANIES, ...COMPANIES, ...COMPANIES, ...COMPANIES].map(c => `<span>${amp(c.full || c.name)}</span><i>${amp(c.cat)}</i>`).join('')}</div></div>
 
@@ -329,13 +330,13 @@ ${chap('cream', 'Who we are', `  <div class="chap">
       <div class="prose rv" style="margin-top:22px"><p>Singapore's Global Technology Holding Group. We build the companies that define industries. We invest our own capital, operate from within, and hold proprietary IP designed to compound.</p></div>
       <div class="btns rv" style="margin-top:30px">${btn('/about/', 'About Hunt Global')}</div>
     </div>
-    <div class="chap-m rv"><div class="orbit">${dock('d-big', C.sg, 'Singapore · where it all starts')}<span class="chip c1"><b>5</b>Portfolio companies</span><span class="chip c2"><b>120+</b>Team worldwide</span><span class="chip c3"><b>4</b>Operating regions</span><span class="chip c4"><b>39+</b>Patents filed</span></div></div>
+    <div class="chap-m rv"><div class="orbit">${dock('d-big', C.sg, I('global-cities'))}<span class="chip c1"><b>5</b>Portfolio companies</span><span class="chip c2"><b>120+</b>Team worldwide</span><span class="chip c3"><b>4</b>Operating regions</span><span class="chip c4"><b>39+</b>Patents filed</span></div></div>
   </div>`)}
 
 ${chap('aqua', 'How we operate', `  <div class="sec-head">
     <div>${kick('How we operate')}${stair('Four principles behind every company we build.', { size: 'm', max: 26 })}</div>
   </div>
-  <div class="how-wrap"><ol class="how">${PRINCIPLES.map(([t, p], i) => `<li class="rv"><h3>${t}</h3><p>${amp(p)}</p></li>`).join('')}</ol>${dock('d-big', C.sg, 'Run from Singapore')}</div>`)}
+  <div class="how-wrap"><ol class="how">${PRINCIPLES.map(([t, p], i) => `<li class="rv"><h3>${t}</h3><p>${amp(p)}</p></li>`).join('')}</ol>${dock('d-big', C.sg, I('pr-venture'))}</div>`)}
 
 ${chap('navy', 'The Heart', `  <div class="heart">
     <div>
@@ -349,13 +350,13 @@ ${chap('navy', 'The Heart', `  <div class="heart">
         <p>An AI-first operating core. Specialized agents across Biltflow, Replaice, HuntJobs, Northstar and Group HQ process data, monitor capital flows and execute operational directives around the clock — orchestrated and governed from Singapore.</p>
       </div>
     </div>
-    <div class="rv">${dock('d-tall', C.sg, 'The Heart · Singapore HQ, at night', true)}</div>
+    <div class="rv">${dock('d-tall', C.sg, I('sg-night'))}</div>
   </div>`, 'dark')}
 
 ${chap('paper', 'Operating Companies', `  <div class="sec-head">
     <div>${kick('Portfolio & divisions')}${stair('Operating Companies', { size: 'l', max: 12 })}<p class="lead rv" style="margin-top:20px">Our portfolio comprises technology, construction intelligence, talent, robotics and property-related platforms operating globally.</p></div>
   </div>
-  <div class="pf-grid"><div class="pf-stick"><div class="cf-wrap"><div class="cflow" tabindex="0" aria-label="Operating companies">${COMPANIES.map(c => `<a class="cf-card" href="/portfolio/${c.slug}/"><img src="${REAL.card[c.slug]}" alt="" loading="lazy"><span class="cf-cap"><small>${amp(c.cat)}</small><b>${amp(nm(c))}</b></span></a>`).join('')}</div><div class="cf-nav"><button class="cf-prev" aria-label="Previous company">&larr;</button><button class="cf-next" aria-label="Next company">&rarr;</button></div></div></div>${dock('d-big', C.sg, 'Five companies, one house')}</div>`)}
+  <div class="pf-grid"><div class="pf-stick"><div class="cf-wrap"><div class="cflow" tabindex="0" aria-label="Operating companies">${COMPANIES.map(c => `<a class="cf-card" href="/portfolio/${c.slug}/"><img src="${REAL.card[c.slug]}" alt="" loading="lazy"><span class="cf-cap"><small>${amp(c.cat)}</small><b>${amp(nm(c))}</b></span></a>`).join('')}</div><div class="cf-nav"><button class="cf-prev" aria-label="Previous company">&larr;</button><button class="cf-next" aria-label="Next company">&rarr;</button></div></div></div>${dock('d-big', C.sg, I('aerial-singapore'))}</div>`)}
 
 ${COMPANIES.map((c, i) => { return chap('e-' + EK[c.slug], nm(c), `  <div class="chap">
     <div>
@@ -364,12 +365,12 @@ ${COMPANIES.map((c, i) => { return chap('e-' + EK[c.slug], nm(c), `  <div class=
       <p class="lead rv">${amp(c.desc)}</p>
       <div class="btns rv" style="margin-top:28px">${btn(`/portfolio/${c.slug}/`, 'View details', { sm: true })}${VENTURES[c.slug] ? btn(`/ventures/${VENTURES[c.slug]}/`, 'Company website', { dark: true, sm: true }) : ''}</div>
     </div>
-    <div class="chap-m rv col">${dock('d-sm', ...DOCKCITY[c.slug])}${browser(c)}</div>
+    <div class="chap-m rv col">${dock('d-sm', C.sg, REAL.card[c.slug])}${browser(c)}</div>
   </div>`, envCls(c.slug)); }).join('\n\n')}
 
 ${chap('blush', 'How we build', `  <div class="sec-head">
     <div>${kick('Practice')}${stair('How we build', { size: 'l', max: 14 })}<p class="lead rv" style="margin-top:20px">Strategic operating capabilities across four key practices.</p></div>
-    ${dock('d-sm', C.sg, 'Built from Singapore')}
+    ${dock('d-sm', C.sg, I('pr-tech'))}
   </div>
   <div class="tiles">${PRACTICES.map(p => `<article class="tile rv">${media(p, { alt: p.t })}<p class="kick">${amp(p.t)}</p><h3>${amp(p.lead || p.t)}</h3><p>${amp(p.p)}</p>${tlink(`/practice/${p.slug}/`, 'Explore practice')}</article>`).join('')}</div>`)}
 
@@ -377,23 +378,23 @@ ${chap('mist', 'Global Presence', `  <div class="sec-head">
     <div>${kick('Global presence')}${stair('Governed from Singapore', { size: 'l', max: 14 })}</div>
     <p class="lead rv">Our presence across APAC, MENA, UK/Europe, and North America enables deep integration with regional enterprises.</p>
   </div>
-  <div class="globe-grid"><ul class="regions v">${REGIONS.map(([t, p]) => `<li class="rv"><h3>${amp(t)}</h3><p>${p}</p></li>`).join('')}</ul>${dock('d-big', C.sg, 'Governed from Singapore')}</div>
+  <div class="globe-grid"><ul class="regions v">${REGIONS.map(([t, p]) => `<li class="rv"><h3>${amp(t)}</h3><p>${p}</p></li>`).join('')}</ul>${dock('d-big', C.sg, I('aerial-sydney'))}</div>
   <div style="margin-top:clamp(36px,4vw,56px)">${nodes()}</div>`)}
 
 ${chap('forest', 'Security & Governance', `  <div class="gov">
     <div>${kick('Governance')}${stair('Enterprise-grade Security & Governance', { size: 'm', max: 20 })}</div>
-    <div>${dock('d-sm', C.sg, 'MAS · ACRA · Singapore PDPA')}<p class="lead rv">Rigorous security and institutional governance are the foundations for our global enterprise AI deployment.</p>${badges()}</div>
+    <div>${dock('d-sm', C.sg, I('sg-arch'))}<p class="lead rv">Rigorous security and institutional governance are the foundations for our global enterprise AI deployment.</p>${badges()}</div>
   </div>`, 'dark')}
 
 ${chap('lav2', 'Insights', `  <div class="sec-head">
     <div>${kick('Insights')}${stair('Research, updates, and market perspectives.', { size: 'm', max: 24 })}</div>
-    <div class="hd-r">${dock('d-sm', C.sg, 'Perspectives from Singapore')}<div class="rv">${tlink('/insights/', 'All insights')}</div></div>
+    <div class="hd-r">${dock('d-sm', C.sg, I('aerial-sf'))}<div class="rv">${tlink('/insights/', 'All insights')}</div></div>
   </div>
   <a class="icard rv" href="/insights/${POST.slug}/">${media({ img: I('sg-night') }, { alt: '' })}<div><span class="meta">Articles · ${POST.year}</span><h3>${POST.t}</h3><p>${POST.d}</p><span class="tlink">Read article</span></div></a>`)}
 
 ${chap('plum', 'Work with us', `  <div class="cta">
     <div>${kick('Contact')}${stair('Let’s build what comes next.', { size: 'l', max: 16 })}</div>
-    <div>${dock('d-sm', C.sg, 'Level 8, 2 Venture Drive · Singapore')}<div class="prose rv"><p>For investment opportunities, strategic partnerships and portfolio enquiries, speak with Hunt Global. Governed from Singapore.</p></div><div class="btns rv">${btn('/contact/', 'Start a conversation')}${btn('mailto:hello@huntglobal.co', 'Email us', { dark: true })}</div></div>
+    <div>${dock('d-sm', C.sg, I('contact'))}<div class="prose rv"><p>For investment opportunities, strategic partnerships and portfolio enquiries, speak with Hunt Global. Governed from Singapore.</p></div><div class="btns rv">${btn('/contact/', 'Start a conversation')}${btn('mailto:hello@huntglobal.co', 'Email us', { dark: true })}</div></div>
   </div>`, 'dark')}
 ` });
 
@@ -404,8 +405,8 @@ const PAGEREAL = (p, title) => {
   if (m && REAL.stack[m[1]]) return dstack(REAL.stack[m[1]].map(x => '/assets/co/' + x), { cls: 'phero-ds', alt: title + ' — product and imagery' });
   const q = p.match(/^\/practice\/([^/]+)\/$/);
   if (q) { const pr = PRACTICES.find(x => x.slug === q[1]); return dstack([pr.img, I(['aerial-singapore', 'global-cities', 'sg-night', 'aerial-bangalore'][PRACTICES.indexOf(pr)])], { cls: 'phero-ds', alt: pr.t }); }
-  if (p === '/regions/') return x3d('earth', { cls: 'phero-3d', label: 'Earth from NASA imagery, Singapore facing you' });
-  if (['/about/', '/careers/', '/insights/'].includes(p)) return x3d('sphere', { cls: 'phero-3d', imgs: REAL.hub, label: 'An orbit sphere of real photographs — drag to turn it' });
+  if (p === '/regions/') return dstack([I('aerial-sydney'), I('aerial-bangalore'), I('aerial-sf')], { cls: 'phero-ds', alt: 'Sydney, Bangalore and San Francisco' });
+  if (['/about/', '/careers/', '/insights/'].includes(p)) return dstack([I('sg-arch'), I('pr-venture'), I('global-cities')], { cls: 'phero-ds', alt: 'Hunt Global' });
   return null;
 };
 const page = (path, title, desc, body) => {
@@ -596,7 +597,7 @@ page('/contact/', 'Contact', 'For investment opportunities, strategic partnershi
         <div><dt>Registered office</dt><dd>Level 8, 2 Venture Drive<br>Singapore 608526</dd></div>
         <div><dt>Operating regions</dt><dd>APAC · MENA · UK/Europe</dd></div>
       </dl>
-      ${x3d('earth', { cls: 'contact-3d', label: 'Governed from Singapore, connected to the world' })}
+      <div class="hue contact-ph"><img src="${I('contact')}" alt="" loading="lazy"></div>
     </div>
     <form class="form rv" id="enquiry" novalidate>
       <div class="frow"><label class="field"><span>Full name *</span><input name="name" required autocomplete="name"></label>
