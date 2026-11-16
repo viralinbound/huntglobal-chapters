@@ -51,6 +51,34 @@
     imgs.forEach(i => { i.classList.add('lux-img'); io2.observe(i); });
   }
 
+
+  /* depth: cards tilt toward the pointer (mouse only), product frames settle in 3D, photos drift slower than the page */
+  const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!RM) {
+    if (FINE) document.querySelectorAll('.tile, .pcard, .card, .icard, .prod, .hood, .mode, .phero-r, .vlink').forEach(el => {
+      el.classList.add('lux-tilt'); if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      let raf = 0, ev = null;
+      const apply = () => { raf = 0; const r = el.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
+        const ax = (.5 - y) * 6, ay = (x - .5) * 7, ang = Math.hypot(ax, ay) || .0001; el.style.setProperty('--ax', (ax / ang).toFixed(3)); el.style.setProperty('--ay', (ay / ang).toFixed(3)); el.style.setProperty('--ang', ang.toFixed(2) + 'deg');
+        el.style.setProperty('--gx', (x * 100).toFixed(1) + '%'); el.style.setProperty('--gy', (y * 100).toFixed(1) + '%'); };
+      el.addEventListener('pointerenter', () => el.classList.add('lux-on'));
+      el.addEventListener('pointermove', e => { ev = e; if (!raf) raf = requestAnimationFrame(apply); });
+      el.addEventListener('pointerleave', () => { el.classList.remove('lux-on'); el.style.setProperty('--ang', '0deg'); });
+    });
+    const rise = [...document.querySelectorAll('.browser, .vhero .media, .lux-mosaic')];
+    const par = [...document.querySelectorAll('.tile .hue, .icard .hue, .hood .im')].filter(h => h.querySelector('img'));
+    rise.forEach(e => e.classList.add('lux-rise')); par.forEach(e => e.classList.add('lux-par'));
+    const live = new Set();
+    const io3 = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? live.add(e.target) : live.delete(e.target)), { rootMargin: '120px 0px' });
+    [...rise, ...par].forEach(e => io3.observe(e));
+    let q = false;
+    const tick = () => { q = false; const H = innerHeight;
+      live.forEach(el => { const r = el.getBoundingClientRect(), c = (r.top + r.height / 2 - H / 2) / H; // -1 .. 1 across the screen
+        if (el.classList.contains('lux-rise')) { const k = Math.max(0, Math.min(1, c)); el.style.setProperty('--rise', (k * 14).toFixed(2) + 'deg'); el.style.setProperty('--lift', (k * 40).toFixed(1) + 'px'); }
+        else el.style.setProperty('--py', (c * -26).toFixed(1) + 'px'); }); };
+    addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(tick); } }, { passive: true }); tick();
+  }
+
   /* opening curtain: let the first beat play as the curtain lifts */
   const intro = document.querySelector('.intro:not([hidden])');
   if (intro) {
