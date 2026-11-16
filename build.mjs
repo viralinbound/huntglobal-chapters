@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 34; // cache-bust for css/js
+const V = 36; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -127,7 +127,7 @@ const stair = (text, { tag = 'h2', size = 'l', from, s2 = false, cls = '', max =
 const REAL = {
   hub: ['aerial-singapore', 'sg-night', 'aerial-sydney', 'pr-construction', 'aerial-bangalore', 'sg-arch', 'aerial-sf', 'pr-tech', 'global-cities', 'pr-venture', 'contact'].map(I)
     .concat(['biltflow/class-highdensity-v2-1200.webp', 'tribe/party-1200.webp', 'biltflow/plate-development.webp', 'biltflow/class-datacentres-1200.webp', 'tribe/supper-1200.webp', 'replaice/biltflow-vault.webp', 'biltflow/class-hospitality-v5-1200.webp', 'huntjobs/hero-mobile.webp', 'biltflow/class-commercial-1200.webp', 'tribe/bbq-1200.webp', 'biltflow/plate-commercial.webp', 'biltflow/class-healthcare-1200.webp', 'tribe/movie-1200.webp', 'biltflow/class-education-1200.webp'].map(x => '/assets/co/' + x)),
-  card: { biltflow: '/assets/co/biltflow/plate-development.webp', 'replaice-technologies': '/assets/co/replaice/biltflow-vault.webp', huntjobs: '/assets/co/huntjobs/hero-mobile.webp', northstar: '/assets/co/biltflow/class-industrial-1200.webp', tribe: '/assets/co/tribe/party-1200.webp' },
+  card: { biltflow: '/assets/co/biltflow/plate-development.webp', 'replaice-technologies': '/assets/co/replaice/biltflow-vault.webp', huntjobs: '/assets/co/huntjobs/hero-mobile.webp', northstar: I('aerial-sf'), tribe: '/assets/co/tribe/party-1200.webp' },
   stack: { biltflow: ['biltflow/plate-development.webp', 'biltflow/plate-commercial.webp', 'biltflow/plate-construction.webp'], 'replaice-technologies': ['replaice/biltflow-vault.webp', 'replaice/biltflow-feasibility.webp', 'replaice/biltflow-pulse.webp'], huntjobs: ['huntjobs/hero-mobile.webp'], tribe: ['tribe/party-1200.webp', 'tribe/bbq-1200.webp', 'tribe/supper-1200.webp'] }
 };
 // depth stack: real images layered in perspective, tilting with the pointer
@@ -336,7 +336,7 @@ ${chap('cream', 'Who we are', `  <div class="chap">
 ${chap('aqua', 'How we operate', `  <div class="sec-head">
     <div>${kick('How we operate')}${stair('Four principles behind every company we build.', { size: 'm', max: 26 })}</div>
   </div>
-  <div class="how-wrap"><ol class="how">${PRINCIPLES.map(([t, p], i) => `<li class="rv"><h3>${t}</h3><p>${amp(p)}</p></li>`).join('')}</ol>${dock('d-big', C.sg, I('pr-venture'))}</div>`)}
+  <div class="how-wrap"><ol class="how">${PRINCIPLES.map(([t, p], i) => `<li class="rv"><h3>${t}</h3><p>${amp(p)}</p></li>`).join('')}</ol>${dock('d-big', C.sg, '/assets/co/biltflow/class-commercial-1200.webp')}</div>`)}
 
 ${chap('navy', 'The Heart', `  <div class="heart">
     <div>
@@ -350,7 +350,7 @@ ${chap('navy', 'The Heart', `  <div class="heart">
         <p>An AI-first operating core. Specialized agents across Biltflow, Replaice, HuntJobs, Northstar and Group HQ process data, monitor capital flows and execute operational directives around the clock — orchestrated and governed from Singapore.</p>
       </div>
     </div>
-    <div class="rv">${dock('d-tall', C.sg, I('sg-night'))}</div>
+    <div class="rv">${dock('d-tall', C.sg, '/assets/co/biltflow/class-datacentres-1200.webp')}</div>
   </div>`, 'dark')}
 
 ${chap('paper', 'Operating Companies', `  <div class="sec-head">
@@ -370,7 +370,6 @@ ${COMPANIES.map((c, i) => { return chap('e-' + EK[c.slug], nm(c), `  <div class=
 
 ${chap('blush', 'How we build', `  <div class="sec-head">
     <div>${kick('Practice')}${stair('How we build', { size: 'l', max: 14 })}<p class="lead rv" style="margin-top:20px">Strategic operating capabilities across four key practices.</p></div>
-    ${dock('d-sm', C.sg, I('pr-tech'))}
   </div>
   <div class="tiles">${PRACTICES.map(p => `<article class="tile rv">${media(p, { alt: p.t })}<p class="kick">${amp(p.t)}</p><h3>${amp(p.lead || p.t)}</h3><p>${amp(p.p)}</p>${tlink(`/practice/${p.slug}/`, 'Explore practice')}</article>`).join('')}</div>`)}
 
@@ -378,19 +377,19 @@ ${chap('mist', 'Global Presence', `  <div class="sec-head">
     <div>${kick('Global presence')}${stair('Governed from Singapore', { size: 'l', max: 14 })}</div>
     <p class="lead rv">Our presence across APAC, MENA, UK/Europe, and North America enables deep integration with regional enterprises.</p>
   </div>
-  <div class="globe-grid"><ul class="regions v">${REGIONS.map(([t, p]) => `<li class="rv"><h3>${amp(t)}</h3><p>${p}</p></li>`).join('')}</ul>${dock('d-big', C.sg, I('aerial-sydney'))}</div>
+  <div class="globe-grid"><ul class="regions v">${REGIONS.map(([t, p]) => `<li class="rv"><h3>${amp(t)}</h3><p>${p}</p></li>`).join('')}</ul>${dock('d-big', C.sg, I('aerial-singapore'))}</div>
   <div style="margin-top:clamp(36px,4vw,56px)">${nodes()}</div>`)}
 
 ${chap('mist', 'Security & Governance', `  <div class="gov">
     <div>${kick('Governance')}${stair('Enterprise-grade Security & Governance', { size: 'm', max: 20 })}</div>
-    <div>${dock('d-sm', C.sg, I('sg-arch'))}<p class="lead rv">Rigorous security and institutional governance are the foundations for our global enterprise AI deployment.</p>${badges()}</div>
+    <div><p class="lead rv">Rigorous security and institutional governance are the foundations for our global enterprise AI deployment.</p>${badges()}</div>
   </div>`)}
 
 ${chap('lav2', 'Insights', `  <div class="sec-head">
     <div>${kick('Insights')}${stair('Research, updates, and market perspectives.', { size: 'm', max: 24 })}</div>
-    <div class="hd-r">${dock('d-sm', C.sg, I('aerial-sf'))}<div class="rv">${tlink('/insights/', 'All insights')}</div></div>
+    <div class="hd-r"><div class="rv">${tlink('/insights/', 'All insights')}</div></div>
   </div>
-  <a class="icard rv" href="/insights/${POST.slug}/">${media({ img: I('sg-night') }, { alt: '' })}<div><span class="meta">Articles · ${POST.year}</span><h3>${POST.t}</h3><p>${POST.d}</p><span class="tlink">Read article</span></div></a>`)}
+  <a class="icard rv" href="/insights/${POST.slug}/">${media({ img: I('aerial-sydney') }, { alt: '' })}<div><span class="meta">Articles · ${POST.year}</span><h3>${POST.t}</h3><p>${POST.d}</p><span class="tlink">Read article</span></div></a>`)}
 
 ${chap('plum', 'Work with us', `  <div class="cta">
     <div>${kick('Contact')}${stair('Let’s build what comes next.', { size: 'l', max: 16 })}</div>
@@ -406,7 +405,8 @@ const PAGEREAL = (p, title) => {
   const q = p.match(/^\/practice\/([^/]+)\/$/);
   if (q) { const pr = PRACTICES.find(x => x.slug === q[1]); return dstack([pr.img, I(['aerial-singapore', 'global-cities', 'sg-night', 'aerial-bangalore'][PRACTICES.indexOf(pr)])], { cls: 'phero-ds', alt: pr.t }); }
   if (p === '/regions/') return dstack([I('aerial-sydney'), I('aerial-bangalore'), I('aerial-sf')], { cls: 'phero-ds', alt: 'Sydney, Bangalore and San Francisco' });
-  if (['/about/', '/careers/', '/insights/'].includes(p)) return dstack([I('sg-arch'), I('pr-venture'), I('global-cities')], { cls: 'phero-ds', alt: 'Hunt Global' });
+  const PS = { '/about/': ['aerial-singapore', 'global-cities', 'aerial-sydney'], '/careers/': ['aerial-bangalore', 'aerial-sf', 'aerial-sydney'], '/insights/': ['aerial-sf', 'contact', 'global-cities'] };
+  if (PS[p]) return dstack(PS[p].map(I), { cls: 'phero-ds', alt: 'Hunt Global' });
   return null;
 };
 const page = (path, title, desc, body) => {
@@ -527,7 +527,7 @@ COMPANIES.forEach((c, i) => {
 
 /* huntglobal.co/practice */
 page('/practice/', 'Practice', 'How we build — strategic operating capabilities across four key practices.', [
-  phero({ crumbs: [['Practice']], title: 'How we build', lead: 'Strategic operating capabilities across four key practices.', m: { img: I('pr-venture') } }),
+  phero({ crumbs: [['Practice']], title: 'How we build', lead: 'Strategic operating capabilities across four key practices.', m: { img: I('global-cities') } }),
   sec(`  <div class="tiles">${PRACTICES.map(p => `<article class="tile rv">${media(p, { alt: p.t })}<p class="kick">${amp(p.t)}</p><h3>${amp(p.lead || p.t)}</h3><p>${amp(p.p)}</p>${tlink(`/practice/${p.slug}/`, 'Explore practice')}</article>`).join('')}</div>
   ${next('/regions/', 'Global Presence')}`, 'alt')
 ]);

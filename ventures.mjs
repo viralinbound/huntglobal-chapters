@@ -4,7 +4,7 @@
 // Primary actions point at the live company site / app stores so every button still works.
 import { mkdirSync, writeFileSync } from 'node:fs';
 
-const V = 34;
+const V = 36;
 const esc = s => String(s).replace(/&(?!amp;|#|[a-z]+;)/g, '&amp;');
 const A = (id, f) => `/assets/co/${id}/${f}`;
 const x3d = (scene, cls, label, tone = 'dark') => `<div class="x3d ${cls}" data-3d="${scene}" data-tone="${tone}" role="img" aria-label="${label}"></div>`;
@@ -90,7 +90,7 @@ const out = {};
     <p class="lead rv">Biltflow is one AI-native system for running your entire construction operation — from development and design to procurement, commercial, delivery and asset care. Trained on data from more than $5 billion in live construction projects, Biltflow brings proven construction intelligence to every workflow.</p>
     <div class="btns rv"><a class="btn" href="#stages">Explore the platform</a><a class="btn ghost ext" href="${LIVE}" target="_blank" rel="noopener">Book a walkthrough</a></div>
   </div>
-  <div class="media rv">${dstack([B('plate-development.webp'), B('plate-commercial.webp'), B('plate-construction.webp')], 'ds-hero', 'Biltflow development, commercial and construction workspaces')}</div>
+  <div class="media rv">${dstack(['/assets/co/replaice/biltflow-pulse.webp', '/assets/co/replaice/biltflow-resourceflow.webp', '/assets/co/replaice/biltflow-vault.webp'], 'ds-hero', 'Biltflow development, commercial and construction workspaces')}</div>
 </div></section>
 
 <section class="sec alt"><div class="w split">
@@ -121,7 +121,7 @@ const out = {};
 
 <section class="sec"><div class="w split">
   <div>${lbl('One connected intelligence')}<p class="statement rv"><span>Build.</span><span>Learn.</span><span>Improve.</span><span>Repeat.</span></p></div>
-  <div><h2 class="h2 rv">Every project makes the next one <em>smarter.</em></h2><p class="lead rv">Every decision. Every cost. Every delay. Every outcome.</p><div class="photo-row rv">${['class-highdensity-v2-1200.webp', 'class-datacentres-1200.webp', 'class-healthcare-1200.webp'].map(x => `<img src="${B(x)}" alt="" loading="lazy">`).join('')}</div></div>
+  <div><h2 class="h2 rv">Every project makes the next one <em>smarter.</em></h2><p class="lead rv">Every decision. Every cost. Every delay. Every outcome.</p></div>
 </div></section>
 
 <section class="sec alt" id="why"><div class="w">
@@ -162,7 +162,7 @@ const out = {};
 {
   const id = 'replaice', R = f => A(id, f), LIVE = 'https://replaice.ai/';
   const PRODUCTS = [
-    { k: 'Construction & compliance OS', t: 'BiltFlow', s: 'The intelligent operating system for construction.', p: 'Connect feasibility, drawings and takeoff with procurement, project delivery, claims and reporting.', f: [], href: '/ventures/biltflow/', img: R('biltflow-feasibility.webp'), flowCap: 'One connected construction lifecycle.', flow: ['SiteScope — Assess site feasibility and carry project constraints and assumptions into planning.', 'Pulse — Build the programme, connecting phases, dependencies and milestones to delivery dates.', 'Vault — Manage drawings, documents and revisions that define the scope for estimating and procurement.', 'BOQ Engine & Estimator — Turn reviewed drawings into quantities and cost estimates for trade packages.', 'ProcureFlow — Take those packages through tendering, bid comparison and contract award, aligned with programme requirements.', 'PayFlow — Assess progress claims against awarded scope, contract terms and milestones, then certify approved amounts for payment.', 'ResourceFlow — Use programme dates to forecast workforce demand and coordinate allocations across projects throughout delivery.'] },
+    { k: 'Construction & compliance OS', t: 'BiltFlow', s: 'The intelligent operating system for construction.', p: 'Connect feasibility, drawings and takeoff with procurement, project delivery, claims and reporting.', f: [], href: '/ventures/biltflow/', flowCap: 'One connected construction lifecycle.', flow: ['SiteScope — Assess site feasibility and carry project constraints and assumptions into planning.', 'Pulse — Build the programme, connecting phases, dependencies and milestones to delivery dates.', 'Vault — Manage drawings, documents and revisions that define the scope for estimating and procurement.', 'BOQ Engine & Estimator — Turn reviewed drawings into quantities and cost estimates for trade packages.', 'ProcureFlow — Take those packages through tendering, bid comparison and contract award, aligned with programme requirements.', 'PayFlow — Assess progress claims against awarded scope, contract terms and milestones, then certify approved amounts for payment.', 'ResourceFlow — Use programme dates to forecast workforce demand and coordinate allocations across projects throughout delivery.'] },
     { k: 'Physical AI & robotics', t: 'NorthStar', s: 'See more. Detect earlier. Act smarter.', p: 'Use drones, robotics and visual AI to inspect physical sites and connect observations to project records.', f: ['Autonomous inspection', 'Visual risk detection', 'Drawing & schedule links'], href: 'https://northstar.biltflow.com', flowCap: 'How it works', flow: ['Start drone inspection · Zone B', 'Scan facade and flag deviation', 'Compare against the baseline', 'Link observation to drawing and schedule'] },
     { k: 'Enterprise knowledge intelligence', t: 'HybridRAG Agent', s: 'Give every agent the context it needs.', p: 'Turn documents, data and institutional knowledge into grounded context for enterprise AI.', f: ['Multimodal ingestion', 'Vector, graph & BM25 retrieval', 'MCP & API integration'], href: 'https://hybridragagent.com', flowCap: 'How it works', flow: ['Ask which controls apply to supplier onboarding', 'Retrieve similar passages via vector search', 'Resolve related policies via knowledge graph', 'Merge full-text matches and cite the evidence'] },
     { k: 'Autonomous IT & customer support', t: 'Replaice Desk', s: 'Resolve requests across every channel.', p: 'Handle Level 1 support and assist Level 2 teams across voice, messaging, email and web.', f: ['Omnichannel intake', 'Knowledge-backed resolution', 'Smart escalation & human handoff'], href: 'https://desk.dev.replaice.co/', flowCap: 'How it works', flow: ['Receive account access request', 'Classify ticket and retrieve policy', 'Execute authorized reset workflow', 'Close ticket or route exception to an agent'] },
@@ -276,7 +276,7 @@ const out = {};
 
 <section class="sec alt band"><div class="w split">
   <div>${lbl('AI matching')}<h2 class="h2 rv">Tailored job matches <em>instantly.</em></h2><p class="lead rv">Our platform uses AI to match your skills and experience with the best job opportunities in the skilled trades.</p></div>
-  <div class="media rv">${dstack([H('hero-mobile.webp')], 'ds-phone', 'The HuntJobs app matching a delivery partner role')}</div>
+  <div class="media rv"><img src="${H('site.jpg')}" alt="The HuntJobs website" loading="lazy" style="border-radius:18px;width:100%"></div>
 </div></section>
 
 <section class="sec" style="padding:clamp(40px,5vw,70px) 0"><div class="w"><p class="lbl" style="justify-content:center;display:flex">Get hired by top companies worldwide</p></div>${marq(NAMES, 'names')}</section>
@@ -349,7 +349,7 @@ const out = {};
 
 <section class="sec band"><div class="w">
   <div class="head"><div>${lbl('Tribehoods')}<h2 class="h2 rv">A place to belong, <em>not just a place to live.</em></h2></div><p class="lead rv">Where you live is just the beginning. Discover the neighbourhoods, people and places that make you feel like you belong.</p></div>
-  <div class="lux-mosaic rv" role="img" aria-label="Tribe residents and neighbourhood life">${['party-1200.webp', 'supper-1200.webp', 'bbq-1200.webp', 'movie-1200.webp', 'hero-25.webp'].map(x => `<figure><img src="${T(x)}" alt="" loading="lazy"></figure>`).join('')}</div>
+  <div class="lux-mosaic rv" role="img" aria-label="Tribe residents and neighbourhood life">${['012-1200.webp', 'hero-15.webp', 'hero-30.webp', '058.webp', '008.webp'].map(x => `<figure><img src="${T(x)}" alt="" loading="lazy"></figure>`).join('')}</div>
 </div></section>
 
 <section class="sec" id="rent"><div class="w">
