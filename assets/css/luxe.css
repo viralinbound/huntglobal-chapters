@@ -120,3 +120,9 @@ html:not(.js) .sgh-lead{opacity:1;transform:none}
 .tphoto::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 6px rgba(255,255,255,.08);pointer-events:none}
 .contact-ph{border-radius:22px;overflow:hidden;aspect-ratio:1/1}
 .contact-ph img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- calm palette: two tones only (ivory and ink); no per-chapter colour jumps ---------- */
+.bgstage .bg::before,.bgstage .bg::after{display:none!important}
+.bgstage .bg{background:#F5F0E8!important}
+.bgstage :is(.bg-ink,.bg-navy,.bg-forest,.bg-plum,.bg-e-biltflow,.bg-e-biltflow-b,.bg-e-replaice,.bg-e-replaice-b,.bg-e-northstar,.bg-e-northstar-b){background:#0B0E15!important}
+.bgstage .bg{transition:opacity 1.1s ease!important}

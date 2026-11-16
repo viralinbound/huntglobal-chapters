@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 32; // cache-bust for css/js
+const V = 33; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -356,7 +356,7 @@ ${chap('navy', 'The Heart', `  <div class="heart">
 ${chap('paper', 'Operating Companies', `  <div class="sec-head">
     <div>${kick('Portfolio & divisions')}${stair('Operating Companies', { size: 'l', max: 12 })}<p class="lead rv" style="margin-top:20px">Our portfolio comprises technology, construction intelligence, talent, robotics and property-related platforms operating globally.</p></div>
   </div>
-  <div class="pf-grid"><div class="pf-stick"><div class="cf-wrap"><div class="cflow" tabindex="0" aria-label="Operating companies">${COMPANIES.map(c => `<a class="cf-card" href="/portfolio/${c.slug}/"><img src="${REAL.card[c.slug]}" alt="" loading="lazy"><span class="cf-cap"><small>${amp(c.cat)}</small><b>${amp(nm(c))}</b></span></a>`).join('')}</div><div class="cf-nav"><button class="cf-prev" aria-label="Previous company">&larr;</button><button class="cf-next" aria-label="Next company">&rarr;</button></div></div></div>${dock('d-big', C.sg, I('aerial-singapore'))}</div>`)}
+  <div class="pf-grid"><div class="pf-stick"><div class="cf-wrap"><div class="cflow" tabindex="0" aria-label="Operating companies">${COMPANIES.map(c => `<a class="cf-card" href="/portfolio/${c.slug}/"><img src="${REAL.card[c.slug]}" alt="" loading="lazy"><span class="cf-cap"><small>${amp(c.cat)}</small><b>${amp(nm(c))}</b></span></a>`).join('')}</div><div class="cf-nav"><button class="cf-prev" aria-label="Previous company">&larr;</button><button class="cf-next" aria-label="Next company">&rarr;</button></div></div></div></div>`)}
 
 ${COMPANIES.map((c, i) => { return chap('e-' + EK[c.slug], nm(c), `  <div class="chap">
     <div>
@@ -365,7 +365,7 @@ ${COMPANIES.map((c, i) => { return chap('e-' + EK[c.slug], nm(c), `  <div class=
       <p class="lead rv">${amp(c.desc)}</p>
       <div class="btns rv" style="margin-top:28px">${btn(`/portfolio/${c.slug}/`, 'View details', { sm: true })}${VENTURES[c.slug] ? btn(`/ventures/${VENTURES[c.slug]}/`, 'Company website', { dark: true, sm: true }) : ''}</div>
     </div>
-    <div class="chap-m rv col">${dock('d-sm', C.sg, REAL.card[c.slug])}${browser(c)}</div>
+    <div class="chap-m rv col">${browser(c)}</div>
   </div>`, envCls(c.slug)); }).join('\n\n')}
 
 ${chap('blush', 'How we build', `  <div class="sec-head">
