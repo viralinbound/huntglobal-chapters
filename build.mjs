@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 41; // cache-bust for css/js
+const V = 42; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -34,7 +34,7 @@ const COMPANIES = [
     desc: 'Your next opportunity, delivered in a heartbeat. An AI-powered jobs marketplace matching professionals with employers globally. Mobile apps available on the App Store and Google Play; used by candidates hired at major global companies.',
     body: ['HuntJobs is a sophisticated talent marketplace leveraging AI to match top-tier professionals with employers globally. Delivering candidates in a heartbeat, the platform significantly reduces time-to-hire while improving retention outcomes.', 'Available on the App Store and Google Play, HuntJobs is utilized by major global companies and is a cornerstone of our human capital infrastructure.'],
     chips: ['AI matching', 'App Store', 'Google Play', 'Global employers'] },
-  { slug: 'northstar', name: 'Northstar', full: 'Northstar Humanoids and Robotics', cat: 'Humanoids · Robotics', loc: 'Singapore · Bangalore · San Francisco', locDetail: 'San Francisco', site: null, img: '/assets/co/biltflow/class-industrial-1200.webp', vid: null,
+  { slug: 'northstar', name: 'Northstar', full: 'Northstar Humanoids and Robotics', cat: 'Humanoids · Robotics', loc: 'Singapore · Bangalore · San Francisco', locDetail: 'San Francisco', site: null, img: '/assets/co/northstar/bg-quad.jpg', vid: null,
     story: 'Robust hardware. Proprietary AI.', head: 'Humanoids for industry.',
     desc: 'Humanoids for industry. Northstar builds humanoid robotics and operational intelligence for industrial environments, operating from Singapore, Bangalore and San Francisco — orchestrated and governed from Singapore.',
     body: ['Northstar builds humanoid robotics and advanced operational intelligence specifically designed for industrial environments. We combine robust hardware engineering with proprietary AI models to automate physical tasks safely and efficiently.', 'Operating from San Francisco and Bangalore, with strict governance and orchestration from Singapore, Northstar represents the convergence of deep-tech talent and institutional capital.'],
@@ -86,7 +86,7 @@ const CITIES = [
   { n: 'Singapore', s: 'Group HQ', tz: 'Asia/Singapore', img: I('aerial-singapore'), vid: VID('singapore'), hq: true },
   { n: 'Sydney', s: 'Australia', tz: 'Australia/Sydney', img: I('aerial-sydney'), vid: VID('sydney') },
   { n: 'Bangalore', s: 'India', tz: 'Asia/Kolkata', img: I('aerial-bangalore'), vid: VID('bangalore') },
-  { n: 'San Francisco', s: 'USA', tz: 'America/Los_Angeles', img: I('aerial-sf'), vid: VID('san-francisco') },
+  { n: 'San Francisco', s: 'USA', tz: 'America/Los_Angeles', img: '/assets/co/northstar/bg-air.jpg', vid: null },
   { n: 'London', s: 'UK', tz: 'Europe/London' }
 ];
 const BADGES = ['SOC 2 Type II', 'ISO/IEC 27001', 'ISO/IEC 42001 (AI)', 'GDPR', 'Singapore PDPA', 'MAS TRM Aligned', 'ACRA Registered'];
@@ -127,8 +127,8 @@ const stair = (text, { tag = 'h2', size = 'l', from, s2 = false, cls = '', max =
 const REAL = {
   hub: ['aerial-singapore', 'sg-night', 'aerial-sydney', 'pr-construction', 'aerial-bangalore', 'sg-arch', 'aerial-sf', 'pr-tech', 'global-cities', 'pr-venture', 'contact'].map(I)
     .concat(['biltflow/class-highdensity-v2-1200.webp', 'tribe/party-1200.webp', 'biltflow/plate-development.webp', 'biltflow/class-datacentres-1200.webp', 'tribe/supper-1200.webp', 'replaice/biltflow-vault.webp', 'biltflow/class-hospitality-v5-1200.webp', 'huntjobs/hero-mobile.webp', 'biltflow/class-commercial-1200.webp', 'tribe/bbq-1200.webp', 'biltflow/plate-commercial.webp', 'biltflow/class-healthcare-1200.webp', 'tribe/movie-1200.webp', 'biltflow/class-education-1200.webp'].map(x => '/assets/co/' + x)),
-  card: { biltflow: '/assets/co/biltflow/plate-development.webp', 'replaice-technologies': '/assets/co/replaice/biltflow-vault.webp', huntjobs: '/assets/co/huntjobs/hero-mobile.webp', northstar: I('aerial-sf'), tribe: '/assets/co/tribe/party-1200.webp' },
-  stack: { biltflow: ['biltflow/plate-development.webp', 'biltflow/plate-commercial.webp', 'biltflow/plate-construction.webp'], 'replaice-technologies': ['replaice/biltflow-vault.webp', 'replaice/biltflow-feasibility.webp', 'replaice/biltflow-pulse.webp'], huntjobs: ['huntjobs/hero-mobile.webp'], tribe: ['tribe/party-1200.webp', 'tribe/bbq-1200.webp', 'tribe/supper-1200.webp'] }
+  card: { biltflow: '/assets/co/biltflow/plate-development.webp', 'replaice-technologies': '/assets/co/replaice/biltflow-vault.webp', huntjobs: '/assets/co/huntjobs/hero-mobile.webp', northstar: '/assets/co/northstar/bg-human.jpg', tribe: '/assets/co/tribe/party-1200.webp' },
+  stack: { biltflow: ['biltflow/plate-development.webp', 'biltflow/plate-commercial.webp', 'biltflow/plate-construction.webp'], northstar: ['northstar/bg-human.jpg', 'northstar/bg-quad.jpg', 'northstar/bg-air.jpg'], 'replaice-technologies': ['replaice/biltflow-vault.webp', 'replaice/biltflow-feasibility.webp', 'replaice/biltflow-pulse.webp'], huntjobs: ['huntjobs/hero-mobile.webp'], tribe: ['tribe/party-1200.webp', 'tribe/bbq-1200.webp', 'tribe/supper-1200.webp'] }
 };
 // depth stack: real images layered in perspective, tilting with the pointer
 const POS = [[['8%', '10%', '84%', '0px']], [['4%', '6%', '70%', '0px'], ['30%', '40%', '66%', '90px']], [['2%', '4%', '64%', '-40px'], ['30%', '22%', '62%', '50px'], ['14%', '52%', '60%', '140px']]];
@@ -171,7 +171,7 @@ const nextBg = dark => dark ? DARKS[DI++ % DARKS.length] : LIGHTS[LI++ % LIGHTS.
 const sec = (inner, cls = '') => `<section class="sec${cls ? ' ' + cls : ''}" data-bg="${nextBg(/\bdark\b/.test(cls))}">\n${inner}\n</section>`;
 const chap = (bg, name, inner, cls = '') => `<section class="sec${cls ? ' ' + cls : ''}" data-bg="${bg}" data-chapter="${attr(name)}">\n${inner}\n</section>`;
 // real photo that sets the environment of a page (the project's own world)
-const ENV = { biltflow: '/assets/co/biltflow/class-highdensity-v2-1200.webp', 'replaice-technologies': '/assets/img/aerial-bangalore.jpg', huntjobs: '/assets/img/global-cities.jpg', northstar: '/assets/img/aerial-sf.jpg', tribe: '/assets/co/tribe/merrylands-2-1200.webp', '/regions/': '/assets/img/aerial-singapore.jpg', '/about/why-singapore/': '/assets/img/sg-night.jpg', '/about/': '/assets/img/sg-arch.jpg', '/careers/': '/assets/img/pr-venture.jpg', '/portfolio/': '/assets/img/global-cities.jpg', '/practice/': '/assets/img/pr-tech.jpg' };
+const ENV = { biltflow: '/assets/co/biltflow/class-highdensity-v2-1200.webp', 'replaice-technologies': '/assets/img/aerial-bangalore.jpg', huntjobs: '/assets/img/global-cities.jpg', northstar: '/assets/co/northstar/hero-bg.jpg', tribe: '/assets/co/tribe/merrylands-2-1200.webp', '/regions/': '/assets/img/aerial-singapore.jpg', '/about/why-singapore/': '/assets/img/sg-night.jpg', '/about/': '/assets/img/sg-arch.jpg', '/careers/': '/assets/img/pr-venture.jpg', '/portfolio/': '/assets/img/global-cities.jpg', '/practice/': '/assets/img/pr-tech.jpg' };
 const EK = { biltflow: 'biltflow', 'replaice-technologies': 'replaice', huntjobs: 'huntjobs', northstar: 'northstar', tribe: 'tribe' };
 const EDARK = new Set();
 const SITE = { biltflow: ['biltflow.com', 'https://biltflow.com/'], 'replaice-technologies': ['replaice.ai', 'https://replaice.ai/'], huntjobs: ['huntjobs.ai', 'https://huntjobs.ai/'], tribe: ['tribeapp.com.au', 'https://tribeapp.com.au/'] };
@@ -404,9 +404,9 @@ const PAGEREAL = (p, title) => {
   if (m && REAL.stack[m[1]]) return dstack(REAL.stack[m[1]].map(x => '/assets/co/' + x), { cls: 'phero-ds', alt: title + ' — product and imagery' });
   const q = p.match(/^\/practice\/([^/]+)\/$/);
   if (q) { const pr = PRACTICES.find(x => x.slug === q[1]); return dstack([pr.img, I(['aerial-singapore', 'global-cities', 'sg-night', 'aerial-bangalore'][PRACTICES.indexOf(pr)])], { cls: 'phero-ds', alt: pr.t }); }
-  if (p === '/regions/') return dstack([I('aerial-sydney'), I('aerial-bangalore'), I('aerial-sf')], { cls: 'phero-ds', alt: 'Sydney, Bangalore and San Francisco' });
-  const PS = { '/about/': ['aerial-singapore', 'global-cities', 'aerial-sydney'], '/careers/': ['aerial-bangalore', 'aerial-sf', 'aerial-sydney'], '/insights/': ['aerial-sf', 'contact', 'global-cities'] };
-  if (PS[p]) return dstack(PS[p].map(I), { cls: 'phero-ds', alt: 'Hunt Global' });
+  if (p === '/regions/') return dstack([I('aerial-sydney'), I('aerial-bangalore'), '/assets/co/northstar/bg-air.jpg'], { cls: 'phero-ds', alt: 'Sydney, Bangalore and San Francisco' });
+  const PS = { '/about/': ['aerial-singapore', 'global-cities', 'aerial-sydney'], '/careers/': ['aerial-bangalore', '/assets/co/northstar/bg-human.jpg', 'aerial-sydney'], '/insights/': ['/assets/co/northstar/hero-bg.jpg', 'contact', 'global-cities'] };
+  if (PS[p]) return dstack(PS[p].map(x => x.startsWith('/') ? x : I(x)), { cls: 'phero-ds', alt: 'Hunt Global' });
   return null;
 };
 const page = (path, title, desc, body) => {
