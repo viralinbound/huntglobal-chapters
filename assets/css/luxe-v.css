@@ -32,7 +32,8 @@
 
 /* ---------- one palette for every company site: ivory, ink, bronze / champagne gold ---------- */
 body[data-v]{--bg:#F5F0E8;--bg2:#EEE7DB;--card:#FFFDF8;--ink:#0B0E15;--body:#4B4A50;--mute:#857F73;--line:rgba(11,14,21,.12);--acc:#7A5718;--acc-ink:#fff;--soft:#EFE6D6;--deep:#0B0E15;background:var(--bg)!important;color:var(--body)}
-body[data-v] .deep{--acc:#E6CB94;--acc-ink:#0B0E15;background:#0B0E15}
+body[data-v] .deep{--ink:#0B0E15;--body:#4B4A50;--mute:#857F73;--line:rgba(11,14,21,.12);--card:#FFFDF8;--soft:#EFE6D6;--acc:#7A5718;--acc-ink:#fff;background:#EEE7DB!important;color:var(--body)}
+body[data-v="biltflow"] .deep .vlogo img{filter:brightness(0) saturate(0)!important;opacity:.88!important}
 body[data-v] .btn{border-radius:0}
 body[data-v] .sec{padding-top:clamp(60px,7vw,112px);padding-bottom:clamp(60px,7vw,112px)}
 body[data-v] .vhero{padding-top:clamp(48px,7vw,104px);padding-bottom:clamp(48px,6vw,90px)}

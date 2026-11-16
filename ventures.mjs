@@ -4,7 +4,7 @@
 // Primary actions point at the live company site / app stores so every button still works.
 import { mkdirSync, writeFileSync } from 'node:fs';
 
-const V = 38;
+const V = 39;
 const esc = s => String(s).replace(/&(?!amp;|#|[a-z]+;)/g, '&amp;');
 const A = (id, f) => `/assets/co/${id}/${f}`;
 const x3d = (scene, cls, label, tone = 'dark') => `<div class="x3d ${cls}" data-3d="${scene}" data-tone="${tone}" role="img" aria-label="${label}"></div>`;

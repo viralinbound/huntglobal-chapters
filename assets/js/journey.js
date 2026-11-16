@@ -19,8 +19,8 @@
     mobile = innerWidth <= 900;
     pos = docks.map(d => { const r = d.getBoundingClientRect(); return { d, x: r.left + r.width / 2, y: r.top + scrollY + r.height / 2, w: r.width, h: r.height }; }).filter(o => o.w > 4 && o.h > 4);
     // text blocks (page coordinates): the travelling globe fades out wherever its path would cross them
-    txt = [...document.querySelectorAll('main p, main h1, main h2, main h3, main li, main blockquote, main .cbtn')]
-      .filter(e => !e.closest('.jhero, .names, .dock, #traveller') && e.textContent.trim().length > 1)
+    txt = [...document.querySelectorAll('main p, main h1, main h2, main h3, main li, main blockquote, main .cbtn, main .browser, main .cflow, main .tile, main .icard, main img, main video')]
+      .filter(e => !e.closest('.jhero, .names, .dock, #traveller') && (e.matches('img, video, .browser, .cflow, .tile, .icard') || e.textContent.trim().length > 1))
       .map(e => { const r = e.getBoundingClientRect(); return { l: r.left, r: r.right, t: r.top + scrollY, b: r.bottom + scrollY }; })
       .filter(o => o.r - o.l > 2);
     queue();
@@ -47,7 +47,7 @@
       alpha = ss(rad * .9, rad * 1.15, d);
     }
     tr._alpha = alpha; tr.style.opacity = alpha < 1 ? alpha.toFixed(3) : '';
-    const hide = mobile && k > .04 && k < .96;
+    const hide = k > .04 && k < .96; // the frame only shows at rest in its own chapter, never while passing over others
     tr.style.visibility = hide ? 'hidden' : 'visible';
     const at = (k < .5 ? A : B).d, src = at.dataset.img;
     if (src && src !== curImg) { curImg = src; const [p, q] = imgs[0].classList.contains('on') ? imgs : [imgs[1], imgs[0]]; q.onload = () => { q.classList.add('on'); p.classList.remove('on'); }; q.src = src; if (q.complete && q.naturalWidth) q.onload(); }

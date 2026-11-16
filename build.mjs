@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 38; // cache-bust for css/js
+const V = 39; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -173,7 +173,7 @@ const chap = (bg, name, inner, cls = '') => `<section class="sec${cls ? ' ' + cl
 // real photo that sets the environment of a page (the project's own world)
 const ENV = { biltflow: '/assets/co/biltflow/class-highdensity-v2-1200.webp', 'replaice-technologies': '/assets/img/aerial-bangalore.jpg', huntjobs: '/assets/img/global-cities.jpg', northstar: '/assets/img/aerial-sf.jpg', tribe: '/assets/co/tribe/merrylands-2-1200.webp', '/regions/': '/assets/img/aerial-singapore.jpg', '/about/why-singapore/': '/assets/img/sg-night.jpg', '/about/': '/assets/img/sg-arch.jpg', '/careers/': '/assets/img/pr-venture.jpg', '/portfolio/': '/assets/img/global-cities.jpg', '/practice/': '/assets/img/pr-tech.jpg' };
 const EK = { biltflow: 'biltflow', 'replaice-technologies': 'replaice', huntjobs: 'huntjobs', northstar: 'northstar', tribe: 'tribe' };
-const EDARK = new Set(['biltflow', 'replaice', 'northstar', 'huntjobs', 'tribe']);
+const EDARK = new Set();
 const SITE = { biltflow: ['biltflow.com', 'https://biltflow.com/'], 'replaice-technologies': ['replaice.ai', 'https://replaice.ai/'], huntjobs: ['huntjobs.ai', 'https://huntjobs.ai/'], tribe: ['tribeapp.com.au', 'https://tribeapp.com.au/'] };
 const envCls = slug => (EDARK.has(EK[slug]) ? 'dark ' : '') + 'env env-' + EK[slug];
 // the company's real website in a browser frame, with one real product image popping out
@@ -629,9 +629,12 @@ page('/terms/', 'Terms & Conditions', 'Terms of use for the Hunt Global platform
 pages['/404/'] = layout({ path: '/404/', title: 'Not found', desc: 'Page not found.', body: phero({ crumbs: [['Not found']], title: 'Page|not found.', lead: 'The page you are looking for has moved. Start from the home page or explore the portfolio.', m: { img: I('global-cities') }, extra: `<div class="btns rv">${btn('/', 'Back home')}${btn('/portfolio/', 'Portfolio', { dark: true })}</div>` }) });
 
 /* ======================= WRITE ======================= */
-for (const [path, html] of Object.entries(pages)) {
+for (let [path, html] of Object.entries(pages)) {
   const file = path === '/' ? 'index.html' : path === '/404/' ? '404.html' : path.slice(1) + 'index.html';
   mkdirSync(dirname(file) || '.', { recursive: true });
+  // every chapter on a light background (the hero film stays as it is)
+  html = html.replace(/<section class="([^"]*)"/g, (m, c) => `<section class="${c.split(' ').filter(x => x !== 'dark').join(' ')}"`)
+    .replace(/data-bg="(ink|navy|forest|plum)"/g, 'data-bg="paper"');
   writeFileSync(file, html);
 }
 console.log('built', Object.keys(pages).length, 'hub pages');
