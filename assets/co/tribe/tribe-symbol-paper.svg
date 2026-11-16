@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="580.000000pt" height="676.000000pt" viewBox="0 0 580.000000 676.000000"
+ preserveAspectRatio="xMidYMid meet">
+<metadata>
+Created by potrace 1.16, written by Peter Selinger 2001-2019
+</metadata>
+<g transform="translate(0.000000,676.000000) scale(0.100000,-0.100000)"
+fill="#f4f3f0" stroke="none">
+<path d="M1235 6720 c-78 -11 -216 -45 -285 -72 -173 -67 -401 -212 -525 -334
+-133 -131 -270 -350 -295 -471 -7 -30 -18 -71 -26 -90 -8 -19 -25 -80 -37
+-136 l-22 -102 0 -1655 c0 -1874 -6 -1723 84 -2082 48 -190 84 -286 178 -470
+39 -77 176 -290 240 -372 67 -87 331 -343 426 -414 113 -84 285 -182 437 -250
+160 -70 211 -88 400 -137 211 -54 359 -65 807 -56 l323 6 27 28 28 27 3 720 3
+720 -25 25 -25 25 -275 0 c-278 0 -318 4 -451 42 -230 66 -449 269 -541 503
+-65 162 -65 175 -62 972 2 395 7 726 11 735 5 9 21 21 37 26 16 6 268 11 627
+11 330 1 612 5 628 9 16 5 38 21 49 36 21 27 21 36 21 711 l0 684 -23 23 -23
+23 -646 1 -647 1 -18 23 c-17 21 -18 57 -18 620 0 368 -4 609 -10 625 -5 14
+-20 29 -32 34 -34 12 -273 20 -343 11z"/>
+<!--
+  THE t.'s DOT, IN SIGNAL LIME. Kevin, answering Raj's 12 Aug ask (~30:30)
+  about the wordmark's green dot: "The dot right after tribe in the tribe logo
+  AND IN THE t. WORDMARK" — so this mark's full stop too, which is the second
+  path here (raw bbox x 3855..5768, y 29..1930, bottom-right of the two).
+
+  Flat lime, no hairline, for the same reason as tribe-wordmark-paper.svg: this
+  is the on-dark variant and every place it is used sits on Ink — .ta-qr-mark
+  at 26px on the QR panel, .icg-t at 16px inside the 32px ink coin of
+  .ic-glyph, and the guide launcher's front face at 24px on bg-ink. Signal Lime
+  on Ink is 14.9:1, so the dot carries on its own; a ring would only eat it.
+  The dot is 28.1% of this mark's height, so it lands at 7.3px / 4.5px / 6.8px
+  respectively — small, but lime at 14.9:1 does not need area the way lime on
+  Paper does.
+
+  Note for whoever comes next: the INK variant of this mark deliberately did
+  NOT get the same change. See the comment in tribe-symbol-ink.svg.
+-->
+<path fill="#838af6" d="M4645 1920 c-224 -58 -261 -75 -410 -185 -175 -130 -281 -294 -347
+-540 -28 -103 -32 -137 -33 -240 0 -107 4 -132 34 -235 76 -258 213 -423 486
+-587 102 -61 384 -104 544 -83 243 31 356 82 529 239 137 123 188 198 258 376
+31 76 37 109 46 215 16 207 -18 394 -100 555 -88 173 -345 397 -504 440 -29 8
+-86 24 -127 35 -59 16 -103 20 -210 19 -75 -1 -149 -5 -166 -9z"/>
+</g>
+</svg>
