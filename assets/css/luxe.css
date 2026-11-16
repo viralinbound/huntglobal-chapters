@@ -106,3 +106,7 @@
 html:not(.js) .sgh .lwi,html:not(.js) .sgh-pillars li,html:not(.js) .sgh-route{transform:none;opacity:1}
 @media (max-width:760px){.sgh{min-height:max(600px,calc(100svh - 90px))}.sgh-pillars{grid-template-columns:1fr 1fr}.sgh-pillars li:nth-child(n+3){padding-top:16px}.sgh-scroll{display:none}.sgh-route{gap:8px;letter-spacing:.14em}.sgh-route i{width:14px}}
 @media (prefers-reduced-motion:reduce){.sgh .lwi,.sgh-pillars li,.sgh-route,.sgh-route i{transition:none;transform:none;opacity:1}.sgh-scroll::after{animation:none}}
+.sgh-lead{max-width:44em;margin:0;padding-top:20px;border-top:1px solid rgba(230,203,148,.38);font:400 clamp(16px,1.25vw,19px)/1.6 var(--f);color:rgba(255,255,255,.88);opacity:0;transform:translateY(16px);transition:opacity .9s ease .35s,transform 1s cubic-bezier(.2,.8,.2,1) .35s}
+.sgh.on .sgh-lead{opacity:1;transform:none}
+html:not(.js) .sgh-lead{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.sgh-lead{transition:none;opacity:1;transform:none}}

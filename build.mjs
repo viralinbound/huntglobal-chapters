@@ -1,5 +1,5 @@
 // Hunt Global — Sample 15 "Chapters": the journey idea (every chapter has its own background, a chapter rail)
-// on the real-data site, with each project explained in plain words (SIMPLE = paraphrase of the companies' own copy).
+// on the real-data site. All copy is huntglobal.co's own (verified line by line against the live site, 2026-11-16).
 // Hunt Global — Sample 14 "Real": every visual is real material (photos, product screens, the client film, NASA Earth)
 // arranged with motionsites.ai patterns (orbit sphere, arch frame, cover-flow shelf, depth stacks).
 // Hunt Global — Sample 13 "3D" (Sample 12 + a content-matched 3D scene in every section; engine: assets/js/scenes.js)
@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 28; // cache-bust for css/js
+const V = 29; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -180,18 +180,7 @@ const envCls = slug => (EDARK.has(EK[slug]) ? 'dark ' : '') + 'env env-' + EK[sl
 const browser = c => SITE[c.slug] ? `<figure class="browser"><a href="${SITE[c.slug][1]}" target="_blank" rel="noopener" aria-label="Open ${SITE[c.slug][0]}"><span class="br-bar"><i></i><i></i><i></i><b>${SITE[c.slug][0]}</b></span><img src="/assets/co/${EK[c.slug]}/site.jpg" alt="The live ${amp(nm(c))} website" loading="lazy"></a>${REAL.stack[c.slug] && REAL.stack[c.slug].length > 1 ? `<img class="br-pop" src="/assets/co/${REAL.stack[c.slug][REAL.stack[c.slug].length === 1 ? 0 : 1]}" alt="" loading="lazy">` : ''}</figure>` : media(c, { cls: 'cut', alt: 'San Francisco' });
 const C = { sg: '1.35,103.82', syd: '-33.87,151.21', blr: '12.97,77.59', ind: '21,78', sf: '37.77,-122.42' };
 const DOCKCITY = { biltflow: [C.sg, 'Biltflow · Global operations'], 'replaice-technologies': [C.blr, 'Replaice · Bangalore'], huntjobs: [C.ind, 'HuntJobs · jobs across India'], northstar: [C.sf, 'Northstar · San Francisco'], tribe: [C.syd, 'Tribe · Sydney'] };
-const kmFromSG = city => { const [a, b] = city.split(',').map(Number), r = Math.PI / 180, la1 = 1.35 * r, la2 = a * r, dl = (b - 103.82) * r; const h = Math.sin((la2 - la1) / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dl / 2) ** 2; return Math.round(2 * 6371 * Math.asin(Math.sqrt(h)) / 10) * 10; };
-const dock = (cls, city, place, night = false) => `<div class="dock ${cls}" data-city="${city}" data-place="${attr(place)}"${[C.blr, C.syd, C.sf].includes(city) ? ` data-km="${kmFromSG(city).toLocaleString('en-US')}"` : ''}${night ? ' data-night' : ''} aria-hidden="true"></div>`;
-// one-line plain versions of the four principles
-const HOW = ['It invests its own money', 'Its own people work inside each company', 'It owns the technology', 'It grows across the world from Singapore'];
-// plain-language summaries: simplified from each company's own website copy; facts are theirs
-const SIMPLE = {
-  biltflow: { bg: 'sand', simple: 'Software that lets construction teams run a whole building project in one place — drawings, costs, contracts, suppliers and site records — and uses AI to spot problems before they get expensive.', who: 'Developers, builders and project teams, from first feasibility to final handover.', does: ['Sees it — spots clashes, cost risk and delays early', 'Solves it — works out the impact and recommends the best path', 'Does it — creates actions and keeps work moving, with you in control (Manual, Copilot or Autopilot)'], facts: ['$5B+ of real project data behind it', '100+ specialist AI agents', '90+ systems connected'] },
-  'replaice-technologies': { bg: 'sky', simple: 'Builds AI “co-workers” for large companies: software agents that answer from company knowledge, handle support requests and carry out routine tasks — with people approving the important steps.', who: 'Enterprises that want AI to do real work, safely.', does: ['Turns company documents and data into answers AI can use', 'Agents plan and take authorised actions across business systems', 'People approve sensitive steps, and every action is recorded'], facts: ['7 specialised AI platforms', 'Operations in Bangalore', 'Governed from Singapore'] },
-  huntjobs: { bg: 'lav', simple: 'A jobs app that matches people to work, and employers to workers, quickly — with a strong focus on skilled trades such as electricians, drivers and welders.', who: 'Job seekers and employers.', does: ['Matches your skills to suitable jobs instantly', 'Apply in one click — your profile is your application', 'Recruiters post jobs, track applicants and schedule interviews in one place'], facts: ['On the App Store and Google Play', 'AI-driven job matching', 'For job seekers and recruiters'] },
-  northstar: { bg: 'gold', simple: 'Builds humanoid robots for factories and other industrial sites, so physical tasks can be done safely and efficiently.', who: 'Industrial operators.', does: ['Humanoid robots built for industrial environments', 'Robust hardware combined with proprietary AI models', 'Automates physical tasks safely and efficiently'], facts: ['Singapore · Bangalore · San Francisco', 'Humanoid robotics', 'Operational intelligence'] },
-  tribe: { bg: 'sage', simple: 'An app for renters and the buildings they live in: find a home, apply, pay rent, book amenities and report repairs — with an AI concierge called Sarah on hand 24x7.', who: 'Renters, and the teams that run rental buildings.', does: ['Find a home, apply and lease in one app', 'Pay rent, book amenities and raise maintenance requests', 'Property teams get more automation, visibility and control'], facts: ['AI concierge “Sarah”, available 24x7', '2 Tribehoods live, 6 coming soon', 'Leasing, payments, maintenance, amenities'] }
-};
+const dock = (cls, city, place, night = false) => `<div class="dock ${cls}" data-city="${city}"${night ? ' data-night' : ''} aria-hidden="true"></div>`;
 
 const MARK = `<svg viewBox="0 0 520 490" aria-hidden="true"><g transform="translate(0,490) scale(0.1,-0.1)"><path d="M2175 4409 c-16 -12 -115 -74 -220 -138 l-190 -118 -3 -1032 -2 -1031 -238 -1 c-130 -1 -304 -3 -387 -5 -82 -1 -162 0 -177 3 l-28 5 0 759 c0 418 -2 759 -4 759 -2 0 -62 -37 -133 -82 -71 -46 -165 -105 -211 -133 l-82 -50 0 -1321 0 -1321 217 -134 c119 -74 221 -135 225 -137 4 -2 9 302 10 675 l3 678 403 3 402 2 0 -347 c0 -192 3 -594 7 -895 l6 -548 217 0 217 0 6 422 c10 581 9 4008 0 4007 -5 0 -21 -9 -38 -20z"/><path d="M2612 2081 c1 -5 75 -72 162 -150 l159 -141 261 -2 c144 -1 329 -3 411 -3 83 -1 151 -4 153 -8 1 -4 2 -157 2 -339 l-1 -333 -237 -139 c-493 -290 -1207 -720 -1214 -730 -4 -6 -8 -62 -8 -123 l0 -113 264 0 264 0 358 218 c198 120 445 271 549 336 105 65 237 148 295 183 58 35 108 67 112 71 4 4 8 293 9 642 l2 635 -772 3 c-446 1 -771 -2 -769 -7z"/><path fill="#15BCDF" d="M2584 4256 c-55 -37 -64 -55 -64 -127 0 -53 21 -85 75 -119 30 -18 44 -21 88 -15 28 4 63 13 77 20 30 16 61 51 53 59 -30 30 243 -39 392 -99 702 -281 1214 -882 1374 -1610 58 -264 67 -638 22 -890 -104 -583 -417 -1089 -897 -1452 -16 -12 -24 -22 -18 -22 18 -1 154 106 261 205 382 354 627 834 699 1364 30 224 14 559 -37 800 -122 567 -497 1106 -1004 1444 -184 122 -411 226 -627 286 -134 37 -167 48 -152 49 14 1 2 64 -16 86 -15 19 -113 55 -148 55 -15 0 -50 -15 -78 -34z"/></g></svg>`;
 const MAIL = `<svg viewBox="0 0 17 13" aria-hidden="true"><rect x=".7" y=".7" width="15.6" height="11.6"/><path d="M.7 .9 8.5 7.2 16.3 .9"/></svg>`;
@@ -330,57 +319,49 @@ const home = layout({ path: '/', home: true, title: 'Home', desc: "Singapore's G
 </section>
 
 <div id="traveller" class="traveller" data-3d="earth" data-travel data-lat="1.35" data-lon="103.82" role="img" aria-label="The Earth, from NASA imagery, turning to the city each chapter is about"></div>
-<p class="trav-cap" id="travCap" aria-hidden="true"></p>
 
 <div class="names" aria-hidden="true"><div class="names-tr">${[...COMPANIES, ...COMPANIES, ...COMPANIES, ...COMPANIES].map(c => `<span>${amp(c.full || c.name)}</span><i>${amp(c.cat)}</i>`).join('')}</div></div>
 
-${chap('cream', 'What we are', `  <div class="chap">
+${chap('cream', 'Who we are', `  <div class="chap">
     <div>
-      ${kick('Hunt Global, in simple words')}
+      ${kick('Who we are')}
       ${stair('Capital, technology and operating capability under one house.', { size: 'm', max: 26 })}
-      <p class="simple rv">Hunt Global is a group based in Singapore that starts, funds and runs technology companies. It uses its own money, puts its own people inside each company, and owns the technology they build.</p>
       <div class="prose rv" style="margin-top:22px"><p>Singapore's Global Technology Holding Group. We build the companies that define industries. We invest our own capital, operate from within, and hold proprietary IP designed to compound.</p></div>
       <div class="btns rv" style="margin-top:30px">${btn('/about/', 'About Hunt Global')}</div>
     </div>
     <div class="chap-m rv"><div class="orbit">${dock('d-big', C.sg, 'Singapore · where it all starts')}<span class="chip c1"><b>5</b>Portfolio companies</span><span class="chip c2"><b>120+</b>Team worldwide</span><span class="chip c3"><b>4</b>Operating regions</span><span class="chip c4"><b>39+</b>Patents filed</span></div></div>
   </div>`)}
 
-${chap('aqua', 'How it works', `  <div class="sec-head">
+${chap('aqua', 'How we operate', `  <div class="sec-head">
     <div>${kick('How we operate')}${stair('Four principles behind every company we build.', { size: 'm', max: 26 })}</div>
   </div>
-  <div class="how-wrap"><ol class="how">${PRINCIPLES.map(([t, p], i) => `<li class="rv"><span class="how-s">${HOW[i]}</span><h3>${t}</h3><p>${amp(p)}</p></li>`).join('')}</ol>${dock('d-big', C.sg, 'Run from Singapore')}</div>`)}
+  <div class="how-wrap"><ol class="how">${PRINCIPLES.map(([t, p], i) => `<li class="rv"><h3>${t}</h3><p>${amp(p)}</p></li>`).join('')}</ol>${dock('d-big', C.sg, 'Run from Singapore')}</div>`)}
 
 ${chap('navy', 'The Heart', `  <div class="heart">
     <div>
       ${kick('Operations')}
       ${stair('The Heart.', { size: 'l', max: 14 })}
-      <p class="simple rv">One control room in Singapore. AI agents working across the companies report into it, day and night.</p>
       <p class="lead rv" style="margin-top:22px">Orchestrated from Singapore. Scaling globally across APAC, MENA, UK/Europe and North America.</p>
       <p class="rv" style="margin-top:14px;max-width:34em;opacity:.86">Our portfolio operates synchronously through a unified agentic framework. We partner with large enterprises across our key regions to build and deploy autonomous AI solutions, optimizing infrastructure and driving regional growth, all governed from our central HQ.</p>
       <div class="sys rv" aria-label="System core">
         <div class="sys-h"><span>System core</span><span>The Heart — Singapore HQ</span></div>
-        <div class="sys-g"><div><small>Tasks today</small><b data-tick="140283" data-step="5">140,283</b></div><div><small>Messages exchanged</small><b data-tick="892105" data-step="15">892,105</b></div><div><small>Network status</small><b class="ok"><i></i>Optimal</b></div></div>
+        <div class="sys-g"><div><small>Tasks today</small><b data-tick="140283" data-step="5">140,283</b></div><div><small>Messages exchanged</small><b data-tick="892105" data-step="15">892,105</b></div></div>
         <p>An AI-first operating core. Specialized agents across Biltflow, Replaice, HuntJobs, Northstar and Group HQ process data, monitor capital flows and execute operational directives around the clock — orchestrated and governed from Singapore.</p>
       </div>
     </div>
     <div class="rv">${dock('d-tall', C.sg, 'The Heart · Singapore HQ, at night', true)}</div>
   </div>`, 'dark')}
 
-${chap('paper', 'The companies', `  <div class="sec-head">
-    <div>${kick('Portfolio & divisions')}${stair('Operating Companies', { size: 'l', max: 12 })}<p class="lead rv" style="margin-top:20px">Five companies. Scroll on to meet each one, explained simply.</p></div>
+${chap('paper', 'Operating Companies', `  <div class="sec-head">
+    <div>${kick('Portfolio & divisions')}${stair('Operating Companies', { size: 'l', max: 12 })}<p class="lead rv" style="margin-top:20px">Our portfolio comprises technology, construction intelligence, talent, robotics and property-related platforms operating globally.</p></div>
   </div>
   <div class="pf-grid"><div class="pf-stick"><div class="cf-wrap"><div class="cflow" tabindex="0" aria-label="Operating companies">${COMPANIES.map(c => `<a class="cf-card" href="/portfolio/${c.slug}/"><img src="${REAL.card[c.slug]}" alt="" loading="lazy"><span class="cf-cap"><small>${amp(c.cat)}</small><b>${amp(nm(c))}</b></span></a>`).join('')}</div><div class="cf-nav"><button class="cf-prev" aria-label="Previous company">&larr;</button><button class="cf-next" aria-label="Next company">&rarr;</button></div></div></div>${dock('d-big', C.sg, 'Five companies, one house')}</div>`)}
 
-${COMPANIES.map((c, i) => { const S = SIMPLE[c.slug]; return chap('e-' + EK[c.slug], nm(c), `  <div class="chap">
+${COMPANIES.map((c, i) => { return chap('e-' + EK[c.slug], nm(c), `  <div class="chap">
     <div>
       ${kick(c.cat)}
       ${stair(c.full || c.name, { size: 'l', max: 14 })}
-      <p class="simple rv">${S.simple}</p>
-      <dl class="plain rv">
-        <div><dt>Who it’s for</dt><dd>${S.who}</dd></div>
-        <div><dt>What it does</dt><dd><ul>${S.does.map(x => `<li>${x}</li>`).join('')}</ul></dd></div>
-      </dl>
-      <ul class="facts rv">${S.facts.map(x => `<li>${x}</li>`).join('')}</ul>
+      <p class="lead rv">${amp(c.desc)}</p>
       <div class="btns rv" style="margin-top:28px">${btn(`/portfolio/${c.slug}/`, 'View details', { sm: true })}${VENTURES[c.slug] ? btn(`/ventures/${VENTURES[c.slug]}/`, 'Company website', { dark: true, sm: true }) : ''}</div>
     </div>
     <div class="chap-m rv col">${dock('d-sm', ...DOCKCITY[c.slug])}${browser(c)}</div>
@@ -392,15 +373,15 @@ ${chap('blush', 'How we build', `  <div class="sec-head">
   </div>
   <div class="tiles">${PRACTICES.map(p => `<article class="tile rv">${media(p, { alt: p.t })}<p class="kick">${amp(p.t)}</p><h3>${amp(p.lead || p.t)}</h3><p>${amp(p.p)}</p>${tlink(`/practice/${p.slug}/`, 'Explore practice')}</article>`).join('')}</div>`)}
 
-${chap('mist', 'Where we are', `  <div class="sec-head">
+${chap('mist', 'Global Presence', `  <div class="sec-head">
     <div>${kick('Global presence')}${stair('Governed from Singapore', { size: 'l', max: 14 })}</div>
-    <p class="lead rv">Delivering autonomous intelligence to the world. Regional growth through autonomous technology.</p>
+    <p class="lead rv">Our presence across APAC, MENA, UK/Europe, and North America enables deep integration with regional enterprises.</p>
   </div>
   <div class="globe-grid"><ul class="regions v">${REGIONS.map(([t, p]) => `<li class="rv"><h3>${amp(t)}</h3><p>${p}</p></li>`).join('')}</ul>${dock('d-big', C.sg, 'Governed from Singapore')}</div>
   <div style="margin-top:clamp(36px,4vw,56px)">${nodes()}</div>`)}
 
-${chap('forest', 'Trust', `  <div class="gov">
-    <div>${kick('Governance')}${stair('Enterprise-grade Security & Governance', { size: 'm', max: 20 })}<p class="simple rv">Big companies only use AI they can trust. These are the standards Hunt Global lists for its work.</p></div>
+${chap('forest', 'Security & Governance', `  <div class="gov">
+    <div>${kick('Governance')}${stair('Enterprise-grade Security & Governance', { size: 'm', max: 20 })}</div>
     <div>${dock('d-sm', C.sg, 'MAS · ACRA · Singapore PDPA')}<p class="lead rv">Rigorous security and institutional governance are the foundations for our global enterprise AI deployment.</p>${badges()}</div>
   </div>`, 'dark')}
 
@@ -410,7 +391,7 @@ ${chap('lav2', 'Insights', `  <div class="sec-head">
   </div>
   <a class="icard rv" href="/insights/${POST.slug}/">${media({ img: I('sg-night') }, { alt: '' })}<div><span class="meta">Articles · ${POST.year}</span><h3>${POST.t}</h3><p>${POST.d}</p><span class="tlink">Read article</span></div></a>`)}
 
-${chap('plum', 'Talk to us', `  <div class="cta">
+${chap('plum', 'Work with us', `  <div class="cta">
     <div>${kick('Contact')}${stair('Let’s build what comes next.', { size: 'l', max: 16 })}</div>
     <div>${dock('d-sm', C.sg, 'Level 8, 2 Venture Drive · Singapore')}<div class="prose rv"><p>For investment opportunities, strategic partnerships and portfolio enquiries, speak with Hunt Global. Governed from Singapore.</p></div><div class="btns rv">${btn('/contact/', 'Start a conversation')}${btn('mailto:hello@huntglobal.co', 'Email us', { dark: true })}</div></div>
   </div>`, 'dark')}
@@ -493,15 +474,14 @@ page('/about/why-singapore/', 'Why Singapore', 'Singapore as the strategic found
   <div class="sgh-shade" aria-hidden="true"></div>
   <div class="sgh-in">
     ${crumb([['About', '/about/'], ['Why Singapore']])}
-    <p class="kick">Why Singapore · Group HQ</p>
+    <p class="kick">Why Singapore</p>
     <h1 class="sgh-q">“Singapore is not where we happen to be. <em>It is the strategic foundation everything we build is designed around.</em>”</h1>
-    <ul class="sgh-pillars"><li><b>Institutional</b><span>IP framework</span></li><li><b>World-class</b><span>Governance</span></li><li><b>MAS</b><span>Framework</span></li><li><b>ACRA</b><span>Registered</span></li></ul>
-    <p class="sgh-route"><span>Singapore</span><i></i><span>Sydney</span><i></i><span>Bangalore</span><i></i><span>London</span><i></i><span>San Francisco</span></p>
+    <p class="sgh-lead">Institutional IP framework. World-class governance. The gateway connecting enterprise partners across Sydney, Bangalore, London and San Francisco.</p>
   </div>
   <p class="sgh-scroll" aria-hidden="true">Scroll</p>
 </section>`,
   sec(`  <div class="prose wide rv">${paras(['Singapore provides the institutional IP framework, world-class governance, and stability required to build enduring global enterprises. Operating within the robust MAS framework and registered with ACRA, we leverage Singapore as the ultimate gateway to global capital.', 'From this strategic foundation, we seamlessly connect enterprise partners across APAC, MENA, UK/Europe and North America with our operational centers in Sydney, Bangalore, London and San Francisco.'])}</div>`, 'dark'),
-  sec(`  ${kick('Operational centres')}
+  sec(`  ${kick('Strategic Nodes')}
   ${nodes()}
   ${next('/about/recognition/', 'Recognition')}`, 'alt')
 ]);
@@ -533,13 +513,6 @@ COMPANIES.forEach((c, i) => {
     phero({ crumbs: [['Portfolio', '/portfolio/'], [nm(c)]], kicker: c.cat, title: c.full || c.name, max: 12, lead: c.desc, m: c,
       extra: `<dl class="pmeta rv"><div><dt>Location</dt><dd>${amp(c.locDetail || c.loc)}</dd></div><div><dt>Governance</dt><dd>Singapore HQ</dd></div></dl>
     ${c.site ? `<div class="btns rv">${btn(c.site, 'Visit ' + c.name, { ext: true })}</div>` : ''}` }),
-    sec(`  <div class="chap"><div>${kick(nm(c) + ', in simple words')}
-  <p class="simple rv">${SIMPLE[c.slug].simple}</p>
-  <dl class="plain rv">
-    <div><dt>Who it’s for</dt><dd>${SIMPLE[c.slug].who}</dd></div>
-    <div><dt>What it does</dt><dd><ul>${SIMPLE[c.slug].does.map(x => `<li>${x}</li>`).join('')}</ul></dd></div>
-  </dl>
-  <ul class="facts rv">${SIMPLE[c.slug].facts.map(x => `<li>${x}</li>`).join('')}</ul></div><div class="chap-m rv">${browser(c)}</div></div>`),
     sec(`  <div class="gov">
     <div>${stair(c.head, { size: 'm', max: 18 })}</div>
     <div class="prose rv">${paras(c.body)}</div>
@@ -622,7 +595,6 @@ page('/contact/', 'Contact', 'For investment opportunities, strategic partnershi
         <div><dt>Direct email</dt><dd><a href="mailto:hello@huntglobal.co">hello@huntglobal.co</a></dd></div>
         <div><dt>Registered office</dt><dd>Level 8, 2 Venture Drive<br>Singapore 608526</dd></div>
         <div><dt>Operating regions</dt><dd>APAC · MENA · UK/Europe</dd></div>
-        <div><dt>Singapore time</dt><dd><time data-tz="Asia/Singapore">--:--</time> SGT</dd></div>
       </dl>
       ${x3d('earth', { cls: 'contact-3d', label: 'Governed from Singapore, connected to the world' })}
     </div>
