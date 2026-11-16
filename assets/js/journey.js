@@ -12,11 +12,16 @@
   const BASE = 600; // the traveller element is BASE x BASE and scaled to each dock
   tr.style.width = tr.style.height = BASE + 'px';
   const ss = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
-  let pos = [], mobile = false, lastPlace = '', capTimer = 0, queued = false, capW = 0;
+  let txt = [], pos = [], mobile = false, lastPlace = '', capTimer = 0, queued = false, capW = 0;
 
   const measure = () => {
     mobile = innerWidth <= 900;
     pos = docks.map(d => { const r = d.getBoundingClientRect(); return { d, x: r.left + r.width / 2, y: r.top + scrollY + r.height / 2, w: r.width, h: r.height }; }).filter(o => o.w > 4 && o.h > 4);
+    // text blocks (page coordinates): the travelling globe fades out wherever its path would cross them
+    txt = [...document.querySelectorAll('main p, main h1, main h2, main h3, main li, main blockquote, main .cbtn')]
+      .filter(e => !e.closest('.jhero, .names, .dock, #traveller') && e.textContent.trim().length > 1)
+      .map(e => { const r = e.getBoundingClientRect(); return { l: r.left, r: r.right, t: r.top + scrollY, b: r.bottom + scrollY }; })
+      .filter(o => o.r - o.l > 2);
     queue();
   };
   const update = () => {
@@ -33,6 +38,13 @@
     // hand the rect to the 3D engine so it never has to read layout
     tr._rect = { left: x - w / 2, top: y - h / 2, width: w, height: h, right: x + w / 2, bottom: y + h / 2 };
     tr._still = k === 0 || k === 1;
+    let alpha = 1;
+    if (!tr._still && !mobile) {
+      const cx = x, cy = y + scrollY, rad = Math.min(w, h) * .46; let d = 1e9;
+      for (const o of txt) { if (o.b < cy - rad * 1.2 || o.t > cy + rad * 1.2) continue; const dx = Math.max(o.l - cx, 0, cx - o.r), dy = Math.max(o.t - cy, 0, cy - o.b); const dd = Math.hypot(dx, dy); if (dd < d) d = dd; }
+      alpha = ss(rad * .78, rad * 1.04, d);
+    }
+    tr._alpha = alpha;
     const hide = mobile && k > .04 && k < .96;
     tr.style.visibility = hide ? 'hidden' : 'visible';
     const at = (k < .5 ? A : B).d;

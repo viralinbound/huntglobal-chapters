@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 26; // cache-bust for css/js
+const V = 27; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -134,6 +134,8 @@ const REAL = {
 const POS = [[['8%', '10%', '84%', '0px']], [['4%', '6%', '70%', '0px'], ['30%', '40%', '66%', '90px']], [['2%', '4%', '64%', '-40px'], ['30%', '22%', '62%', '50px'], ['14%', '52%', '60%', '140px']]];
 const dstack = (srcs, { cls = '', alt = '' } = {}) => `<div class="dstack${cls ? ' ' + cls : ''}" role="img" aria-label="${attr(alt)}"><div class="ds-in">${srcs.map((u, i) => { const [x, y, w, z] = POS[srcs.length - 1][i]; return `<img class="ds-l" src="${u}" alt="" loading="lazy" style="--x:${x};--y:${y};--w:${w};--z:${z}">`; }).join('')}</div></div>`;
 const x3d = (scene, { k = '', cls = '', tone = 'dark', label = '', imgs = null, mode = '' } = {}) => `<div class="x3d${cls ? ' ' + cls : ''}" data-3d="${scene}"${k ? ` data-k="${k}"` : ''} data-tone="${tone}"${imgs ? ` data-imgs="${imgs.join(',')}"` : ''}${mode ? ` data-mode="${mode}"` : ''} role="img" aria-label="${attr(label || '3D illustration')}"></div>`;
+const INTRO = `<div class="intro" hidden aria-hidden="true"><div><span class="in-clip"><span class="in-w">${[...'HUNT GLOBAL'].map((c, i) => `<span style="--i:${i}">${c === ' ' ? '&nbsp;' : c}</span>`).join('')}</span></span><i class="in-line"></i><p class="in-sub">A Singapore institution. Built for the world.</p></div></div>
+<script>try{if(!sessionStorage.getItem('hg-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.currentScript.previousElementSibling.hidden=false;sessionStorage.setItem('hg-intro','1');document.documentElement.classList.add('intro-on')}}catch(e){}</script>`;
 const kick = t => `<p class="kick rv">${amp(t)}</p>`;
 const media = (m, { cls = '', alt = '', lazy = true } = {}) => `<div class="hue${cls ? ' ' + cls : ''}">${m.vid
   ? `<video muted playsinline loop autoplay preload="${lazy ? 'none' : 'auto'}" poster="${m.img}" data-auto><source src="${m.vid}" type="video/mp4"></video>`
@@ -253,13 +255,15 @@ const layout = ({ path, title, desc, body, home = false }) => `<!doctype html>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23000'/%3E%3Crect x='12' y='12' width='16' height='16' fill='%235B9BFF' transform='rotate(45 20 20)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Archivo:wght@500;600&family=Poppins:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700&family=Archivo:wght@500;600&family=Poppins:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/real.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/chapters.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/luxe.css?v=${V}">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 </head>
 <body class="${home ? 'home' : 'pg'}">
+${home ? INTRO : ''}
 <a class="skip" href="#main">Skip to content</a>
 ${home ? '' : nav(path)}
 ${home ? '' : subnav(path)}
@@ -276,6 +280,7 @@ ${footer()}
 <script src="/assets/js/journey.js?v=${V}" defer></script>
 <script src="/assets/js/hero.js?v=${V}" defer></script>
 <script src="/assets/js/motion.js?v=${V}" defer></script>
+<script src="/assets/js/luxe.js?v=${V}" defer></script>
 <script src="/assets/js/site.js?v=${V}" defer></script>
 </body>
 </html>
@@ -351,6 +356,7 @@ ${chap('navy', 'The Heart', `  <div class="heart">
       ${stair('The Heart.', { size: 'l', max: 14 })}
       <p class="simple rv">One control room in Singapore. AI agents working across the companies report into it, day and night.</p>
       <p class="lead rv" style="margin-top:22px">Orchestrated from Singapore. Scaling globally across APAC, MENA, UK/Europe and North America.</p>
+      <p class="rv" style="margin-top:14px;max-width:34em;opacity:.86">Our portfolio operates synchronously through a unified agentic framework. We partner with large enterprises across our key regions to build and deploy autonomous AI solutions, optimizing infrastructure and driving regional growth, all governed from our central HQ.</p>
       <div class="sys rv" aria-label="System core">
         <div class="sys-h"><span>System core</span><span>The Heart — Singapore HQ</span></div>
         <div class="sys-g"><div><small>Tasks today</small><b data-tick="140283" data-step="5">140,283</b></div><div><small>Messages exchanged</small><b data-tick="892105" data-step="15">892,105</b></div><div><small>Network status</small><b class="ok"><i></i>Optimal</b></div></div>
