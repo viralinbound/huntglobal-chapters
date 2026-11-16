@@ -4,7 +4,7 @@
 // Primary actions point at the live company site / app stores so every button still works.
 import { mkdirSync, writeFileSync } from 'node:fs';
 
-const V = 29;
+const V = 30;
 const esc = s => String(s).replace(/&(?!amp;|#|[a-z]+;)/g, '&amp;');
 const A = (id, f) => `/assets/co/${id}/${f}`;
 const x3d = (scene, cls, label, tone = 'dark') => `<div class="x3d ${cls}" data-3d="${scene}" data-tone="${tone}" role="img" aria-label="${label}"></div>`;
@@ -108,7 +108,7 @@ const out = {};
 </div></section>
 
 <section class="sec alt" id="stages"><div class="w">
-  <div class="head"><div>${lbl('From intelligence to action')}<h2 class="h2 rv">Every stage. <em>One connected intelligence.</em></h2></div></div>
+  <div class="head"><div>${lbl('From intelligence to action')}<h2 class="h2 rv">6 Lifecycle stages. <em>One connected intelligence.</em></h2></div></div>
   <div class="tabs" data-tabs>
     <div class="tablist" role="tablist" aria-label="Lifecycle stages">${STAGES.map((s, i) => `<button role="tab" id="t${i}" aria-controls="p${i}" aria-selected="${!i}"${i ? ' tabindex="-1"' : ''}><i>0${i + 1}</i><b>${esc(s[0])}</b><span>${esc(s[2])}</span></button>`).join('')}</div>
     <div>${STAGES.map((s, i) => `<article class="panel" role="tabpanel" id="p${i}" aria-labelledby="t${i}"${i ? ' hidden' : ''}>
@@ -162,39 +162,39 @@ const out = {};
 {
   const id = 'replaice', R = f => A(id, f), LIVE = 'https://replaice.ai/';
   const PRODUCTS = [
-    { k: 'Construction & compliance OS', t: 'BiltFlow', s: 'The intelligent operating system for construction.', p: 'Connect feasibility, drawings and takeoff with procurement, project delivery, claims and reporting.', f: ['BOQ Engine & Estimator', 'Vault & ProcureFlow', 'Pulse, PayFlow & ResourceFlow'], href: '/ventures/biltflow/', img: R('biltflow-feasibility.webp'), flowCap: 'BiltFlow workflow', flow: ['Feasibility — assess the site before committing', 'Vault — review drawing revisions', 'Pulse + ProcureFlow — review schedule and tender impacts', 'ResourceFlow — match workforce capacity to demand'] },
-    { k: 'Physical AI & robotics', t: 'NorthStar', s: 'See more. Detect earlier. Act smarter.', p: 'Use drones, robotics and visual AI to inspect physical sites and connect observations to project records.', f: ['Autonomous inspection', 'Visual risk detection', 'Drawing & schedule links'], href: 'https://northstar.biltflow.com', flowCap: 'NorthStar workflow · illustrative data', flow: ['Start drone inspection · Zone B', 'Scan facade and flag deviation', 'Compare against the baseline', 'Link observation to drawing and schedule'], extra: 'Drone · Humanoid · Quadruped · AI & IoT enabled smart wearable' },
-    { k: 'Enterprise knowledge intelligence', t: 'HybridRAG Agent', s: 'Give every agent the context it needs.', p: 'Turn documents, data and institutional knowledge into grounded context for enterprise AI.', f: ['Multimodal ingestion', 'Vector, graph & BM25 retrieval', 'MCP & API integration'], href: 'https://hybridragagent.com', flowCap: 'How it grounds answers', flow: ['ETL for AI data — cleanse and process images, documents, and connected data sources', 'Structure them into datasets that preserve meaning for retrieval', 'High-precision hybrid search — vector, BM25 full-text and tensor retrieval', 'Custom scoring and reranking select the most relevant context'] },
-    { k: 'Autonomous IT & customer support', t: 'Replaice Desk', s: 'Resolve requests across every channel.', p: 'Handle Level 1 support and assist Level 2 teams across voice, messaging, email and web.', f: ['Omnichannel intake', 'Knowledge-backed resolution', 'Smart escalation & human handoff'], href: 'https://desk.dev.replaice.co/', flowCap: 'Replaice Desk workflow · illustrative data', flow: ['Receive account access request', 'Classify ticket and retrieve policy', 'Execute authorized reset workflow', 'Close ticket or route exception to an agent'] },
-    { k: 'Secure document intelligence', t: 'Janavy', s: 'Protect documents and govern access.', p: 'Share sensitive files and manage agreement workflows with controlled access and audit visibility.', f: ['Secure document sharing', 'NDA and agreement workflows', 'Document analytics'], href: 'https://janavy.com', flowCap: 'Janavy workflow · illustrative data', flow: ['Upload confidential agreement', 'Configure viewer access and NDA', 'Record authorized recipient view', 'Update document activity history'] },
-    { k: 'Agentic omnichannel engagement', t: 'Engage', s: 'Coordinate every customer journey.', p: 'Personalize outreach across email, WhatsApp, SMS, voice and digital channels.', f: ['Real-time segmentation', 'Journey orchestration', 'AI personalization'], href: 'https://engage.dev.replaice.co/', flowCap: 'Engage workflow · illustrative data', flow: ['Customer enters renewal segment', 'Agent selects the next action', 'Send WhatsApp and schedule email follow-up', 'Adapt journey to the customer response'] },
-    { k: 'Agentic AI for healthcare', t: 'ReplaiceCare', s: 'Connected Intelligence. Coordinated Care. Better Outcomes.', p: 'ReplaiceCare unifies fragmented clinical, operational, and administrative systems through specialized AI agents. It connects healthcare data, coordinates multistep workflows, and helps providers and health plans reduce administrative burden while preserving human oversight.', f: ['Clinical and Operational Intelligence', 'EHR and Payer System Integration', 'Patient Access and Care Coordination', 'Claims and Revenue Cycle Automation', 'Healthcare Knowledge and Guidelines', 'Governed Agentic Workflows'], href: 'https://replaice.ai/platform/replaicecare', flowCap: 'Authorized sources · fictional demo', flow: ['Electronic Health Record', 'Billing System', 'Payer Platform', 'Clinical Guidelines', 'Approved Regulatory Data'] }
+    { k: 'Construction & compliance OS', t: 'BiltFlow', s: 'The intelligent operating system for construction.', p: 'Connect feasibility, drawings and takeoff with procurement, project delivery, claims and reporting.', f: [], href: '/ventures/biltflow/', img: R('biltflow-feasibility.webp'), flowCap: 'One connected construction lifecycle.', flow: ['SiteScope — Assess site feasibility and carry project constraints and assumptions into planning.', 'Pulse — Build the programme, connecting phases, dependencies and milestones to delivery dates.', 'Vault — Manage drawings, documents and revisions that define the scope for estimating and procurement.', 'BOQ Engine & Estimator — Turn reviewed drawings into quantities and cost estimates for trade packages.', 'ProcureFlow — Take those packages through tendering, bid comparison and contract award, aligned with programme requirements.', 'PayFlow — Assess progress claims against awarded scope, contract terms and milestones, then certify approved amounts for payment.', 'ResourceFlow — Use programme dates to forecast workforce demand and coordinate allocations across projects throughout delivery.'] },
+    { k: 'Physical AI & robotics', t: 'NorthStar', s: 'See more. Detect earlier. Act smarter.', p: 'Use drones, robotics and visual AI to inspect physical sites and connect observations to project records.', f: ['Autonomous inspection', 'Visual risk detection', 'Drawing & schedule links'], href: 'https://northstar.biltflow.com', flowCap: 'How it works', flow: ['Start drone inspection · Zone B', 'Scan facade and flag deviation', 'Compare against the baseline', 'Link observation to drawing and schedule'] },
+    { k: 'Enterprise knowledge intelligence', t: 'HybridRAG Agent', s: 'Give every agent the context it needs.', p: 'Turn documents, data and institutional knowledge into grounded context for enterprise AI.', f: ['Multimodal ingestion', 'Vector, graph & BM25 retrieval', 'MCP & API integration'], href: 'https://hybridragagent.com', flowCap: 'How it works', flow: ['Ask which controls apply to supplier onboarding', 'Retrieve similar passages via vector search', 'Resolve related policies via knowledge graph', 'Merge full-text matches and cite the evidence'] },
+    { k: 'Autonomous IT & customer support', t: 'Replaice Desk', s: 'Resolve requests across every channel.', p: 'Handle Level 1 support and assist Level 2 teams across voice, messaging, email and web.', f: ['Omnichannel intake', 'Knowledge-backed resolution', 'Smart escalation & human handoff'], href: 'https://desk.dev.replaice.co/', flowCap: 'How it works', flow: ['Receive account access request', 'Classify ticket and retrieve policy', 'Execute authorized reset workflow', 'Close ticket or route exception to an agent'] },
+    { k: 'Secure document intelligence', t: 'Janavy', s: 'Protect documents and govern access.', p: 'Share sensitive files and manage agreement workflows with controlled access and audit visibility.', f: ['Secure document sharing', 'NDA and agreement workflows', 'Document analytics'], href: 'https://janavy.com', flowCap: 'How it works', flow: ['Upload confidential agreement', 'Configure viewer access and NDA', 'Record authorized recipient view', 'Update document activity history'] },
+    { k: 'Agentic omnichannel engagement', t: 'Engage', s: 'Coordinate every customer journey.', p: 'Personalize outreach across email, WhatsApp, SMS, voice and digital channels.', f: ['Real-time segmentation', 'Journey orchestration', 'AI personalization'], href: 'https://engage.dev.replaice.co/', flowCap: 'How it works', flow: ['Customer enters renewal segment', 'Agent selects the next action', 'Send WhatsApp and schedule email follow-up', 'Adapt journey to the customer response'] },
+    { k: 'Agentic AI for healthcare', t: 'ReplaiceCare', s: 'Connected Intelligence. Coordinated Care. Better Outcomes.', p: 'ReplaiceCare unifies fragmented clinical, operational, and administrative systems through specialized AI agents. It connects healthcare data, coordinates multistep workflows, and helps providers and health plans reduce administrative burden while preserving human oversight.', f: ['Clinical and Operational Intelligence', 'EHR and Payer System Integration', 'Patient Access and Care Coordination'], href: 'https://replaice.ai/platform/replaicecare', flowCap: 'How it works', flow: ['Connect authorized systems', 'Coordinate intake', 'Route administrative tasks', 'Review claims workflows'] }
   ];
   out[id] = shell({ id, theme: '#071029', title: 'Replaice — Enterprise Agentic AI & Physical AI Platforms', desc: 'Replaice transforms enterprise expertise, data, and operational complexity into intelligent action, powered by Agentic AI & Physical AI.',
     logo: `<img src="${R('logo.png')}" alt="Replaice">`,
-    nav: [['#platforms', 'Platforms'], ['#what', 'What we do'], ['#security', 'Security'], ['#solutions', 'Solutions']],
-    cta: ['https://replaice.ai/contact/', 'Request a demo'],
-    foot: { tag: 'Enterprise Agentic AI + Physical AI. Specialized platforms for construction, robotics, compliance, enterprise knowledge, customer support, engagement and healthcare.', links: [['#platforms', 'Platforms'], ['#solutions', 'Solutions'], ['#security', 'Security'], ['https://replaice.ai/contact/', 'Contact'], ['https://replaice.ai/privacy/', 'Privacy'], ['https://replaice.ai/terms/', 'Terms']], copy: '© 2026 Replaice Technologies · A Hunt Global company', site: LIVE },
+    nav: [['#platforms', 'Platforms'], ['#what', 'Where we work'], ['#security', 'Security'], ['#solutions', 'Solutions']],
+    cta: ['https://replaice.ai/contact/', 'Book a demo'],
+    foot: { tag: 'Replaice provides enterprise AI platforms and implementation services for agentic workflows, construction operations, customer support, IT help desks, healthcare operations, and physical AI.', links: [['#platforms', 'Platforms'], ['#solutions', 'Solutions'], ['#security', 'Security'], ['https://replaice.ai/contact/', 'Contact'], ['https://replaice.ai/privacy/', 'Privacy'], ['https://replaice.ai/terms/', 'Terms']], copy: '© 2026 Replaice Technologies · A Hunt Global company', site: LIVE },
     body: `
 <section class="vhero sec deep" style="padding-top:clamp(70px,10vw,140px)"><div class="w grid">
   <div>${lbl('Enterprise Agentic AI + Physical AI')}
     <h1 class="h1 rv">From Enterprise Complexity to <em>Intelligent Action.</em></h1>
     <p class="lead rv"><strong style="color:#fff">Powered by Agentic AI &amp; Physical AI.</strong> Replaice transforms enterprise expertise, data, and operational complexity into intelligent action. Our specialized AI platforms combine enterprise knowledge, autonomous agents, and physical intelligence to help organizations adopt AI, orchestrate mission-critical workflows, and accelerate business transformation.</p>
-    <div class="btns rv"><a class="btn" href="#platforms">Explore our platforms</a><a class="btn ghost ext" href="https://replaice.ai/contact/" target="_blank" rel="noopener">Talk to our AI team</a></div>
+    <div class="btns rv"><a class="btn" href="#platforms">Explore Our Platforms</a><a class="btn ghost ext" href="https://replaice.ai/contact/" target="_blank" rel="noopener">Talk to Our AI Team</a></div>
   </div>
   <div class="media rv">${dstack([R('biltflow-vault.webp'), R('biltflow-feasibility.webp'), R('biltflow-pulse.webp')], 'ds-hero', 'Replaice platform screens: Vault drawing review, Feasibility and Pulse')}</div>
 </div></section>
 
 <section class="sec"><div class="w">
+  ${lbl('Enterprise AI benchmarks achieved')}
   <div class="metrics m3 rv">
     <div><b>7</b><span>Specialized AI platforms</span></div><div><b>40+</b><span>Distinct language models</span></div><div><b>110 hours</b><span>Saved per user per year</span></div>
-    <div><b>275+</b><span>Work app and data source connections</span></div><div><b>3+ billion</b><span>Cumulative searches across documents and knowledge objects</span></div><div><b>99.9%+</b><span>Uptime across core search and AI services</span></div>
+    <div><b>250+</b><span>Work app and data source connections</span></div><div><b>3+ billion</b><span>Cumulative searches across documents and knowledge objects</span></div><div><b>99.9%+</b><span>Uptime across core search and AI services</span></div>
   </div>
-  <p class="note">Illustrative enterprise AI benchmarks, as published by Replaice.</p>
 </div></section>
 
 <section class="sec deep" id="architecture"><div class="w split">
-  <div>${lbl('Replaice platform architecture')}<h2 class="h2 rv">One platform. <em>Four layers.</em></h2><p class="lead rv">Illustrative enterprise systems and data flow — from ERP and CRM up to your enterprise AI co-worker.</p><div style="margin-top:34px"><div class="stack rv" style="max-width:560px" aria-label="Replaice platform architecture">
+  <div>${lbl('Architecture')}<h2 class="h2 rv">Replaice platform <em>architecture.</em></h2><p class="lead rv">See how it all connects.</p><div style="margin-top:34px"><div class="stack rv" style="max-width:560px" aria-label="Replaice platform architecture">
     <div class="layer top"><b>Replaice AI Agent</b><span>Your enterprise AI co-worker.</span></div>
     <div class="layer"><b>Replaice Intelligence</b><span>Orchestrate AI for enterprise work.<small>Task routing · AI usage controls · Model access · APIs &amp; MCP</small></span></div>
     <div class="layer"><b>Replaice Enterprise Context</b><span>Ground AI in the people, knowledge, and systems behind your work.</span></div>
@@ -205,18 +205,21 @@ const out = {};
 </div></section>
 
 <section class="sec alt" id="what"><div class="w">
-  <div class="head"><div>${lbl('What we do')}<h2 class="h2 rv">Enterprise intelligence. <em>Built around your business.</em></h2></div><p class="lead rv">Replaice combines enterprise technology expertise with purpose-built AI platforms to help organizations move from experimentation to intelligent, autonomous operations.</p></div>
-  <div class="cards">
-    <div class="card rv"><span class="k">Enterprise AI transformation</span><h3 class="h3">Turn institutional knowledge into production-ready intelligence.</h3><p>Transform enterprise data, workflows and expertise into secure AI systems.</p>${ul(['Discover high-impact AI opportunities', 'Connect business knowledge, applications and models', 'Deploy governed workflows and measure performance'])}</div>
-    <div class="card rv"><span class="k">Agentic AI platforms</span><h3 class="h3">Put intelligence to work.</h3><p>Automate complex processes and coordinate execution across enterprise systems.</p>${ul(['Specialized enterprise AI for operational workflows', 'Agents that plan and take authorized actions', 'Cross-system orchestration with human oversight'])}</div>
-    <div class="card rv"><span class="k">Physical AI & robotics</span><h3 class="h3">Bring intelligence into the real world.</h3><p>NorthStar combines drones, robotics, computer vision and agents to optimize physical operations.</p>${ul(['Autonomous site capture and analysis', 'Visual detection of progress, quality and safety issues', 'Evidence linked to drawings, quantities and schedules'])}</div>
+  <div class="head"><div>${lbl('Where we work')}<h2 class="h2 rv">Built around <em>your business.</em></h2></div><p class="lead rv">Connect the knowledge, systems and workflows behind your operations—with AI designed for the work your teams do.</p></div>
+  <div class="cards c2">
+    <div class="card rv"><span class="k">Construction &amp; Real Estate</span><h3 class="h3">Keep projects connected.</h3><p>Bring drawings, quantities, procurement and schedules together—from early planning through delivery.</p><p class="note">BiltFlow</p></div>
+    <div class="card rv"><span class="k">Healthcare</span><h3 class="h3">Coordinate the work around care.</h3><p>Connect patient access, referrals, claims and administrative workflows across healthcare systems, with human oversight.</p><p class="note">ReplaiceCare</p></div>
+    <div class="card rv"><span class="k">Customer Service</span><h3 class="h3">Move requests to resolution.</h3><p>Connect conversations with relevant knowledge and authorized actions. Resolve routine requests and route exceptions to the right team.</p><p class="note">Replaice Desk</p></div>
+    <div class="card rv"><span class="k">Enterprise IT</span><h3 class="h3">Turn knowledge into action.</h3><p>Help service teams find approved information, respond to requests and carry out authorized tasks across business applications.</p><p class="note">Replaice Desk</p></div>
   </div>
+  <blockquote class="statement rv" style="font-size:clamp(26px,2.6vw,40px);margin-top:clamp(50px,6vw,80px);max-width:30em">“Replaice transformed how leading Australian construction companies work—unifying fragmented legacy software in BiltFlow, connecting workflows across the construction lifecycle, and reducing technology costs by 60%.”</blockquote>
+  <p class="note">Enterprise AI in practice</p>
 </div></section>
 
 <section class="sec" id="platforms"><div class="w">
-  <div class="head"><div>${lbl('The Replaice product ecosystem')}<h2 class="h2 rv">Purpose-built AI. <em>Enterprise-wide impact.</em></h2></div><p class="lead rv">Seven specialized AI platforms for construction, robotics, compliance, enterprise knowledge, customer support, engagement and healthcare.</p></div>
+  <div class="head"><div>${lbl('Platforms')}<h2 class="h2 rv">Seven platforms. <em>One intelligent enterprise.</em></h2></div><p class="lead rv">Purpose-built AI for knowledge, support, engagement, documents, construction, robotics and healthcare, with governance at the core.</p></div>
   <div class="prods">${PRODUCTS.map(p => `<article class="prod rv">
-    <div><span class="k">${esc(p.k)}</span><h3>${esc(p.t)}</h3><h4>${esc(p.s)}</h4><p>${esc(p.p)}</p>${ul(p.f)}<a class="btn${p.href.startsWith('http') ? ' ext' : ''}" href="${p.href}"${p.href.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>Explore ${esc(p.t)}</a></div>
+    <div><span class="k">${esc(p.k)}</span><h3>${esc(p.t)}</h3><h4>${esc(p.s)}</h4><p>${esc(p.p)}</p>${p.f.length ? ul(p.f) : ''}<a class="btn${p.href.startsWith('http') ? ' ext' : ''}" href="${p.href}"${p.href.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>Explore ${esc(p.t)}</a></div>
     <div class="pm">${p.img ? `<img src="${p.img}" alt="${esc(p.t)} interface" loading="lazy" style="margin-bottom:16px">` : ''}<p class="cap">${esc(p.flowCap)}</p><ol class="flow">${p.flow.map(x => `<li>${esc(x)}</li>`).join('')}</ol>${p.extra ? `<p class="note">${esc(p.extra)}</p>` : ''}</div>
   </article>`).join('')}</div>
 </div></section>
@@ -229,11 +232,11 @@ const out = {};
     <div class="card rv" style="background:transparent"><span class="k">Data and action governance</span><p>Set operating boundaries and route sensitive actions to people for approval.</p></div>
   </div>
   <div class="metrics rv" style="margin-top:56px"><div><b style="font-size:clamp(26px,2.4vw,36px)">ISO/IEC 27001</b><span>Information security management</span></div><div><b style="font-size:clamp(26px,2.4vw,36px)">SOC 2</b><span>Independent controls reporting</span></div><div><b style="font-size:clamp(26px,2.4vw,36px)">HIPAA</b><span>Health information safeguards</span></div><div><b style="font-size:clamp(26px,2.4vw,36px)">GDPR</b><span>Personal data protection</span></div></div>
-  <p class="note">Standards for your security review — discuss applicable requirements and available assurance documentation for your deployment.</p>
+  <p class="note">Standards and regulations for your security review. These references describe review topics. Ask our team for verified assurance documentation and deployment-specific requirements.</p>
 </div></section>
 
 <section class="sec alt" id="solutions"><div class="w">
-  <div class="head"><div>${lbl('Solutions')}<h2 class="h2 rv">Find the right <em>enterprise AI solution.</em></h2></div></div>
+  <div class="head"><div><h2 class="h2 rv"><em>Solutions</em></h2></div></div>
   <div class="cards c2">
     <a class="card rv" href="https://replaice.ai/solutions/enterprise-ai/" target="_blank" rel="noopener"><span class="k">Enterprise AI</span><h3 class="h3">Enterprise AI platforms and implementation services</h3><p>Replaice helps enterprises select AI use cases, connect business data and applications, and deploy governed agentic workflows.</p></a>
     <a class="card rv" href="https://replaice.ai/solutions/construction-ai/" target="_blank" rel="noopener"><span class="k">Construction AI</span><h3 class="h3">AI platform for construction operations</h3><p>BiltFlow is Replaice’s construction AI platform for feasibility, drawing review, quantity takeoff, procurement, project scheduling, claims and reporting.</p></a>
@@ -242,7 +245,7 @@ const out = {};
   </div>
 </div></section>
 
-<section class="sec vcta"><div class="w">${lbl('Get started')}<h2 class="h2 rv">Your enterprise is ready for <em>intelligent action.</em></h2><p class="lead rv">Build connected operations with specialized agentic platforms.</p><div class="btns rv"><a class="btn ext" href="https://replaice.ai/contact/" target="_blank" rel="noopener">Request a demo</a><a class="btn ghost" href="/portfolio/replaice-technologies/">Replaice at Hunt Global</a></div></div></section>`
+<section class="sec vcta"><div class="w"><h2 class="h2 rv">Your enterprise is ready for <em>intelligent action.</em></h2><p class="lead rv">Build connected operations with specialized agentic platforms, trusted enterprise intelligence and physical AI.</p><div class="btns rv"><a class="btn ext" href="https://replaice.ai/contact/" target="_blank" rel="noopener">Book a demo</a><a class="btn ghost" href="/portfolio/replaice-technologies/">Replaice at Hunt Global</a></div></div></section>`
   });
 }
 
@@ -259,7 +262,7 @@ const out = {};
     logo: `<span class="hjlogo"><i aria-hidden="true">H</i><span>hunt<b>jobs</b>.ai</span></span>`,
     nav: [['#seekers', 'Find a job'], ['#recruiters', 'For recruiters'], ['#how', 'How it works'], ['#stories', 'Stories']],
     cta: [LIVE, 'Start now for free'],
-    foot: { tag: 'Your next opportunity, delivered in a heartbeat. An AI-powered jobs marketplace — on the App Store and Google Play.', links: [['https://huntjobs.ai/for-recruiters', 'For recruiters'], ['https://huntjobs.ai/blogs', 'Blogs'], ['https://huntjobs.ai/faqs', 'FAQs'], ['https://huntjobs.ai/contact', 'Contact'], ['https://www.linkedin.com/company/huntjobs/', 'LinkedIn'], ['https://www.instagram.com/huntjobs.ai/', 'Instagram'], ['https://huntjobs.ai/privacy-policy', 'Privacy'], ['https://huntjobs.ai/terms-and-conditions', 'Terms']], copy: '© 2026 HuntJobs.ai · A Hunt Global company', site: LIVE },
+    foot: { tag: 'Your next opportunity, delivered in a heartbeat. An AI-powered jobs marketplace matching professionals with employers globally.', links: [['https://huntjobs.ai/for-recruiters', 'For recruiters'], ['https://huntjobs.ai/blogs', 'Blogs'], ['https://huntjobs.ai/faqs', 'FAQs'], ['https://huntjobs.ai/contact', 'Contact'], ['https://www.linkedin.com/company/huntjobs/', 'LinkedIn'], ['https://www.instagram.com/huntjobs.ai/', 'Instagram'], ['https://huntjobs.ai/privacy-policy', 'Privacy'], ['https://huntjobs.ai/terms-and-conditions', 'Terms']], copy: '© 2026 HuntJobs.ai · A Hunt Global company', site: LIVE },
     body: `
 <section class="vhero"><div class="w grid">
   <div>${lbl('AI · Talent marketplace')}
@@ -272,7 +275,7 @@ const out = {};
 </div></section>
 
 <section class="sec alt band"><div class="w split">
-  <div>${lbl('AI matching')}<h2 class="h2 rv">A real match. <em>In a heartbeat.</em></h2><p class="lead rv">Our platform uses AI to match your skills and experience with the best job opportunities — and surfaces hidden talent recruiters might otherwise miss.</p></div>
+  <div>${lbl('AI matching')}<h2 class="h2 rv">Tailored job matches <em>instantly.</em></h2><p class="lead rv">Our platform uses AI to match your skills and experience with the best job opportunities in the skilled trades.</p></div>
   <div class="media rv">${dstack([H('hero-mobile.webp')], 'ds-phone', 'The HuntJobs app matching a delivery partner role')}</div>
 </div></section>
 
@@ -307,7 +310,7 @@ const out = {};
   <div class="quotes">${QUOTES.map(([n, r, q]) => `<figure class="quote rv" style="margin:0"><p>“${esc(q)}”</p><figcaption><b>${esc(n)}</b><span>${esc(r)}</span></figcaption></figure>`).join('')}</div>
 </div></section>
 
-<section class="sec deep vcta"><div class="w">${lbl('Ready for your next move?')}<h2 class="h2 rv">Hire or get hired. <em>In a heartbeat.</em></h2><p class="lead rv">Download HuntJobs on the App Store and Google Play, or start on the web for free.</p><div class="btns rv"><a class="btn ext" href="${LIVE}" target="_blank" rel="noopener">Start now for free</a><a class="btn ghost ext" href="${PLAY}" target="_blank" rel="noopener">Google Play</a><a class="btn ghost ext" href="${IOS}" target="_blank" rel="noopener">App Store</a></div></div></section>`
+<section class="sec deep vcta"><div class="w">${lbl('Ready for your next move?')}<h2 class="h2 rv">Hire Smarter. <em>Get Hired Faster.</em></h2><p class="lead rv">Thousands are building careers they love with HuntJobs.ai. Your success story starts now.</p><div class="btns rv"><a class="btn ext" href="${LIVE}" target="_blank" rel="noopener">Start now for free</a><a class="btn ghost ext" href="${PLAY}" target="_blank" rel="noopener">Google Play</a><a class="btn ghost ext" href="${IOS}" target="_blank" rel="noopener">App Store</a></div></div></section>`
   });
 }
 
@@ -320,7 +323,7 @@ const out = {};
     logo: `<span style="font:700 26px/1 var(--f);letter-spacing:-.04em">tribe<span style="color:var(--acc)">.</span></span>`,
     nav: [['#rent', 'Rent and rewards'], ['#hoods', 'Tribehoods'], ['#sarah', 'Ask Sarah'], ['#app', 'The app']],
     cta: [LIVE, 'Find my home'],
-    foot: { tag: 'A place to belong, not just a place to live. Rent and Rewards across Sydney’s Tribehoods.', links: [['#rent', 'Rent and rewards'], ['#hoods', 'Tribehoods'], ['#app', 'The app'], ['https://tribeapp.com.au/tribev6/terms', 'Terms'], ['https://tribeapp.com.au/tribev6/privacy', 'Privacy']], copy: '© 2026 Tribe · A Hunt Global company', site: LIVE },
+    foot: { tag: 'The intelligent operating system for rental living.', links: [['#rent', 'Rent and rewards'], ['#hoods', 'Tribehoods'], ['#app', 'The app'], ['https://tribeapp.com.au/tribev6/terms', 'Terms'], ['https://tribeapp.com.au/tribev6/privacy', 'Privacy']], copy: '© 2026 Tribe · A Hunt Global company', site: LIVE },
     body: `
 <section class="vhero" style="padding-bottom:clamp(80px,10vw,140px)"><div class="w grid">
   <div>${lbl('Rent with Tribe')}
@@ -334,7 +337,7 @@ const out = {};
       <div class="chat-h"><i>S</i><div><b>Sarah</b><span>Tribe’s AI concierge · available 24x7</span></div></div>
       <ul><li>How do I get my bond back?</li><li>Can I bring my dog?</li><li>Urgent repairs?</li></ul>
       <div class="opts"><span>Studio</span><span>1 bed</span><span>2 bed</span><span>3 bed</span><span>Pool</span><span>Parking</span><span>Furnished</span></div>
-      <div class="in">Where do you want to live?<b aria-hidden="true">&uarr;</b></div>
+      <div class="in">Or just ask Sarah.<b aria-hidden="true">&uarr;</b></div>
     </div>
   </div>
 </div></section>
@@ -345,12 +348,12 @@ const out = {};
 </div></section>
 
 <section class="sec band"><div class="w">
-  <div class="head"><div>${lbl('Tribehoods')}<h2 class="h2 rv">A place to belong, <em>not just a place to live.</em></h2></div><p class="lead rv">Homes, buildings and the neighbourhood around them — connected in one place, with Sarah on hand 24x7.</p></div>
+  <div class="head"><div>${lbl('Tribehoods')}<h2 class="h2 rv">A place to belong, <em>not just a place to live.</em></h2></div><p class="lead rv">Where you live is just the beginning. Discover the neighbourhoods, people and places that make you feel like you belong.</p></div>
   <div class="lux-mosaic rv" role="img" aria-label="Tribe residents and neighbourhood life">${['party-1200.webp', 'supper-1200.webp', 'bbq-1200.webp', 'movie-1200.webp', 'hero-25.webp'].map(x => `<figure><img src="${T(x)}" alt="" loading="lazy"></figure>`).join('')}</div>
 </div></section>
 
 <section class="sec" id="rent"><div class="w">
-  <div class="head"><div>${lbl('Rent and rewards')}<h2 class="h2 rv">The people who <em>make it home.</em></h2></div><p class="lead rv">Tribe buildings where renting comes with rewards.</p></div>
+  <div class="head"><div>${lbl('Rent and rewards')}<h2 class="h2 rv">The people who <em>make it home.</em></h2></div><p class="lead rv">Move In Faster. Real Rewards. Take Back Control. Join the Movement.</p></div>
   <div class="hoods">
     <article class="hood rv"><div class="im"><img src="${T('parramatta-1-1200.webp')}" alt="Harris Park" loading="lazy"></div><div class="tx"><div><small>Rent and rewards · 2150</small><h3>Harris Park</h3></div><span class="pill live">Renting now</span></div></article>
     <article class="hood rv"><div class="im"><img src="${T('mason-and-main-merrylands.webp')}" alt="Mason &amp; Main, Merrylands" loading="lazy"></div><div class="tx"><div><small>Mason &amp; Main · 2160</small><h3>Merrylands</h3></div><span class="pill live">Renting now</span></div></article>
@@ -373,12 +376,12 @@ const out = {};
   <div>${lbl('In the app')}<h2 class="h2 rv">Your Tribe concierge <em>in your pocket.</em></h2><p class="lead rv">Speak to Sarah. Tell her how you want to live. She answers straight — and remembers. Only what fits you, your neighbourhood, member priced.</p>
     <div class="btns rv" style="margin-top:30px"><a class="btn ext" href="${IOS}" target="_blank" rel="noopener">App Store</a><a class="btn ghost ext" href="${PLAY}" target="_blank" rel="noopener">Google Play</a></div></div>
   <div class="cards c2 rv">
-    <div class="card"><span class="k">For residents</span><p>Manage your home, access building services, book amenities, raise maintenance requests and discover nearby services from one place.</p></div>
-    <div class="card"><span class="k">For property teams</span><p>Greater automation, visibility and operational control, with integrated AI assistants working across leasing, resident support and property operations.</p></div>
+    <div class="card"><span class="k">Residents</span><p>Residents can manage their home, access building services, book amenities, raise maintenance requests and discover nearby services from one place, while property teams gain greater automation, visibility and operational control.</p></div>
+    <div class="card"><span class="k">Property teams</span><p>With integrated AI assistants working across leasing, resident support and property operations, Tribe enables communities to operate more efficiently while delivering a more personalised living experience.</p></div>
   </div>
 </div></section>
 
-<section class="sec alt vcta"><div class="w">${lbl('Your Tribe, unlocked')}<h2 class="h2 rv">This is what renting was always <em>supposed to feel like.</em></h2><div class="btns rv" style="margin-top:34px"><a class="btn ext" href="${LIVE}" target="_blank" rel="noopener">Find my Tribe home</a><a class="btn ghost" href="/portfolio/tribe/">Tribe at Hunt Global</a></div></div></section>`
+<section class="sec alt vcta"><div class="w">${lbl('Your Tribe. Unlocked')}<h2 class="h2 rv">This is what renting was always <em>supposed to feel like.</em></h2><div class="btns rv" style="margin-top:34px"><a class="btn ext" href="${LIVE}" target="_blank" rel="noopener">Find my Tribe home</a><a class="btn ghost" href="/portfolio/tribe/">Tribe at Hunt Global</a></div></div></section>`
   });
 }
 

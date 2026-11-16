@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const V = 29; // cache-bust for css/js
+const V = 30; // cache-bust for css/js
 
 /* ======================= MEDIA ======================= */
 const HERO_VID = '/assets/vid/hero-sunrise.mp4';
@@ -304,16 +304,16 @@ const home = layout({ path: '/', home: true, title: 'Home', desc: "Singapore's G
       <div class="btns">${btn('/portfolio/', 'Explore our portfolio')}${btn('/contact/', 'Start a conversation', { dark: true })}</div>
     </div>
     <div class="jh-beat b2" aria-hidden="true">
-      <p class="kick">Group HQ · Singapore</p>
-      <p class="jh-big">Governed from Singapore. <span>Delivering autonomous intelligence to the world.</span></p>
-      <p class="hero-sub">Orchestrated from Singapore. Scaling globally across APAC, MENA, UK/Europe and North America.</p>
+      <p class="kick">Who we are</p>
+      <p class="jh-big">We build the companies <span>that define industries.</span></p>
+      <p class="hero-sub">We invest our own capital, operate from within, and hold proprietary IP designed to compound.</p>
     </div>
     <div class="jh-beat b3" aria-hidden="true">
       <p class="kick">Hunt Global</p>
       <p class="jh-big">Capital, technology and operating capability <span>under one house.</span></p>
       <div class="jh-stats"><div><b>5</b><span>Portfolio companies</span></div><div><b>120+</b><span>Team worldwide</span></div><div><b>4</b><span>Operating regions</span></div><div><b>39+</b><span>Patents filed</span></div></div>
     </div>
-    <div class="jh-route" aria-hidden="true"><span class="on">The world</span><span>Singapore</span><span>One house</span><i><b></b></i></div>
+    <div class="jh-route" aria-hidden="true"><span class="on">The world</span><span>Who we are</span><span>One house</span><i><b></b></i></div>
     <p class="jh-hint" aria-hidden="true">Scroll to begin the journey</p>
   </div>
 </section>

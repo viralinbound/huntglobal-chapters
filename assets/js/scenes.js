@@ -111,9 +111,9 @@ const SCENES = {
       const tilt = .2, sgFaceY = face + .04, sgFaceX = Math.max(-.7, Math.min(.7, 1.35 * Math.PI / 180 * .85));
       let ry = sgFaceY - 2.3;
       return { s, c, tick(t, p) {
-        const P = +slot._p || 0, turn = SS(0, .42, P), zoom = SS(.3, .8, P);
-        // spin from the Atlantic side round to Singapore, then hold it facing the viewer
-        const target = sgFaceY - (1 - turn) * 2.3 + (RM ? 0 : (1 - zoom) * Math.sin(t * .15) * .05);
+        const P = +slot._p || 0, zoom = 0;
+        // the whole world turns with the scroll (no dive into one city); routes appear in the second beat
+        const target = sgFaceY - 2.3 + P * 3.4 + (RM ? 0 : Math.sin(t * .15) * .05);
         ry += (target - ry) * (RM ? 1 : .08);
         g.rotation.y = ry + p.x * .05 * (1 - zoom); g.rotation.x = tilt + (sgFaceX - tilt) * zoom + p.y * .03 * (1 - zoom);
         // beat 1: the globe sits right of the headline (phones: above it); the dive centres it and fills the screen
