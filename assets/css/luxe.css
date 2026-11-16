@@ -161,3 +161,57 @@ html:not(.js) .sgh-lead{opacity:1;transform:none}
 .lux-par{overflow:hidden}
 .lux-par img{translate:0 var(--py,0px);scale:1.12}
 @media (prefers-reduced-motion:reduce){.lux-tilt,.lux-rise{rotate:none;translate:none}.lux-par img{translate:none;scale:none}}
+
+/* =================== LIGHT THEME, TOP TO BOTTOM =================== */
+/* hero: ivory ground, the films shown in a framed panel on the right (phones: a panel above the text) */
+.jh-back{background:#F5F0E8!important}
+.jh-v,.jh-film{clip-path:inset(13% 4.5% 13% 50% round 26px);transition:clip-path .6s ease}
+.jh-shade,.jh-front::before{display:none!important}
+.jh-front{color:#0B0E15!important}
+.jh-beat{max-width:min(640px,44vw)!important}
+.jh-beat h1,.jh-big,.jh-stats b{color:#0B0E15!important}
+.jh-beat .hero-sub{color:#4B4A50!important}
+.jhero .kick,.jh-beat .kick{color:var(--bronze)!important}
+.jhero .kick::before{background:var(--bronze)!important}
+.jhero .st .l.ac,.jh-big span,.jh-big .ac{color:var(--bronze)!important}
+.jh-stats{border-top-color:rgba(11,14,21,.18)!important}
+.jh-stats span{color:#857F73!important}
+.jhero .cbtn{background:#0B0E15!important;color:#F5F0E8!important;border-color:#0B0E15!important}
+.jhero .cbtn.dark{background:transparent!important;color:#0B0E15!important;border-color:rgba(11,14,21,.3)!important}
+.jhero .cbtn:hover,.jhero .cbtn.dark:hover{color:#17120a!important;border-color:var(--gold)!important}
+.jh-route span{color:rgba(11,14,21,.4)!important}
+.jh-route span.on{color:#0B0E15!important}
+.jh-route span::before{background:#F5F0E8!important;border-color:rgba(11,14,21,.35)!important}
+.jh-route span.on::before{background:var(--bronze)!important;border-color:var(--bronze)!important}
+.jh-route i{background:rgba(11,14,21,.14)!important}
+.jh-route b{background:var(--bronze)!important}
+.jh-hint{color:#857F73!important}
+.jhero .nav{border-color:rgba(11,14,21,.1)!important}
+.jhero .nav,.jhero .nav a,.jhero .nav button{color:#0B0E15!important}
+.jhero .nav .cbtn,.jhero .nav a.cbtn{background:#0B0E15!important;color:#F5F0E8!important}
+.jhero .nav svg{fill:currentColor}
+@media (max-width:900px){
+  .jh-v,.jh-film{clip-path:inset(11% 5% 54% 5% round 18px)}
+  .jh-beat{max-width:none!important}
+}
+/* names strip, curtain and footer in the light palette */
+.names{background:#EEE7DB!important;border-color:rgba(122,87,24,.25)!important}
+.names span{color:#0B0E15!important}
+.names i{color:var(--bronze)!important}
+.intro{background:#F5F0E8!important;color:#0B0E15!important}
+.intro .in-line{background:var(--bronze)!important}
+.intro .in-sub{color:var(--bronze)!important}
+.foot{background:#EEE7DB!important;color:#4B4A50!important;--dline:rgba(11,14,21,.14);padding-top:clamp(48px,5vw,80px)!important}
+.foot a,.foot h4,.foot b,.foot strong{color:#0B0E15!important}
+.foot .foot-word{color:#0B0E15!important;opacity:.9}
+.foot input{background:#fff!important;color:#0B0E15!important;border-color:rgba(11,14,21,.2)!important}
+.foot .cbtn,.foot button{background:#0B0E15!important;color:#F5F0E8!important;border-color:#0B0E15!important}
+.foot svg{fill:currentColor}
+/* tighter rhythm */
+.sec{padding-top:clamp(48px,5.5vw,92px)!important;padding-bottom:clamp(48px,5.5vw,92px)!important}
+.sec-head{margin-bottom:clamp(22px,3vw,44px)!important}
+.jhero{height:260vh!important}
+.phero{padding-top:clamp(40px,5vw,80px)!important;padding-bottom:clamp(40px,5vw,72px)!important}
+@media (max-width:760px){.sec{padding-top:44px!important;padding-bottom:44px!important}.jhero{height:240vh!important}}
+
+.veil{background:#F5F0E8!important}

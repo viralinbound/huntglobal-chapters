@@ -47,7 +47,8 @@
       alpha = ss(rad * .9, rad * 1.15, d);
     }
     tr._alpha = alpha; tr.style.opacity = alpha < 1 ? alpha.toFixed(3) : '';
-    const hide = k > .04 && k < .96; // the frame only shows at rest in its own chapter, never while passing over others
+    // the frame travels between nearby chapters (the opening three); across long stretches (the company band) it hides
+    const hide = k > .04 && k < .96 && (mobile || B.y - A.y > innerHeight * 2.2);
     tr.style.visibility = hide ? 'hidden' : 'visible';
     const at = (k < .5 ? A : B).d, src = at.dataset.img;
     if (src && src !== curImg) { curImg = src; const [p, q] = imgs[0].classList.contains('on') ? imgs : [imgs[1], imgs[0]]; q.onload = () => { q.classList.add('on'); p.classList.remove('on'); }; q.src = src; if (q.complete && q.naturalWidth) q.onload(); }
