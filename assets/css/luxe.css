@@ -173,7 +173,9 @@ html:not(.js) .sgh-lead{opacity:1;transform:none}
 .jh-beat .hero-sub{color:#4B4A50!important}
 .jhero .kick,.jh-beat .kick{color:var(--bronze)!important}
 .jhero .kick::before{background:var(--bronze)!important}
-.jhero .st .l.ac,.jh-big span,.jh-big .ac{color:var(--bronze)!important}
+.jhero .st .l.ac,.jh-big>span.ac,.jh-big .ac{color:var(--bronze)!important}
+.jh-big .lw,.jh-big .lwi{color:inherit!important}
+.jh-big .ac .lwi{color:transparent!important}
 .jh-stats{border-top-color:rgba(11,14,21,.18)!important}
 .jh-stats span{color:#857F73!important}
 .jhero .cbtn{background:#0B0E15!important;color:#F5F0E8!important;border-color:#0B0E15!important}
@@ -215,3 +217,35 @@ html:not(.js) .sgh-lead{opacity:1;transform:none}
 @media (max-width:760px){.sec{padding-top:44px!important;padding-bottom:44px!important}.jhero{height:240vh!important}}
 
 .veil{background:#F5F0E8!important}
+
+/* =================== GLOSS + 3D MOTION =================== */
+/* hero: the film panel tilts toward the pointer and carries a moving gloss */
+.jh-back{perspective:1500px}
+.jh-v,.jh-film{rotate:var(--hax,0) var(--hay,1) 0 var(--hang,0deg);transition:clip-path .6s ease,rotate .6s cubic-bezier(.2,.8,.2,1)}
+.jh-back.lux-live .jh-v,.jh-back.lux-live .jh-film{transition:clip-path .6s ease,rotate .12s linear}
+.jh-back::after{content:"";position:absolute;left:50%;right:4.5%;top:13%;bottom:13%;border-radius:26px;pointer-events:none;z-index:3;
+  background:radial-gradient(520px circle at var(--gx,70%) var(--gy,30%),rgba(255,255,255,.28),transparent 48%),linear-gradient(115deg,transparent 35%,rgba(255,255,255,.22) 48%,transparent 60%) 0 0/250% 100%;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),0 40px 90px -40px rgba(60,40,10,.45);animation:glossSweep 7s ease-in-out infinite}
+@keyframes glossSweep{0%,100%{background-position:0 0,100% 0}50%{background-position:0 0,0 0}}
+@media (max-width:900px){.jh-back::after{left:5%;right:5%;top:11%;bottom:54%;border-radius:18px}}
+/* depth: hero text drifts slightly against the panel */
+.jh-beat{translate:var(--tx,0) var(--ty,0)}
+/* headline words flip in with 3D */
+.lw{perspective:600px}
+.lwi{rotate:1 0 0 -62deg;transform-origin:50% 100%}
+.jh-beat.on .lwi,.sgh.on .lwi{rotate:1 0 0 0deg}
+.lwi{transition:transform 1.05s cubic-bezier(.2,.8,.2,1) calc(var(--d,0) * 42ms + 120ms),rotate 1.05s cubic-bezier(.2,.8,.2,1) calc(var(--d,0) * 42ms + 120ms)}
+/* glossy gold accents (italic words) */
+.st .l.ac,.jh-big .ac,.sgh-q em,.h2 em,.h1 em{background:linear-gradient(100deg,#6B4A12 0%,#B98B3A 32%,#E4C98B 48%,#B98B3A 64%,#6B4A12 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShine 6s ease-in-out infinite}
+@keyframes goldShine{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+.sgh .sgh-q em{background:linear-gradient(100deg,#C9A45C,#F3E2B3 48%,#C9A45C);background-size:220% 100%;-webkit-background-clip:text;background-clip:text}
+/* company strip leans with scroll speed */
+.names{perspective:900px;rotate:1 0 0 var(--lean,0deg);transform-origin:50% 100%;transition:rotate .35s ease-out}
+/* soft gloss edge on frames and panels */
+.browser,.tphoto,.lux-mosaic figure,.tile .hue,.icard .hue{box-shadow:0 36px 80px -44px rgba(60,40,10,.5),inset 0 0 0 1px rgba(255,255,255,.4)}
+@media (prefers-reduced-motion:reduce){.jh-v,.jh-film,.jh-beat,.names,.lwi{rotate:none!important;translate:none!important}.jh-back::after,.st .l.ac,.jh-big .ac,.h2 em,.h1 em{animation:none!important}}
+/* split words (motion.js / luxe.js) paint the gold gloss themselves, so the text never turns transparent */
+:is(.st .l.ac,.jh-big .ac,.sgh-q em,.h2 em,.h1 em):has(.wi,.lwi){background:none;-webkit-text-fill-color:currentColor;color:var(--bronze);animation:none}
+.sgh-q em:has(.lwi){color:#E4C98B}
+:is(.st .l.ac,.jh-big .ac,.sgh-q em,.h2 em,.h1 em) :is(.wi,.lwi){background:linear-gradient(100deg,#6B4A12 0%,#B98B3A 32%,#E4C98B 48%,#B98B3A 64%,#6B4A12 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShine 6s ease-in-out infinite}
+.sgh-q em :is(.wi,.lwi){background:linear-gradient(100deg,#C9A45C,#F3E2B3 48%,#C9A45C);background-size:220% 100%;-webkit-background-clip:text;background-clip:text}

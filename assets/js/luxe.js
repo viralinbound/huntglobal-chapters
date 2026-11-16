@@ -79,6 +79,23 @@
     addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(tick); } }, { passive: true }); tick();
   }
 
+
+  /* hero: pointer tilts the film panel in 3D and shifts the text the other way; scroll speed leans the company strip */
+  const jb = document.querySelector('.jh-back'), jf = document.querySelector('.jh-front');
+  if (jb && !RM && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let raf = 0, ev = null;
+    const go = () => { raf = 0; const x = ev.clientX / innerWidth, y = ev.clientY / innerHeight, ax = (.5 - y) * 7, ay = (x - .5) * 9, a = Math.hypot(ax, ay) || .0001;
+      jb.style.setProperty('--hax', (ax / a).toFixed(3)); jb.style.setProperty('--hay', (ay / a).toFixed(3)); jb.style.setProperty('--hang', a.toFixed(2) + 'deg');
+      jb.style.setProperty('--gx', (x * 100).toFixed(1) + '%'); jb.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+      if (jf) { jf.querySelectorAll('.jh-beat').forEach(b => { b.style.setProperty('--tx', ((.5 - x) * 14).toFixed(1) + 'px'); b.style.setProperty('--ty', ((.5 - y) * 8).toFixed(1) + 'px'); }); } };
+    jb.classList.add('lux-live');
+    addEventListener('pointermove', e => { if (scrollY > innerHeight * 2) return; ev = e; if (!raf) raf = requestAnimationFrame(go); }, { passive: true });
+  }
+  const strip = document.querySelector('.names');
+  if (strip && !RM) { let last = scrollY, lean = 0, q = false;
+    const t = () => { q = false; const v = scrollY - last; last = scrollY; lean += (Math.max(-9, Math.min(9, v * .25)) - lean) * .5; strip.style.setProperty('--lean', lean.toFixed(2) + 'deg'); if (Math.abs(lean) > .05) { q = true; requestAnimationFrame(t); } };
+    addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(t); } }, { passive: true }); }
+
   /* opening curtain: let the first beat play as the curtain lifts */
   const intro = document.querySelector('.intro:not([hidden])');
   if (intro) {
